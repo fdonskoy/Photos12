@@ -15,7 +15,7 @@ public class SceneLoader {
 	private SceneLoader(){};
 	
 	public void changeScene(String newScene) throws IOException{
-		FXMLLoader loader = new FXMLLoader();
+		FXMLLoader loader = new FXMLLoader(); 
 		loader.setLocation(getClass().getResource("/application/view/" + newScene));
 		//GridPane root = (GridPane)loader.load();
 		Pane root = (Pane)loader.load();
