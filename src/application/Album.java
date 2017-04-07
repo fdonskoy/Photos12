@@ -4,6 +4,12 @@
 package application;
 
 import java.awt.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +19,10 @@ import java.util.Calendar;
  *
  */
 public class Album implements Serializable {
+	private static final long serialVersionUID = -5448129927370652090L;
+	public static final String storeDir = "savedObjects";
+	public static final String storeFile = "Albums.dat"; 
+	
 	private ArrayList<Photo> photos;
 	private String name;
 	private int numPhotos;
@@ -69,4 +79,16 @@ public class Album implements Serializable {
 		this.photos = photos;
 	}
 	
+	
+	public static void writeApp(Album album) throws IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(
+									new FileOutputStream(storeDir + File.separator + storeFile));
+		oos.writeObject(album);
+	} 
+	
+	public static Album readApp() throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
+		Album album = (Album)ois.readObject();
+		return album;
+	} 
 }

@@ -4,11 +4,13 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Photo implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3739580358789280590L;
+	public static final String storeDir = "savedObjects";
+	public static final String storeFile = "Photos.dat"; 
+	
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	private String description;
@@ -21,9 +23,6 @@ public class Photo implements Serializable{
 	private List<String> locations;
 	
 	public static final String photoDir = "Photos"; 
-	
-	public static final String storeDir = "savedObjects";
-	public static final String storeFile = "Photos.dat"; 
 
 	public Photo(String photoAddress){
 		this.photoAddress = photoAddress;
