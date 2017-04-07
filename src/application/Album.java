@@ -20,7 +20,7 @@ import java.util.Calendar;
  */
 public class Album implements Serializable {
 	private static final long serialVersionUID = -5448129927370652090L;
-	public static final String storeDir = "savedObjects";
+	public static final String storeDir = "src/application/savedObjects";
 	public static final String storeFile = "Albums.dat"; 
 	
 	private ArrayList<Photo> photos;
@@ -80,13 +80,13 @@ public class Album implements Serializable {
 	}
 	
 	
-	public static void writeApp(Album album) throws IOException {
+	public static void writeAlbum(Album album) throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(
 									new FileOutputStream(storeDir + File.separator + storeFile));
 		oos.writeObject(album);
 	} 
 	
-	public static Album readApp() throws IOException, ClassNotFoundException {
+	public static Album readAlbum() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
 		Album album = (Album)ois.readObject();
 		return album;

@@ -5,7 +5,11 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
+		xmlns="http://javafx.com/javafx/8" 
+		xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="application.view.LoginController">
+   
    <children>
       <Button layoutX="207.0" layoutY="210.0" mnemonicParsing="false" text="Log In" />
       <TextField layoutX="207.0" layoutY="169.0" promptText="Username" />
