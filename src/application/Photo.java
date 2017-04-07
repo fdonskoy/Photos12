@@ -1,15 +1,20 @@
 package application;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class Photo implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	private String description;
-	private Date date;
-	private Date lastModified;
+	private Calendar date;
+	private Calendar lastModified;
+	
 	private String photoAddress;
 	private List<String> people;
 	private List<String> events;
@@ -19,8 +24,7 @@ public class Photo implements Serializable{
 	
 	public static final String storeDir = "savedObjects";
 	public static final String storeFile = "Photos.dat"; 
-	
-	
+
 	public Photo(String photoAddress){
 		this.photoAddress = photoAddress;
 	}
@@ -29,11 +33,11 @@ public class Photo implements Serializable{
 		return description;
 	}
 	
-	public Date getDate(){
+	public Calendar getDate(){
 		return date;
 	}
 	
-	public Date getLastModified(){
+	public Calendar getLastModified(){
 		return lastModified;
 	}
 	
@@ -69,8 +73,8 @@ public class Photo implements Serializable{
 		this.locations = locations;
 	}
 	
-	public void setDate(Date date){
-		this.date = date;
+	public void setDate(Calendar cal){
+		this.date = cal;
 	}
 	
 	public static void writeApp(Photo photo) throws IOException {
