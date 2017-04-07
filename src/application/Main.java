@@ -23,21 +23,9 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		SceneLoader.getInstance().setStage(primaryStage);
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/application/view/Picture-Library-login.fxml"));
-		
-		//GridPane root = (GridPane)loader.load();
-		Pane root = (Pane)loader.load();
-		
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Photo Library");
-		primaryStage.setResizable(false);  
-		primaryStage.show();
-	    
-		
+		SceneLoader sl = SceneLoader.getInstance();
+		sl.setStage(primaryStage);
+		sl.changeScene("Picture-Library-login.fxml");
 	}
 	
 	public static void main(String[] args) {
