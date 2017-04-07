@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import application.view.SceneLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -18,8 +19,12 @@ public class Main extends Application{
 	private static User user;
 	private static User user2;
 	
+	public static Main self;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		SceneLoader.getInstance().setStage(primaryStage);
+		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/application/view/Picture-Library-login.fxml"));
 		
@@ -73,6 +78,4 @@ public class Main extends Application{
 		
 		launch(args);
 	}
-	
-	
 }

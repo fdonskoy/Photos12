@@ -5,20 +5,20 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
+<Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
 		xmlns="http://javafx.com/javafx/8" 
 		xmlns:fx="http://javafx.com/fxml/1"
 		fx:controller="application.view.LoginController">
    
    <children>
-      <Button layoutX="207.0" layoutY="210.0" mnemonicParsing="false" text="Log In" />
-      <TextField layoutX="207.0" layoutY="169.0" promptText="Username" />
+      <Button fx:id="loginBtn" layoutX="207.0" layoutY="210.0" mnemonicParsing="false" text="Log In" onAction="#login"/>
+      <TextField fx:id="loginInput" layoutX="207.0" layoutY="169.0" promptText="Username" onAction="#login"/>
       <Label layoutX="207.0" layoutY="134.0" text="Please Log in:" textFill="#111010" />
       <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="600.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Exit" />
+              <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
         </menus>
