@@ -56,7 +56,7 @@ public class Main extends Application{
 		try {
 			admin = Admin.readAdmin();
 			user = User.readUser("user2");
-			user2 = User.readUser("user1");
+			user2 = User.readUser("user");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
