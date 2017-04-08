@@ -66,8 +66,12 @@ public class AlbumsController {
 		}
 	}
 	
-	public void delete(ActionEvent e){
-		System.out.println("delete clicked");
+	public void delete(ActionEvent e) throws IOException{
+		albumList.getChildren().remove(albumList.lookup("#" + currentAlbum.getName() + "_" + currentUser.getUsername()));
+		currentUser.removeAlbum(currentAlbum);
+		currentUser.writeUser();
+		currentAlbum = null;
+		SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
 	

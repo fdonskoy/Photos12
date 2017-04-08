@@ -37,6 +37,10 @@ public class User extends Account {
 		return true;
 	}
 	
+	public boolean removeAlbum(Album album){
+		return albums.remove(album);
+	}
+	
 	public void writeUser() throws IOException {
 		File f = new File(storeDir + File.separator + storeFile);
 		if(!f.exists())
