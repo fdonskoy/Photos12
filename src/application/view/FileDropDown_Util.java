@@ -18,4 +18,9 @@ public class FileDropDown_Util {
 		
 		SceneLoader.getInstance().changeScene("Picture-Library-login.fxml");
 	}
+	
+	public static void search() throws IOException{
+		System.out.println("going to search");
+		SceneLoader.getInstance().changeScene("search.fxml");
+	}
 }

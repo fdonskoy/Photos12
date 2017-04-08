@@ -33,4 +33,8 @@ public class AlbumsController {
 	public void logout() throws IOException{
 		FileDropDown_Util.logout();
 	}
+	
+	public void search() throws IOException{
+		FileDropDown_Util.search();
+	}
 }
