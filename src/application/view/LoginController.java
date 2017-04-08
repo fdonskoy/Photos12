@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class LoginController {
 	private static Admin admin;
 	public static User currentUser;
-	private ArrayList<String> usernames;
+	public ArrayList<String> usernames;
 	
 	@FXML Pane container;
 	
