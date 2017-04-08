@@ -60,4 +60,22 @@ public class LoginController {
             }
         }
 	}
+	
+	public void exit() throws IOException{
+		System.out.println("exiting...");
+		FileDropDown_Util.exit();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void save() throws IOException{
+		if(currentUser != null)
+			currentUser.writeUser();
+	}
 }
