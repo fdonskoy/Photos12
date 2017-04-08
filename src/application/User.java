@@ -20,6 +20,10 @@ public class User extends Account {
 		albums = new ArrayList<Album>();
 	}
 
+	public ArrayList<Album> getAlbums(){
+		return albums;
+	}
+	
 	public boolean addAlbum(String name){
 		for(Album a : albums){
 			if(a.getName().equals(name)){

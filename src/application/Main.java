@@ -35,9 +35,6 @@ public class Main extends Application{
 		user2 = new User("user2");
 		
 		try {
-			Admin.writeAdmin(admin);
-			user.writeUser();
-			user2.writeUser();
 			if(user.addAlbum("testAlbum")) System.out.println("testAlbum added to user"); 
 			else System.out.println("testAlbum not added to user");
 			
@@ -50,7 +47,12 @@ public class Main extends Application{
 			if(user2.addAlbum("testAlbum")) System.out.println("testAlbum added to user2"); 
 			else System.out.println("testAlbum not added to user2");
 			
+			System.out.println("user has " + user.getAlbums().size() + " albums");
+			System.out.println("user2 has " + user2.getAlbums().size() + " albums");
 			
+			Admin.writeAdmin(admin);
+			user.writeUser();
+			user2.writeUser();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +80,8 @@ public class Main extends Application{
 		System.out.println("Read user: " + user.getUsername());
 		System.out.println("Read user2: " + user2.getUsername());
 		
-		
+		System.out.println("user has " + user.getAlbums().size() + " albums");
+		System.out.println("user2 has " + user2.getAlbums().size() + " albums");
 		
 		
 		

@@ -59,7 +59,7 @@
       </Pane>
       <ScrollPane layoutX="14.0" layoutY="79.0" prefHeight="309.0" prefWidth="573.0">
          <content>
-            <TilePane maxHeight="-Infinity" prefHeight="290.0">
+            <TilePane fx:id="albumList" maxHeight="-Infinity" prefHeight="290.0">
                <children>
                   <Pane>
                      <children>
