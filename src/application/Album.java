@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -37,6 +38,19 @@ public class Album implements Serializable {
 		storeFile = name + "_" + username + ".dat";
 	}
 
+	public void addPhoto(String photoAddress){
+		Photo photo = new Photo(photoAddress);
+		if(photo.getDate().compareTo(firstPhotoDate) < 0){
+			lastPhotoDate = photo.getDate();
+		} 
+		else if(photo.getDate().compareTo(lastPhotoDate) > 0){
+			lastPhotoDate = photo.getDate();
+		}
+		
+		photos.add(photo);
+	}
+	
+	
 	public String getFirstPhotoThumbnail(){
 		return (photos.size() > 0) ? photos.get(0).getPhoto() : null;
 	}
@@ -61,14 +75,25 @@ public class Album implements Serializable {
 		return firstPhotoDate;
 	}
 
+	public String getFirstPhotoDateString(){
+		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+		return format1.format(firstPhotoDate.getTime());
+	}
+	
+	
 	public void setFirstPhotoDate(Calendar firstPhotoDate) {
 		this.firstPhotoDate = firstPhotoDate;
 	}
-
+	
 	public Calendar getLastPhotoDate() {
 		return lastPhotoDate;
 	}
-
+	
+	public String getLastPhotoDateString(){
+		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+		return format1.format(lastPhotoDate.getTime());
+	}
+	
 	public void setLastPhotoDate(Calendar lastPhotoDate) {
 		this.lastPhotoDate = lastPhotoDate;
 	}

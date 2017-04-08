@@ -35,23 +35,15 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <MenuBar layoutX="316.0" layoutY="8.0">
+            <MenuBar layoutX="500.0" layoutY="8.0">
               <menus>
-                  <Menu fx:id="newAlbum" mnemonicParsing="false" text="New Album" onAction="#newAlbum"></Menu>
-                <Menu mnemonicParsing="false" text="Open">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Rename">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Delete">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
+                <Menu fx:id="Options" mnemonicParsing="false" text="Options" >
+                 	<items>
+                    	<MenuItem fx:id="newAlbum" mnemonicParsing="false" text="New Album" onAction="#newAlbum"/>
+                    	<MenuItem fx:id="open" mnemonicParsing="false" text="Open" onAction="#open"/>
+                    	<MenuItem fx:id="rename" mnemonicParsing="false" text="Rename" onAction="#rename"/>
+                    	<MenuItem fx:id="delete" mnemonicParsing="false" text="Delete" onAction="#delete"/>
+                  	</items>  
                 </Menu>
               </menus>
             </MenuBar>
@@ -60,98 +52,7 @@
       <ScrollPane layoutX="14.0" layoutY="79.0" prefHeight="309.0" prefWidth="573.0">
          <content>
             <TilePane fx:id="albumList" maxHeight="-Infinity" prefHeight="290.0">
-               <children>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="172.0" fitWidth="200.0" layoutY="-3.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../../../Pictures/new%20profile%20picture.jpg" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutY="177.0" prefHeight="21.0" prefWidth="200.0" text="Dance" textAlignment="CENTER" underline="true" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutY="265.0" prefHeight="21.0" prefWidth="200.0" text="01/02/2017 - 03/01/2017" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutY="244.0" prefHeight="21.0" prefWidth="200.0" text="12 photos" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="172.0" fitWidth="200.0" layoutY="-3.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <image>
-                              <Image url="@../../../Pictures/11954740_932121300167206_4179271098135312176_n.jpg" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutY="177.0" prefHeight="21.0" prefWidth="200.0" text="Hong Kong" textAlignment="CENTER" underline="true" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutY="265.0" prefHeight="21.0" prefWidth="200.0" text="01/02/2017 - 03/01/2017" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutY="244.0" prefHeight="21.0" prefWidth="200.0" text="230 photos" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="172.0" fitWidth="200.0" layoutY="-3.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../../../Pictures/12525663_966602976721876_4155588300758173963_o.jpg" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutY="177.0" prefHeight="21.0" prefWidth="200.0" text="Headshot" textAlignment="CENTER" underline="true" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutY="265.0" prefHeight="21.0" prefWidth="200.0" text="01/02/2015 - 03/01/2015" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutY="244.0" prefHeight="21.0" prefWidth="200.0" text="4 photos" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-               </children>
+               <children></children>
             </TilePane>
          </content>
       </ScrollPane>
