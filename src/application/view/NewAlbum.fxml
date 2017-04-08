@@ -14,12 +14,6 @@
 		xmlns:fx="http://javafx.com/fxml/1"
 		fx:controller="application.view.newAlbumController">
    <children>
-      <Button layoutX="207.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Create" />
-      <TextField layoutX="207.0" layoutY="169.0" promptText="Album Name" />
-      <Label layoutX="207.0" layoutY="134.0" text="Album Name:" textFill="#111010">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
       <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="600.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -30,6 +24,14 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button layoutX="305.0" layoutY="210.0" mnemonicParsing="false" text="Cancel" />
+      
+   	  <Label layoutX="207.0" layoutY="134.0" text="Album Name:" textFill="#111010">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   	  <TextField fx:id="newAlbumName" layoutX="207.0" layoutY="169.0" promptText="Album Name" onAction="#create"/>
+      <Button fx:id="create" layoutX="207.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="create" onAction="#create"/>
+      <Button fx:id="cancel" layoutX="305.0" layoutY="210.0" mnemonicParsing="false" text="Cancel" onAction="#cancel"/>
    </children>
 </Pane>

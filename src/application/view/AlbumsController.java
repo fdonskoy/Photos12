@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,9 +29,9 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
 public class AlbumsController {
-	public User currentUser;
-	public Album currentAlbum;
-	
+	public static User currentUser;
+	public static Album currentAlbum;
+	public static Pane currentPane;
 	
 	@FXML MenuItem newAlbum;
 	@FXML TilePane albumList;
@@ -38,9 +39,7 @@ public class AlbumsController {
 	public void initialize() throws ClassNotFoundException, IOException {
 		currentUser = LoginController.currentUser;
 		System.out.println("constructing");
-		
-		System.out.println(currentUser.getUsername() + " has " + currentUser.getAlbums().size() + " albums");
-		
+
 		populateListView();
 	}
 	
@@ -54,15 +53,17 @@ public class AlbumsController {
 	
 	public void newAlbum(ActionEvent e) throws IOException{
 		SceneLoader.getInstance().changeScene("NewAlbum.fxml");
-		System.out.println("New album clicked");
 	}
 	
-	public void open(ActionEvent e){
-		System.out.println("open clicked");
+	public void open(ActionEvent e) throws IOException{
+		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	
 	public void rename(ActionEvent e){
-		System.out.println("rename clicked");
+		if(currentAlbum != null){
+			currentPane.lookup("#albumName").setVisible(false);
+			currentPane.lookup("#albumNameEditable").setVisible(true);
+		}
 	}
 	
 	public void delete(ActionEvent e){
@@ -104,7 +105,14 @@ public class AlbumsController {
 		albumView.setId(album.getName() + "_id");
 		albumView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent me) {
-		        Pane pane = (Pane)me.getSource();
+		    	if(currentPane != null){
+		    		((TextField) currentPane.lookup("#albumNameEditable")).setText(null);
+		    		currentPane.lookup("#albumNameEditable").setVisible(false);
+			    	currentPane.lookup("#albumName").setVisible(true);
+		    	}
+		    	
+		    	Pane pane = (Pane)me.getSource();
+		        currentPane = pane;
 		        String id = pane.getId();
 		        for(Album album : currentUser.getAlbums()){
 		        	if(album.getName().equals(id.substring(0, id.lastIndexOf("_")))){
