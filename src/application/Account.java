@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public abstract class Account implements Serializable {
-	public static final String storeDir = "src/application/savedObjects/Users";
+	public static final String storeDir = "src/savedObjects/Users";
 
 	private String username;
 	

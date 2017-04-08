@@ -20,8 +20,8 @@ import java.util.Calendar;
  */
 public class Album implements Serializable {
 	private static final long serialVersionUID = -5448129927370652090L;
-	public static final String storeDir = "src/application/savedObjects";
-	public static final String storeFile = "Albums.dat"; 
+	public static final String storeDir = "src/application/savedObjects/Albums";
+	public String storeFile; 
 	
 	private ArrayList<Photo> photos;
 	private String name;
@@ -29,10 +29,12 @@ public class Album implements Serializable {
 	private Calendar firstPhotoDate;
 	private Calendar lastPhotoDate;
 	
-	public Album(String name){
+	public Album(String name, String username){
 		this.setName(name);
 		this.setNumPhotos(0);
 		this.setPhotos(new ArrayList<Photo>());
+		
+		storeFile = name + "_" + username + ".dat";
 	}
 
 	public String getFirstPhotoThumbnail(){
@@ -80,14 +82,20 @@ public class Album implements Serializable {
 	}
 	
 	
-	public static void writeAlbum(Album album) throws IOException {
+	public void writeAlbum() throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(
 									new FileOutputStream(storeDir + File.separator + storeFile));
-		oos.writeObject(album);
+		oos.writeObject(this);
 	} 
 	
-	public static Album readAlbum() throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
+	public static Album readAlbum(String name, String username) throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + name + "_" + username + ".dat"));
+		Album album = (Album)ois.readObject();
+		return album;
+	}
+	
+	public static Album readAlbum(String fileName) throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + fileName));
 		Album album = (Album)ois.readObject();
 		return album;
 	} 

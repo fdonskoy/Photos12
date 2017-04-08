@@ -18,6 +18,7 @@ public class Main extends Application{
 	private static Admin admin;
 	private static User user;
 	private static User user2;
+	private static Album album;
 	
 	public static Main self;
 	
@@ -37,6 +38,19 @@ public class Main extends Application{
 			Admin.writeAdmin(admin);
 			user.writeUser();
 			user2.writeUser();
+			if(user.addAlbum("testAlbum")) System.out.println("testAlbum added to user"); 
+			else System.out.println("testAlbum not added to user");
+			
+			if(user.addAlbum("testAlbum")) System.out.println("testAlbum added to user"); 
+			else System.out.println("testAlbum not added to user");
+			
+			if(user.addAlbum("testAlbum2")) System.out.println("testAlbum2 added to user"); 
+			else System.out.println("testAlbum not added to user");
+			
+			if(user2.addAlbum("testAlbum")) System.out.println("testAlbum added to user2"); 
+			else System.out.println("testAlbum not added to user2");
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,6 +77,11 @@ public class Main extends Application{
 		System.out.println("Read admin: " + admin.getUsername());
 		System.out.println("Read user: " + user.getUsername());
 		System.out.println("Read user2: " + user2.getUsername());
+		
+		
+		
+		
+		
 		
 		launch(args);
 	}
