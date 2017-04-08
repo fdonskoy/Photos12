@@ -14,7 +14,7 @@
 
 <Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="imageAddress" fitHeight="172.0" fitWidth="200.0" layoutY="-3.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
+      <ImageView fx:id="imageAddress" fitHeight="172.0" fitWidth="200.0" layoutX="1" layoutY="1.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
          <image>
             <Image url="@../../../Pictures/new%20profile%20picture.jpg" />
          </image>

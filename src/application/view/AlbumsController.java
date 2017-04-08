@@ -8,6 +8,7 @@ import application.Admin;
 import application.Album;
 import application.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,11 +17,20 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 
 public class AlbumsController {
 	public User currentUser;
+	public Album currentAlbum;
+	
 	
 	@FXML MenuItem newAlbum;
 	@FXML TilePane albumList;
@@ -42,7 +52,8 @@ public class AlbumsController {
 	
 	
 	
-	public void newAlbum(ActionEvent e){
+	public void newAlbum(ActionEvent e) throws IOException{
+		SceneLoader.getInstance().changeScene("NewAlbum.fxml");
 		System.out.println("New album clicked");
 	}
 	
@@ -91,6 +102,26 @@ public class AlbumsController {
 		dateRange.setText(dateString);
 		
 		albumView.setId(album.getName() + "_id");
+		albumView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent me) {
+		        Pane pane = (Pane)me.getSource();
+		        String id = pane.getId();
+		        for(Album album : currentUser.getAlbums()){
+		        	if(album.getName().equals(id.substring(0, id.lastIndexOf("_")))){
+		        		currentAlbum = album;
+		        	}
+		        }
+		        	
+		        for(Node otherPane : albumList.getChildren()){
+		        	((Pane)otherPane).setBorder(null);
+		        }
+		        
+		        pane.setBorder(new Border(new BorderStroke(Color.RED, 
+		                									BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		        
+		        System.out.println(currentAlbum.getName() + " selected");
+		    }
+		});
 		
 		return albumView;
 	}
