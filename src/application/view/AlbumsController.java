@@ -29,20 +29,27 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
 public class AlbumsController {
+	/**The user currently logged in*/
 	public static User currentUser;
+	/**The current selected album*/
 	public static Album currentAlbum;
+	/**The current selected album's Pane, used for rename only, as the class used there is different from this one*/
 	public static Pane currentPane;
 	
 	@FXML MenuItem newAlbum;
 	@FXML TilePane albumList;
 	
+	/**@author Tim
+	 * gets current user and constructs the custom ui
+	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		currentUser = LoginController.currentUser;
-		System.out.println("constructing");
-
 		populateListView();
 	}
 	
+	/**@author Tim
+	 * looks at the current user's albums and populates the album list with ui representations
+	 * */
 	private void populateListView() throws IOException{
 		for(Album album : currentUser.getAlbums()){
 			albumList.getChildren().add(constructAlbumView(album));
@@ -50,15 +57,25 @@ public class AlbumsController {
 	}
 	
 	
-	
+	/**@author Tim
+	 * redirects to the scene asking for the new album name
+	 * */
 	public void newAlbum(ActionEvent e) throws IOException{
+		currentUser.writeUser();
 		SceneLoader.getInstance().changeScene("NewAlbum.fxml");
 	}
 	
+	/**@author Tim
+	 * redirects to a view of pictures within the selected album
+	 * */
 	public void open(ActionEvent e) throws IOException{
+		currentUser.writeUser();
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	
+	/**@author Tim
+	 * replaces album title with a text field. The save part of the rename is covered in renameController because the album ui is covered in a different fxml file, which does not like to share controllers with others
+	 * */
 	public void rename(ActionEvent e){
 		if(currentAlbum != null){
 			currentPane.lookup("#albumName").setVisible(false);
@@ -66,6 +83,9 @@ public class AlbumsController {
 		}
 	}
 	
+	/**@author Tim
+	 * Deletes and album, saves user, and refreshes the scene
+	 * */
 	public void delete(ActionEvent e) throws IOException{
 		albumList.getChildren().remove(albumList.lookup("#" + currentAlbum.getName() + "_" + currentUser.getUsername()));
 		currentUser.removeAlbum(currentAlbum);
@@ -76,7 +96,10 @@ public class AlbumsController {
 	
 	
 	
-	
+	/**@author Tim
+	 * @param album: the album which is used to create the album representation from the AlbumView.fxml file
+	 * @return This returns a pane based on AlbumView.fxml file and customized to represent the album
+	 * */
 	private Pane constructAlbumView(Album album) throws IOException{
 		FXMLLoader loader = new FXMLLoader(); 
 		loader.setLocation(getClass().getResource("/application/view/AlbumView.fxml"));
@@ -139,15 +162,23 @@ public class AlbumsController {
 	}
 	
 	
-	
+	/**@author Tim
+	 * Calls the central utility class for the drop down menu which saves everything needed and exits
+	 * */
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
 	}
 	
+	/**@author Tim
+	 * Calls the central utility class for the drop down menu which saves everything needed and logs out
+	 * */
 	public void logout() throws IOException{
 		FileDropDown_Util.logout();
 	}
 	
+	/**@author Tim
+	 * Calls the central utility class for the drop down menu which calls redirects to the search stage
+	 * */
 	public void search() throws IOException{
 		FileDropDown_Util.search();
 	}

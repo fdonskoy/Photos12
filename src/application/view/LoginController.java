@@ -16,8 +16,18 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class LoginController {
+	/**@author Tim
+	 * stores the single admin
+	 * */
 	private static Admin admin;
+	/**@author Tim
+	 * Once the login is successful, holds the logged in user
+	 * */
 	public static User currentUser;
+	
+	/**@author Tim
+	 * holds all usernames
+	 * */
 	public ArrayList<String> usernames;
 	
 	@FXML Pane container;
@@ -28,12 +38,18 @@ public class LoginController {
 	
 	@FXML MenuItem exit;
 	
+	/**@author Tim
+	 * gets the admin and reads all the usernames in from the user dat files
+	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		admin = Admin.readAdmin();
 		usernames = new ArrayList<String>();
 		getAllFiles(new File("src/application/savedObjects/Users"));
 	}
 	
+	/**@author Tim
+	 * Listener to the login button that either logs the user in or informs the username is wrong
+	 * */
 	public void login(ActionEvent e) throws IOException, ClassNotFoundException{
 		String username = loginInput.getText();
 		
@@ -51,7 +67,9 @@ public class LoginController {
 		}
 	}
 	
-	
+	/**@author Tim
+	 * Gets all the file names as strings from the directory and stores it as usernames
+	 * @param Directory to process*/
 	private void getAllFiles(File curDir) {
         File[] filesList = curDir.listFiles();
         for(File f : filesList){
@@ -61,11 +79,15 @@ public class LoginController {
         }
 	}
 	
+	/**@author Tim
+	 * Calls the utility dropdown exit function*/
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
 	}
 	
-	
+
+	/**@author Tim
+	 * Saves current state, ie currentUser*/
 	public static void save() throws IOException{
 		if(currentUser != null)
 			currentUser.writeUser();

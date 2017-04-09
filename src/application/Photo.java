@@ -9,8 +9,7 @@ import java.util.List;
 public class Photo implements Serializable{
 	private static final long serialVersionUID = -3739580358789280590L;
 	public static final String storeDir = "src/application/savedObjects";
-	public static final String storeFile = "Photos.dat"; 
-	
+
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	private String description;
@@ -22,10 +21,14 @@ public class Photo implements Serializable{
 	private List<String> events;
 	private List<String> locations;
 	
+	/**directory to save photos to*/
 	public static final String photoDir = "Photos"; 
-
+	/**file  to save this photo to*/
+	public String storeFile;
+	
 	public Photo(String photoAddress){
 		this.photoAddress = photoAddress;
+		this.storeFile = photoAddress.substring(photoAddress.lastIndexOf("/") + 1, photoAddress.lastIndexOf("."));
 	}
 	
 	public String getDescription(){
@@ -76,14 +79,20 @@ public class Photo implements Serializable{
 		this.date = cal;
 	}
 	
-	public static void writePhoto(Photo photo) throws IOException {
+	/**@author Tim
+	 * Saves this photo to file
+	 * */
+	public void writePhoto() throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(
 									new FileOutputStream(storeDir + File.separator + storeFile));
-		oos.writeObject(photo);
+		oos.writeObject(this);
 	} 
 	
-	public static Photo readPhoto() throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
+	/**@author Tim
+	 * Reads in Photo from file
+	 * */
+	public static Photo readPhoto(String fileName) throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + fileName));
 		Photo photo = (Photo)ois.readObject();
 		return photo;
 	} 

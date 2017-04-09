@@ -38,6 +38,8 @@ public class Album implements Serializable {
 		storeFile = name + "_" + username + ".dat";
 	}
 
+	/**@author Tim
+	 * @param photoAddress the address of the photo to be added to the album*/
 	public void addPhoto(String photoAddress){
 		Photo photo = new Photo(photoAddress);
 		if(photo.getDate().compareTo(firstPhotoDate) < 0){
@@ -113,12 +115,23 @@ public class Album implements Serializable {
 		oos.writeObject(this);
 	} 
 	
+	/**@author Tim
+	 * Reads in Album from file
+	 * @param name the name of the Album to be read in
+	 * @param username of the user who owns the album
+	 * @return the album read from the file
+	 * */
 	public static Album readAlbum(String name, String username) throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + name + "_" + username + ".dat"));
 		Album album = (Album)ois.readObject();
 		return album;
 	}
 	
+	/**@author Tim
+	 * Reads in Album from file
+	 * @param fileName: the file name of the Album to be read in
+	 * @return the album read from the file
+	 * */
 	public static Album readAlbum(String fileName) throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + fileName));
 		Album album = (Album)ois.readObject();

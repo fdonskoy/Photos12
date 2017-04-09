@@ -9,12 +9,22 @@ import java.io.ObjectOutputStream;
 
 public class Admin extends Account {
 	private static final long serialVersionUID = 6693017721411817348L;
+	
+	/**@author Tim
+	 * file that stores the only admin
+	 * */
 	public static final String storeFile = "Admin.dat"; 
 	
+	/**@author Tim
+	 * @param Username of the new account admin
+	 * */
 	public Admin(String username) {
 		super(username);
 	}
 
+	/**@author Tim
+	 * @param admin: the admin that needs to be saved. There is only 1 so it could be done without the parameter
+	 * */
 	public static void writeAdmin(Admin admin) throws IOException {
 		File curDir = new File(storeDir + ".");
         getAllFiles(curDir);
@@ -23,12 +33,19 @@ public class Admin extends Account {
 		oos.writeObject(admin);
 	} 
 	
+	/**@author Tim
+	 * Reads in Admin from file
+	 * */
 	public static Admin readAdmin() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
 		Admin admin = (Admin)ois.readObject();
 		return admin;
 	} 
 	
+	/**@author Tim
+	 * For debugging
+	 * @param curDir: directory to print out all containing files.
+	 * */
 	private static void getAllFiles(File curDir) {
         File[] filesList = curDir.listFiles();
         for(File f : filesList){

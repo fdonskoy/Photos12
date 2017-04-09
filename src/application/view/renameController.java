@@ -2,6 +2,7 @@ package application.view;
 
 import java.io.IOException;
 
+import application.Album;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,13 +13,28 @@ public class renameController {
 	@FXML TextField albumNameEditable;
 	@FXML Label albumName;
 	
+	/**@author Tim
+	 * listener for when the user presses enter to save the new album name
+	 * */
 	public void renameSave(ActionEvent e) throws IOException{
 		renameSave();
 	}
-	
+
+	/**@author Tim
+	 * switches textfield to label and saves the new title, or gives warning message
+	 * */
 	public void renameSave() throws IOException{
 		String name = albumNameEditable.getText();
+		for(Album album : LoginController.currentUser.getAlbums()){
+			if(album.getName().equals(name)){
+				albumNameEditable.setText(null);
+				albumNameEditable.setPromptText("Album name already in use");
+				return;
+			}
+		}
+		
 		if(name.length() > 0){
+			albumNameEditable.setPromptText("New Title");
 			AlbumsController.currentAlbum.setName(name);
 			albumName.setText(name);
 			albumNameEditable.setVisible(false);
