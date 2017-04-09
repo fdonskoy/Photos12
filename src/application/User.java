@@ -45,6 +45,21 @@ public class User extends Account {
 		return true;
 	}
 	
+	/**@author Tim
+	 * @return true if album added or false if album already exists
+	 * */
+	public boolean addAlbum(Album album){
+		for(Album a : albums){
+			if(a.getName().equals(album.getName())){
+				return false;
+			}
+		}
+
+		albums.add(album);
+		
+		return true;
+	}
+	
 	public boolean removeAlbum(Album album){
 		return albums.remove(album);
 	}

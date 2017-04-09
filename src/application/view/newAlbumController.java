@@ -1,26 +1,50 @@
 package application.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import application.Album;
+import application.Photo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 public class newAlbumController {
+	/**photos to be added to the new album. To be set by search*/
+	public static ArrayList<Photo> photos;
+	/**the new album to be grabbed by album view once create is clicked*/
+	public static Album album;
+	
 	@FXML TextField newAlbumName;
+	@FXML Label label;
 	
 	/**@author Tim
-	 * redirects to pictures scene showing the specific album view
+	 * Redirects to pictures scene showing the specific album view
 	 * */
 	public void create(ActionEvent e) throws IOException{
+		album = new Album(newAlbumName.getText(), LoginController.currentUser.getUsername());
+		if(!LoginController.currentUser.addAlbum(album)){
+			label.setText("Album name already in use");
+			label.setTextFill(Color.web("#ff0000"));
+			return;
+		}
+		
+		for(Photo photo : photos){
+			album.addPhoto(photo);
+		}
+		
+		LoginController.currentUser.writeUser();
 		SceneLoader.getInstance().changeScene("pictures.fxml");
-		System.out.println("New album clicked");
 	}
 	
 	/**@author Tim
 	 * returns back to the AlbumListView
 	 * */
 	public void cancel(ActionEvent e) throws IOException{
+		photos = null;
+		album = null;
 		SceneLoader.getInstance().changeScene("Albums.fxml");
 		System.out.println("New album clicked");
 	}

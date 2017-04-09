@@ -30,6 +30,9 @@ public class Album implements Serializable {
 	private Calendar firstPhotoDate;
 	private Calendar lastPhotoDate;
 	
+	/**@author Tim
+	 * @param name name of the album
+	 * @param username of owning user*/
 	public Album(String name, String username){
 		this.setName(name);
 		this.setNumPhotos(0);
@@ -42,6 +45,19 @@ public class Album implements Serializable {
 	 * @param photoAddress the address of the photo to be added to the album*/
 	public void addPhoto(String photoAddress){
 		Photo photo = new Photo(photoAddress);
+		if(photo.getDate().compareTo(firstPhotoDate) < 0){
+			lastPhotoDate = photo.getDate();
+		} 
+		else if(photo.getDate().compareTo(lastPhotoDate) > 0){
+			lastPhotoDate = photo.getDate();
+		}
+		
+		photos.add(photo);
+	}
+	
+	/**@author Tim
+	 * @param photoAddress the address of the photo to be added to the album*/
+	public void addPhoto(Photo photo){
 		if(photo.getDate().compareTo(firstPhotoDate) < 0){
 			lastPhotoDate = photo.getDate();
 		} 
