@@ -73,7 +73,7 @@ public class User extends Account {
 		
 		return false;
 	}
-	
+		
 	public void writeUser() throws IOException {
 		File f = new File(storeDir + File.separator + storeFile);
 		if(!f.exists())
@@ -90,11 +90,11 @@ public class User extends Account {
 	} 
 	
 	public static void deleteUser(String username) throws IOException {
-		int c = 1;
+		int c = 0;
 		File init = new File("src/savedObjects/Users");
 		File[] filesList = init.listFiles();
         for(File f : filesList){
-            if(f.isFile() && (!f.getName().substring(0, f.getName().lastIndexOf(".")).toLowerCase().equals(username))){
+            if(f.isFile() && (f.getName().substring(0, f.getName().lastIndexOf(".")).toLowerCase().equals(username))){
             	if (filesList[c].delete()) {
             		return;
             	}

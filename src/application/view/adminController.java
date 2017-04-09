@@ -37,9 +37,6 @@ public class adminController {
 	@FXML MenuItem logout;
 
 	public void initialize() throws IOException, ClassNotFoundException {
-		if (LoginController.usernames.get(0).length() == 0) {
-			LoginController.usernames.remove(0);
-		}
 		Collections.sort(LoginController.usernames.subList(0, LoginController.usernames.size()));
 		ObservableList<String> obsList = FXCollections.observableArrayList(LoginController.usernames);
 
@@ -80,6 +77,11 @@ public class adminController {
 			return;
 		}
 		String s = deleteUserField.getText();
+		if (!LoginController.usernames.contains(s)) {
+			System.out.println("Username not found " + s);
+			return;
+		}
+		
 		System.out.println("Deleting user " + s);
 
 		
