@@ -58,4 +58,25 @@ public class newAlbumController {
 		SceneLoader.getInstance().changeScene("Albums.fxml");
 		System.out.println("New album clicked");
 	}
+	
+	/**@author Tim
+	 * Calls the central utility class for the drop down menu which saves everything needed and exits
+	 * */
+	public void exit() throws IOException{
+		FileDropDown_Util.exit();
+	}
+	
+	/**@author Tim
+	 * Calls the central utility class for the drop down menu which saves everything needed and logs out
+	 * */
+	public void logout() throws IOException{
+		FileDropDown_Util.logout();
+	}
+	
+	/**@author Tim
+	 * Calls the central utility class for the drop down menu which calls redirects to the search stage
+	 * */
+	public void search() throws IOException{
+		FileDropDown_Util.search();
+	}
 }
