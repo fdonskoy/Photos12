@@ -13,13 +13,13 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem fx:id="exit" mnemonicParsing="false" text="Log out" onAction="#exit" />
-                  <MenuItem fx:id="logout" mnemonicParsing="false" text="Exit" onAction="#logout" />
+                  <MenuItem fx:id="logout" mnemonicParsing="false" text="Log out" onAction="#logout" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" onAction="#exit" />
                </items>
             </Menu>
          </menus>
       </MenuBar>
-      <ListView fx:id="users" layoutX="376.0" layoutY="67.0" prefHeight="310.0" prefWidth="210.0" />
+      <ListView fx:id="users" layoutX="376.0" layoutY="67.0" prefHeight="310.0" prefWidth="210.0" onMouseClicked="#handleMouseClick" />
       <Label layoutX="376.0" layoutY="38.0" text="Users:" />
       <Pane layoutX="14.0" layoutY="116.0" prefHeight="261.0" prefWidth="330.0">
          <children>

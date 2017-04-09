@@ -28,7 +28,7 @@ public class LoginController {
 	/**@author Tim
 	 * holds all usernames
 	 * */
-	public ArrayList<String> usernames;
+	public static ArrayList<String> usernames;
 	
 	@FXML Pane container;
 	
@@ -44,7 +44,7 @@ public class LoginController {
 	public void initialize() throws ClassNotFoundException, IOException {
 		admin = Admin.readAdmin();
 		usernames = new ArrayList<String>();
-		getAllFiles(new File("src/application/savedObjects/Users"));
+		getAllFiles(new File("src/savedObjects/Users"));
 	}
 	
 	/**@author Tim
@@ -73,7 +73,7 @@ public class LoginController {
 	private void getAllFiles(File curDir) {
         File[] filesList = curDir.listFiles();
         for(File f : filesList){
-            if(f.isFile()){
+            if(f.isFile() && (!f.getName().substring(0, f.getName().lastIndexOf(".")).toLowerCase().equals("admin"))){
             	usernames.add(f.getName().substring(0, f.getName().lastIndexOf(".")));
             }
         }
