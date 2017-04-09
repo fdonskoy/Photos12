@@ -45,7 +45,7 @@ public class newAlbumController {
 		}
 			
 		LoginController.currentUser.writeUser();
-		PicturesController.photos = photos;
+		PicturesController.album = album;
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	

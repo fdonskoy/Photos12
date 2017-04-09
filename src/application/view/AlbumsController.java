@@ -86,7 +86,7 @@ public class AlbumsController {
 	 * */
 	public void open(ActionEvent e) throws IOException{
 		currentUser.writeUser();
-		PicturesController.photos = currentAlbum.getPhotos();
+		PicturesController.album = currentAlbum;
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	

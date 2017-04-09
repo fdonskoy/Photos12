@@ -13,20 +13,20 @@ public class SlideShowController {
 	@FXML ImageView image;
 	
 	public void initialize() throws ClassNotFoundException, IOException {
-		Image img = new Image(PicturesController.photos.get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
+		Image img = new Image(PicturesController.album.getPhotos().get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
 		
 		image.setImage(img);
 	}
 	
 	public void next(ActionEvent e){
-		if(PicturesController.selectedPhotoIndex == PicturesController.photos.size() - 1){
+		if(PicturesController.selectedPhotoIndex == PicturesController.album.getPhotos().size() - 1){
 			PicturesController.selectedPhotoIndex = 0;
 		}
 		else{
 			PicturesController.selectedPhotoIndex++;
 		}
 		
-		Image img = new Image(PicturesController.photos.get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
+		Image img = new Image(PicturesController.album.getPhotos().get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
 		
 		image.setImage(img);
 	}
@@ -37,13 +37,13 @@ public class SlideShowController {
 	
 	public void prev(ActionEvent e){
 		if(PicturesController.selectedPhotoIndex == 0){
-			PicturesController.selectedPhotoIndex = PicturesController.photos.size() - 1;
+			PicturesController.selectedPhotoIndex = PicturesController.album.getPhotos().size() - 1;
 		}
 		else{
 			PicturesController.selectedPhotoIndex--;
 		}
 		
-		Image img = new Image(PicturesController.photos.get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
+		Image img = new Image(PicturesController.album.getPhotos().get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
 		
 		image.setImage(img);
 	}
