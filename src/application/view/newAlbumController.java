@@ -25,16 +25,25 @@ public class newAlbumController {
 	 * */
 	public void create(ActionEvent e) throws IOException{
 		album = new Album(newAlbumName.getText(), LoginController.currentUser.getUsername());
+		
+		if(newAlbumName.getText().trim().length() == 0){
+			label.setText("Please enter atleast 1 character");
+			label.setTextFill(Color.web("#ff0000"));
+			return;
+		}
+		
 		if(!LoginController.currentUser.addAlbum(album)){
 			label.setText("Album name already in use");
 			label.setTextFill(Color.web("#ff0000"));
 			return;
 		}
 		
-		for(Photo photo : photos){
-			album.addPhoto(photo);
+		if(photos != null){
+			for(Photo photo : photos){
+				album.addPhoto(photo);
+			}
 		}
-		
+			
 		LoginController.currentUser.writeUser();
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}

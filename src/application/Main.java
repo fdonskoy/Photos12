@@ -30,7 +30,7 @@ public class Main extends Application{
 	}
 	
 	public static void main(String[] args) {
-		admin = new Admin("admin");
+		/*admin = new Admin("admin");
 		user = new User("user");
 		user2 = new User("user2");
 		
@@ -82,7 +82,7 @@ public class Main extends Application{
 		
 		System.out.println("user has " + user.getAlbums().size() + " albums");
 		System.out.println("user2 has " + user2.getAlbums().size() + " albums");
-		
+		*/
 		
 		
 		
