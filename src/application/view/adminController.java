@@ -15,26 +15,34 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class LoginController {
+public class adminController {
 	private static Admin admin;
 	public static User currentUser;
 	public ArrayList<String> usernames;
 	
-	@FXML Pane container;
+	@FXML Button newUserButton;
+	@FXML Button deleteUserButton;
+
+	@FXML TextField newUserField;
+	@FXML TextField deleteUserField;
 	
-	@FXML Button loginBtn;
-	@FXML TextField loginInput;
-	@FXML Label loginText;
+	@FXML ListView<String> users;
+	@FXML Label header;
 	
 	@FXML MenuItem exit;
+	@FXML MenuItem logout;
 	
-	public void initialize() throws ClassNotFoundException, IOException {
+	/*public void initialize() throws IOException {
 		admin = Admin.readAdmin();
 		usernames = new ArrayList<String>();
 		getAllFiles(new File("src/application/savedObjects/Users"));
-	}
+		
+		//SceneLoader sl = SceneLoader.getInstance();
+		//sl.setStage(primaryStage);
+		//sl.changeScene("Picture-Library-admin.fxml");
+	}*/
 	
-	public void login(ActionEvent e) throws IOException, ClassNotFoundException{
+	/*public void login(ActionEvent e) throws IOException{
 		String username = loginInput.getText();
 		
 		if(username.equals(admin.getUsername())){
@@ -49,7 +57,7 @@ public class LoginController {
 			loginText.setTextFill(Color.web("#ff0000"));
 			loginText.setText("Invalid username.\nPlease try again");
 		}
-	}
+	}*/
 	
 	
 	private void getAllFiles(File curDir) {
@@ -61,13 +69,32 @@ public class LoginController {
         }
 	}
 	
+	public void newUser(ActionEvent e) throws IOException {
+
+	}
+	
+	public void deleteUser(ActionEvent e) throws IOException {
+		deleteUserDAT();
+	}
+	
+	private void save() {
+  
+	}
+	
+	private void deleteUserDAT() {
+   
+	}
+	
+	
 	public void exit() throws IOException{
+		//save();
 		FileDropDown_Util.exit();
 	}
 	
-	
-	public static void save() throws IOException{
-		if(currentUser != null)
-			currentUser.writeUser();
+	public void logout() throws IOException{
+		//save();
+		FileDropDown_Util.logout();
 	}
+	
+	
 }
