@@ -32,7 +32,7 @@ public class newAlbumController {
 			return;
 		}
 		
-		if(!LoginController.currentUser.addAlbum(album)){
+		if(LoginController.currentUser.addAlbum(album) == null){
 			label.setText("Album name already in use");
 			label.setTextFill(Color.web("#ff0000"));
 			return;
@@ -45,6 +45,7 @@ public class newAlbumController {
 		}
 			
 		LoginController.currentUser.writeUser();
+		PicturesController.photos = photos;
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	

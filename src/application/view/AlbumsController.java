@@ -44,6 +44,22 @@ public class AlbumsController {
 	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		currentUser = LoginController.currentUser;
+		/*currentUser.removeAlbum("Colors");
+		Album album = currentUser.addAlbum("Colors");
+		if(album != null){
+			File imageFile = new File("src/utility/blue.png");
+			String fileLocation = imageFile.toURI().toString();
+			album.addPhoto(fileLocation);
+			imageFile = new File("src/utility/red.png");
+			fileLocation = imageFile.toURI().toString();
+			album.addPhoto(fileLocation);
+			imageFile = new File("src/utility/green.png");
+			fileLocation = imageFile.toURI().toString();
+			album.addPhoto(fileLocation);
+			imageFile = new File("src/utility/yellow.png");
+			fileLocation = imageFile.toURI().toString();
+			album.addPhoto(fileLocation);
+		}*/
 		populateListView();
 	}
 	
@@ -70,6 +86,7 @@ public class AlbumsController {
 	 * */
 	public void open(ActionEvent e) throws IOException{
 		currentUser.writeUser();
+		PicturesController.photos = currentAlbum.getPhotos();
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	

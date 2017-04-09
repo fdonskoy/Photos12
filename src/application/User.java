@@ -30,38 +30,48 @@ public class User extends Account {
 	}
 	
 	/**@author Tim
-	 * @return true if album added or false if album already exists
+	 * @return null if album already exists, else album
 	 * */
-	public boolean addAlbum(String name){
+	public Album addAlbum(String name){
 		for(Album a : albums){
 			if(a.getName().equals(name)){
-				return false;
+				return null;
 			}
 		}
 		
 		Album album = new Album(name, this.getUsername());
 		albums.add(album);
 		
-		return true;
+		return album;
 	}
 	
 	/**@author Tim
-	 * @return true if album added or false if album already exists
+	 * @return null if album already exists, else album
 	 * */
-	public boolean addAlbum(Album album){
+	public Album addAlbum(Album album){
 		for(Album a : albums){
 			if(a.getName().equals(album.getName())){
-				return false;
+				return null;
 			}
 		}
 
 		albums.add(album);
 		
-		return true;
+		return album; 
 	}
 	
 	public boolean removeAlbum(Album album){
 		return albums.remove(album);
+	}
+	
+	public boolean removeAlbum(String albumName){
+		for(Album album : albums){
+			if(album.getName().equals(albumName)){
+				return albums.remove(album);
+			}
+		}
+		
+		return false;
 	}
 	
 	public void writeUser() throws IOException {

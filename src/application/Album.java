@@ -45,13 +45,15 @@ public class Album implements Serializable {
 	 * @param photoAddress the address of the photo to be added to the album*/
 	public void addPhoto(String photoAddress){
 		Photo photo = new Photo(photoAddress);
-		if(photo.getDate().compareTo(firstPhotoDate) < 0){
+		
+		if(photo.getDate() != null && photo.getDate().compareTo(firstPhotoDate) < 0){
 			lastPhotoDate = photo.getDate();
 		} 
-		else if(photo.getDate().compareTo(lastPhotoDate) > 0){
+		else if(photo.getDate() != null && photo.getDate().compareTo(lastPhotoDate) > 0){
 			lastPhotoDate = photo.getDate();
 		}
 		
+		numPhotos++;
 		photos.add(photo);
 	}
 	
@@ -65,12 +67,13 @@ public class Album implements Serializable {
 			lastPhotoDate = photo.getDate();
 		}
 		
+		numPhotos++;
 		photos.add(photo);
 	}
 	
 	
 	public String getFirstPhotoThumbnail(){
-		return (photos.size() > 0) ? photos.get(0).getPhoto() : null;
+		return (photos.size() > 0) ? photos.get(0).getPhotoAddress() : null;
 	}
 	
 	public String getName() {
@@ -94,6 +97,8 @@ public class Album implements Serializable {
 	}
 
 	public String getFirstPhotoDateString(){
+		if(firstPhotoDate == null) return "";
+		
 		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
 		return format1.format(firstPhotoDate.getTime());
 	}
@@ -108,6 +113,7 @@ public class Album implements Serializable {
 	}
 	
 	public String getLastPhotoDateString(){
+		if(lastPhotoDate == null) return "";
 		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
 		return format1.format(lastPhotoDate.getTime());
 	}

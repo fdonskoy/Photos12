@@ -19,7 +19,10 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
+		xmlns="http://javafx.com/javafx/8.0.111" 
+		xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="application.view.PicturesController">
    <children>
       <MenuBar layoutY="-2.0" prefHeight="25.0" prefWidth="600.0">
          <menus>
@@ -32,7 +35,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Slide Show">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Start" />
+                  <MenuItem mnemonicParsing="false" text="Start" onAction="#startSlideShow"/>
                </items>
             </Menu>
          </menus>
@@ -44,7 +47,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="193.0" layoutY="8.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="add" layoutX="193.0" layoutY="8.0" mnemonicParsing="false" text="Add" />
             <Button layoutX="231.0" layoutY="8.0" mnemonicParsing="false" text="Back" />
          </children>
       </Pane>
@@ -54,7 +57,7 @@
                <children>
                   <Pane>
                      <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
+                        <ImageView fx:id="image" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

@@ -43,7 +43,7 @@ public class Photo implements Serializable{
 		return lastModified;
 	}
 	
-	public String getPhoto(){
+	public String getPhotoAddress(){
 		return photoAddress;
 	}
 	
