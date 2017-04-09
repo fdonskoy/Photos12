@@ -90,16 +90,16 @@ public class User extends Account {
 	} 
 	
 	public static void deleteUser(String username) throws IOException {
-		boolean d = false;
+		int c = 1;
 		File init = new File("src/savedObjects/Users");
 		File[] filesList = init.listFiles();
         for(File f : filesList){
-            if (d && f.delete()) {
-            		return;
-            }
             if(f.isFile() && (!f.getName().substring(0, f.getName().lastIndexOf(".")).toLowerCase().equals(username))){
-            	d = true;
+            	if (filesList[c].delete()) {
+            		return;
+            	}
             }
+            c++;
         }
         
 	}
