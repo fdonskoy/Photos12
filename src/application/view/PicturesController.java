@@ -60,9 +60,12 @@ public class PicturesController {
 	@FXML TilePane albumList;
 	
 	public void initialize() throws ClassNotFoundException, IOException {
-		
+		set(0);
+	}
+	
+	public void set(int index) {
 		try {
-			Photo first = album.getPhotos().get(0);
+			Photo first = album.getPhotos().get(index);
 			Image img = new Image(first.getPhotoAddress());
 			setLocations(first);
 			setPeople(first);
@@ -78,13 +81,7 @@ public class PicturesController {
 	    {
 	        System.out.println("No first photo found");
 	    }
-		
-		
-		
-		
-
 	}
-	
 	public void update() {
 		Photo p = album.getPhotos().get(selectedPhotoIndex);
 		List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
