@@ -5,6 +5,8 @@ import java.awt.ScrollPane;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.print.DocFlavor.URL;
 
@@ -45,6 +47,7 @@ public class PicturesController {
 	
 	@FXML Button add;
 	
+	
 	@FXML Label albumTitle;
 	
 	@FXML TextArea caption;
@@ -63,6 +66,21 @@ public class PicturesController {
 		albumTitle.setText(album.getName());
 		
 
+	}
+	
+	public void update() {
+		Photo p = album.getPhotos().get(selectedPhotoIndex);
+		List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
+		List<String> locationList = Arrays.asList(locations.getText().split("\\s*,\\s*"));
+		List<String> peopleList = Arrays.asList(peoples.getText().split("\\s*,\\s*"));
+		
+		p.setDescription(caption.getText());
+		
+		p.setEvents(eventList);
+		p.setLocations(locationList);
+		p.setPeople(peopleList);
+		
+		System.out.println("Updated");
 	}
 	
 	private Pane constructAlbumView(Photo p) throws IOException{

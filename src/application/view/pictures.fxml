@@ -95,7 +95,7 @@
               </items>
             </SplitPane>
             <DatePicker layoutY="317.0" />
-            <Button layoutX="174.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update" />
+            <Button fx:id="update" layoutX="174.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update" onAction="#update" />
          </children>
       </Pane>
    </children>
