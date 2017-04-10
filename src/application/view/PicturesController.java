@@ -328,7 +328,16 @@ public class PicturesController {
 	
 		    File imageFile = new File(s);
 			String fileLocation = imageFile.toURI().toString();
-			album.addPhoto(fileLocation);
+			Photo p = new Photo(fileLocation);
+			for (Photo photo: album.getPhotos()) {
+				if (photo.getPhotoAddress().equals(p.getPhotoAddress())) {
+					System.out.println("Can't add duplicate photo");
+					p = null;
+					return;
+				}
+				
+			}
+			album.addPhoto(p);
 			int size = album.getPhotos().size();
 
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
