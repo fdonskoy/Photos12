@@ -82,6 +82,7 @@ public class PicturesController {
 	        System.out.println("No first photo found");
 	    }
 	}
+	
 	public void update() {
 		Photo p = album.getPhotos().get(selectedPhotoIndex);
 		List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
