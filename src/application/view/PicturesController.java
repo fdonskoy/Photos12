@@ -60,10 +60,21 @@ public class PicturesController {
 	@FXML TilePane albumList;
 	
 	public void initialize() throws ClassNotFoundException, IOException {
-		for (Photo p: album.getPhotos()) {
-			albumList.getChildren().add(constructAlbumView(p));
+		if (album.getPhotos() != null) {
+			Photo first = album.getPhotos().get(0);
+			Image img = new Image(first.getPhotoAddress());
+			setLocations(first);
+			setPeople(first);
+			setEvent(first);
+			caption.setText(first.getDescription());
+			preview.setImage(img);
+		
+			for (Photo p: album.getPhotos()) {
+				albumList.getChildren().add(constructAlbumView(p));
+			}
+			albumTitle.setText(album.getName());
 		}
-		albumTitle.setText(album.getName());
+		
 		
 
 	}

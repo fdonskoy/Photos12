@@ -75,7 +75,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TextArea fx:id="caption" layoutY="189.0" prefHeight="40.0" prefWidth="272.0" text="The rolling hills of the Dutch flatlands" wrapText="true" />
+            <TextArea fx:id="caption" layoutY="189.0" prefHeight="40.0" prefWidth="272.0" text="" wrapText="true" />
             <SplitPane dividerPositions="0.2962962962962963" layoutY="229.0" prefHeight="89.0" prefWidth="272.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="51.0">
