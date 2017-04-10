@@ -15,6 +15,7 @@ public class Photo implements Serializable{
 	private String description;
 	private Calendar date;
 	private Calendar lastModified;
+	private long lastModifiedLong;
 	
 	private String photoAddress;
 	private List<String> people;
@@ -59,6 +60,10 @@ public class Photo implements Serializable{
 		return locations;
 	}
 	
+	public long getLastModifiedLong(){
+		return lastModifiedLong;
+	}
+	
 	public void setDescription(String description){
 		this.description = description;
 	}
@@ -77,6 +82,10 @@ public class Photo implements Serializable{
 	
 	public void setDate(Calendar cal){
 		this.date = cal;
+	}
+	
+	public void setLastModifiedLong(long mod){
+		this.lastModifiedLong = mod;
 	}
 	
 	/**@author Tim

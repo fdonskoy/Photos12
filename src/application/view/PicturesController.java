@@ -88,12 +88,13 @@ public class PicturesController {
 			preview.setImage(img);
 			
 			for (Photo p: album.getPhotos()) {
+				System.out.println(p.getPhotoAddress());
 				albumList.getChildren().add(constructAlbumView(p));
 			}
 			
 		}catch (Exception e)
 	    {
-	        System.out.println("No first photo found");
+	        System.out.println("No first photo foundd");
 	    }
 		
 		
@@ -132,8 +133,8 @@ public class PicturesController {
 			peoples.setText("");
 			events.setText("");
 			caption.setText("");
-			preview.setImage(null);
-	        System.out.println("No first photo found");
+			//preview.setImage(null);
+	        System.out.println("Set all to null");
 	    }
 		
 		handleMenuItems(album.getPhotos().get(index));
@@ -202,16 +203,31 @@ public class PicturesController {
 		    			}
 		    			c++;
 		    		}
+					if (thisPhoto == null) {
+						set(0); return;
+					}
 					selectedPhotoIndex = c;
 					setLocations(thisPhoto);
 					setPeople(thisPhoto);
 					setEvent(thisPhoto);
 					caption.setText(thisPhoto.getDescription());
 					preview.setImage(img);
+
+					SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+					
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+				    LocalDate localDate = LocalDate.parse(sdf.format(thisPhoto.getLastModifiedLong()).substring(0, 10), formatter);
+				    date.setValue(localDate);
+				    
+				    
 					
 					handleMenuItems(thisPhoto);
 					
-		    	}   
+		    	}  
+		    	else {
+		    		preview.setImage(null);
+		    		set(0); return;
+		    	}
 		        	
 		        for(Node otherPane : albumList.getChildren()){
 		        	((Pane)otherPane).setBorder(null);
@@ -301,24 +317,20 @@ public class PicturesController {
 	public void add() throws IOException {
 		FileChooser chooser = new FileChooser();
 	    chooser.setTitle("Open File");
-	    File file = chooser.showOpenDialog(new Stage());
+	    File file = new File("");
+	    file = chooser.showOpenDialog(new Stage());
 		
 	    String s = null;
 	    if (file != null) {
 	    	s = file.getAbsolutePath();
 	    	s = s.replace("\\", "/");
 		    System.out.println("file:/" + s);
-
-		    
-			
+	
 		    File imageFile = new File(s);
 			String fileLocation = imageFile.toURI().toString();
 			album.addPhoto(fileLocation);
 			int size = album.getPhotos().size();
-			
-			
-			
-			
+
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 			
 		    Calendar cal = Calendar.getInstance();
@@ -327,15 +339,16 @@ public class PicturesController {
 			cal.set(Calendar.MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(0, 2)));
 			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(3, 5)));
 			album.getPhotos().get(size-1).setDate(cal);
+			album.getPhotos().get(size-1).setLastModifiedLong(file.lastModified());;
 			
 			albumList.getChildren().add(constructAlbumView(album.getPhotos().get(size-1)));
 		    set(size-1);
 		    
 		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
-		    //date.setAccessibleText(sdf.format(file.lastModified()).substring(0, 10));
 		    date.setValue(localDate);
 		   
+		    
 			System.out.println("added");
 	    }
 	    
@@ -346,7 +359,7 @@ public class PicturesController {
 	
 	private void copyPhoto(String albumName) {
 		try {
-			Photo p = album.getPhotos().get(selectedPhotoIndex);
+			Photo photo = album.getPhotos().get(selectedPhotoIndex);
 			Album copy = null;
 			for (Album a: currentUser.getAlbums()) {
 				if (a.getName().equals(albumName)) {
@@ -356,9 +369,24 @@ public class PicturesController {
 				}
 				
 			}
-			copy.addPhoto(p);
+			//copy.addPhoto(photo);
+			//System.out.println("Copied");
+			//System.out.println(copy.getPhotos().get(0).getDescription());
+			
+			File imageFile = new File(photo.getPhotoAddress());
+			String fileLocation = imageFile.toURI().toString();
+			copy.addPhoto(fileLocation);
+			int size = copy.getPhotos().size();
+			Photo p = copy.getPhotos().get(size-1);
+			
+			p.setDate(photo.getDate());
+			p.setDescription(photo.getDescription());
+			p.setEvents(photo.getEvents());
+			p.setLocations(photo.getLocations());
+			p.setPeople(photo.getPeople());
+			
+			currentUser.writeUser();
 			System.out.println("Copied");
-			System.out.println(copy.getPhotos().get(0).getDescription());
 		}
 		catch (Exception e)
 	    {
@@ -380,12 +408,15 @@ public class PicturesController {
 			}
 			
 			other.getPhotos().remove(p);
+			int num = other.getNumPhotos();
+			other.setNumPhotos(num-1);
+			currentUser.writeUser();
+			currentPane = null;
 			System.out.println("Removed from " + other.getName());
 			set(0);
 		}
 		catch (Exception e)
 	    {
-			e.printStackTrace();
 	        System.out.println("No remove");
 	    }		
 	}
