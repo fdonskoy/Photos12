@@ -30,6 +30,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import application.Album;
 import application.Photo;
 import application.User;
@@ -81,6 +83,9 @@ public class PicturesController {
 	    {
 	        System.out.println("No first photo found");
 	    }
+		
+		//initialize the manage drop down
+		
 	}
 	
 	public void update() {
@@ -145,22 +150,15 @@ public class PicturesController {
 					setEvent(thisPhoto);
 					caption.setText(thisPhoto.getDescription());
 					preview.setImage(img);
-		    	}
-		    	
-		    	
-		    	
-		        
-		        
+		    	}   
 		        	
 		        for(Node otherPane : albumList.getChildren()){
 		        	((Pane)otherPane).setBorder(null);
 		        }
-		        
-		        
+
 		        pane.setBorder(new Border(new BorderStroke(Color.RED, 
 		                									BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL)));
-		        
-		        
+
 		        System.out.println(currentPane.getId() + " selected");
 		    }
 		});
@@ -208,6 +206,32 @@ public class PicturesController {
 	
 	public void back() throws IOException{
 			SceneLoader.getInstance().changeScene("Albums.fxml");
+	}
+	
+	public void add() throws IOException {
+		FileChooser chooser = new FileChooser();
+	    chooser.setTitle("Open File");
+	    File file = chooser.showOpenDialog(new Stage());
+		
+	    String s = null;
+	    if (file != null) {
+	    	s =  file.getAbsolutePath();
+	    	s = s.replace("\\", "/");
+		    System.out.println("file:/" + s);
+		    
+		    Photo newPhoto = new Photo("file:/" + s);
+		    
+		    File imageFile = new File("s");
+			String fileLocation = imageFile.toURI().toString();
+			album.addPhoto(fileLocation);
+
+		    albumList.getChildren().add(constructAlbumView(newPhoto));
+		    
+		    
+		    
+			System.out.println("added");
+	    }
+	    
 	}
 	
 	
