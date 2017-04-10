@@ -1,8 +1,10 @@
 package application.view;
 
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import application.Admin;
 import application.Album;
@@ -44,7 +46,7 @@ public class AlbumsController {
 	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		currentUser = LoginController.currentUser;
-		/*currentUser.removeAlbum("Colors");
+		currentUser.removeAlbum("Colors");
 		Album album = currentUser.addAlbum("Colors");
 		if(album != null){
 			File imageFile = new File("src/utility/blue.png");
@@ -59,7 +61,23 @@ public class AlbumsController {
 			imageFile = new File("src/utility/yellow.png");
 			fileLocation = imageFile.toURI().toString();
 			album.addPhoto(fileLocation);
-		}*/
+			List<String> strings = Arrays.asList("sup1", "sup2", "sup3"); 
+			strings.set(0, "some");
+			strings.set(1, "body");
+			strings.set(2, "once");
+			album.getPhotos().get(0).setLocations(strings); 
+			List<String> strings2 = Arrays.asList("sup1", "sup2", "sup3"); 
+			strings2.set(0, "Only");
+			strings2.set(1, "sh00ting");
+			strings2.set(2, "stars");
+			album.getPhotos().get(0).setPeople(strings2);
+			List<String> strings3 = Arrays.asList("sup1", "sup2", "sup3"); 
+			strings3.set(0, "All");
+			strings3.set(1, "that");
+			strings3.set(2, "glitters");
+			album.getPhotos().get(0).setEvents(strings3);
+			album.getPhotos().get(0).setDescription("Smash Mouth - All star");
+		}
 		populateListView();
 	}
 	

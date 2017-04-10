@@ -28,9 +28,9 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Search" />
-                  <MenuItem mnemonicParsing="false" text="Log Out" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+                  <MenuItem mnemonicParsing="false" text="Search" onAction="#search"/>
+                  <MenuItem mnemonicParsing="false" text="Log Out" onAction="#logout"/>
+                  <MenuItem mnemonicParsing="false" text="Exit" onAction="#exit"/>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Slide Show">
@@ -42,176 +42,25 @@
       </MenuBar>
       <Pane layoutX="307.0" layoutY="39.0" prefHeight="40.0" prefWidth="272.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="3.0" prefHeight="35.0" prefWidth="136.0" text="Amsterdam">
+            <Label fx:id="albumTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="3.0" prefHeight="35.0" prefWidth="136.0" text="Amsterdam">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
             <Button fx:id="add" layoutX="193.0" layoutY="8.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="231.0" layoutY="8.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="231.0" layoutY="8.0" mnemonicParsing="false" text="Back" onAction="#back" />
          </children>
       </Pane>
       <ScrollPane layoutX="300.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="274.0" prefHeight="309.0" prefWidth="285.0">
          <content>
-            <TilePane maxWidth="270.0" minWidth="270.0" prefColumns="3" prefRows="800000000" prefTileHeight="90.0" prefTileWidth="90.0" prefWidth="270.0">
-               <children>
-                  <Pane>
-                     <children>
-                        <ImageView fx:id="image" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/devon_ss.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <image>
-                              <Image url="@small%20images/irelandprehis.jpg" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/lambs_tree.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="10.0" layoutY="10.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/mist2.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="100.0" layoutY="10.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <image>
-                              <Image url="@small%20images/ridedominicrep.jpg" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="190.0" layoutY="10.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/twolambs.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="10.0" layoutY="10.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/devon_ss.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="100.0" layoutY="10.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <image>
-                              <Image url="@small%20images/irelandprehis.jpg" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="190.0" layoutY="10.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/lambs_tree.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-                  <Pane layoutX="10.0" layoutY="100.0">
-                     <children>
-                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@small%20images/mist2.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Pane>
-               </children>
+            <TilePane fx:id="albumList" maxWidth="270.0" minWidth="270.0" prefColumns="3" prefRows="800000000" prefTileHeight="90.0" prefTileWidth="90.0" prefWidth="270.0">
+               <children></children>
             </TilePane>
          </content>
       </ScrollPane>
       <Pane layoutX="14.0" layoutY="45.0" prefHeight="343.0" prefWidth="272.0">
          <children>
-            <ImageView fitHeight="165.0" fitWidth="272.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="preview" fitHeight="165.0" fitWidth="272.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@small%20images/devon_ss.jpg" />
                </image>
@@ -226,7 +75,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TextArea layoutY="189.0" prefHeight="40.0" prefWidth="272.0" text="The rolling hills of the Dutch flatlands" wrapText="true" />
+            <TextArea fx:id="caption" layoutY="189.0" prefHeight="40.0" prefWidth="272.0" text="The rolling hills of the Dutch flatlands" wrapText="true" />
             <SplitPane dividerPositions="0.2962962962962963" layoutY="229.0" prefHeight="89.0" prefWidth="272.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="51.0">
@@ -238,9 +87,9 @@
                   </AnchorPane>
                 <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="63.0" prefWidth="187.0">
                      <children>
-                        <TextField layoutY="2.0" prefHeight="25.0" prefWidth="187.0" />
-                        <TextField layoutY="31.0" prefHeight="25.0" prefWidth="187.0" />
-                        <TextField layoutY="61.0" prefHeight="25.0" prefWidth="187.0" />
+                        <TextField fx:id="locations" layoutY="2.0" prefHeight="25.0" prefWidth="187.0" />
+                        <TextField fx:id="peoples" layoutY="31.0" prefHeight="25.0" prefWidth="187.0" />
+                        <TextField fx:id="events" layoutY="61.0" prefHeight="25.0" prefWidth="187.0" />
                      </children>
                   </AnchorPane>
               </items>

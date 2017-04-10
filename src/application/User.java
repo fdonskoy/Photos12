@@ -98,6 +98,7 @@ public class User extends Account {
             	if (filesList[c].delete()) {
             		return;
             	}
+            	System.out.println("Failed to delete");
             }
             c++;
         }
