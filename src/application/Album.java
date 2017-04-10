@@ -60,7 +60,9 @@ public class Album implements Serializable {
 	/**@author Tim
 	 * @param photoAddress the address of the photo to be added to the album*/
 	public void addPhoto(Photo photo){
-		if(photo.getDate().compareTo(firstPhotoDate) < 0){
+		if (firstPhotoDate == null) {
+		}
+		else if(photo.getDate().compareTo(firstPhotoDate) < 0){
 			lastPhotoDate = photo.getDate();
 		} 
 		else if(photo.getDate().compareTo(lastPhotoDate) > 0){

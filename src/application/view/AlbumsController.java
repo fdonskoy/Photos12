@@ -48,7 +48,7 @@ public class AlbumsController {
 		currentUser = LoginController.currentUser;
 		currentUser.removeAlbum("Colors");
 		Album album = currentUser.addAlbum("Colors");
-		if(album != null){
+		/*if(album != null){
 			File imageFile = new File("src/utility/blue.png");
 			String fileLocation = imageFile.toURI().toString();
 			album.addPhoto(fileLocation);
@@ -77,7 +77,7 @@ public class AlbumsController {
 			strings3.set(2, "glitters");
 			album.getPhotos().get(0).setEvents(strings3);
 			album.getPhotos().get(0).setDescription("Smash Mouth - All star");
-		}
+		}*/
 		populateListView();
 	}
 	

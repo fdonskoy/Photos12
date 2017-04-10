@@ -67,10 +67,8 @@
             </ImageView>
             <MenuBar layoutX="196.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Manage">
+                <Menu fx:id="manage" mnemonicParsing="false" text="Manage">
                      <items>
-                        <CheckMenuItem mnemonicParsing="false" selected="true" text="Amsterdam" />
-                        <CheckMenuItem mnemonicParsing="false" selected="true" text="Hong Kong" />
                      </items>
                 </Menu>
               </menus>
@@ -94,7 +92,7 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <DatePicker layoutY="317.0" />
+            <DatePicker fx:id="date" layoutY="317.0" />
             <Button fx:id="update" layoutX="174.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update" onAction="#update" />
          </children>
       </Pane>
