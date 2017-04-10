@@ -315,6 +315,7 @@ public class PicturesController {
 	}
 	
 	public void back() throws IOException{
+			LoginController.currentUser.writeUser();
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
@@ -335,14 +336,15 @@ public class PicturesController {
 			
 			Photo p = new Photo(fileLocation);
 			
+
 			for (Photo photo: album.getPhotos()) {
 				if (photo.getPhotoAddress().equals(p.getPhotoAddress())) {
 					System.out.println("Can't add duplicate photo");
-					p = null;
-					return;
+					p = null;return;
 				}
 				
 			}
+			
 			
 			album.addPhoto(p);
 			//album.addPhoto(s);
@@ -409,7 +411,7 @@ public class PicturesController {
 			currentUser.writeUser();
 			System.out.println("Copied");
 			System.out.println(copy.getPhotos().get(0).getDescription());
-			System.out.println("Current photo " + album.getPhotos().get(selectedPhotoIndex).getDescription());
+			System.out.println("Current photo " + copy.getPhotos().get(selectedPhotoIndex).getDescription());
 		}
 		catch (Exception e)
 	    {
