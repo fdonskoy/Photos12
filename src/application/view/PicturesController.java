@@ -103,7 +103,7 @@ public class PicturesController {
 			if (a.getName().equals(album.getName())) {
 				e.setSelected(true);
 			}
-			e.setOnAction(event -> {
+			e.setOnAction(MouseClick -> {
 				if (e.isSelected()) {
 			    //execute this code if checked
 					copyPhoto(e.getText());System.out.println("Selected");
@@ -126,6 +126,8 @@ public class PicturesController {
 			setEvent(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
+			setDate(first);
+			currentUser.writeUser();
 		}
 		catch (Exception e)
 	    {
@@ -133,7 +135,8 @@ public class PicturesController {
 			peoples.setText("");
 			events.setText("");
 			caption.setText("");
-			//preview.setImage(null);
+			preview.setImage(null);
+			date.setValue(null);
 	        System.out.println("Set all to null");
 	    }
 		
@@ -153,6 +156,7 @@ public class PicturesController {
 			p.setLocations(locationList);
 			p.setPeople(peopleList);
 			
+			currentUser.writeUser();
 			System.out.println("Updated");
 		}
 		catch (Exception e)
@@ -325,10 +329,12 @@ public class PicturesController {
 	    	s = file.getAbsolutePath();
 	    	s = s.replace("\\", "/");
 		    System.out.println("file:/" + s);
-	
+		    
 		    File imageFile = new File(s);
 			String fileLocation = imageFile.toURI().toString();
+			
 			Photo p = new Photo(fileLocation);
+			
 			for (Photo photo: album.getPhotos()) {
 				if (photo.getPhotoAddress().equals(p.getPhotoAddress())) {
 					System.out.println("Can't add duplicate photo");
@@ -337,7 +343,9 @@ public class PicturesController {
 				}
 				
 			}
+			
 			album.addPhoto(p);
+			//album.addPhoto(s);
 			int size = album.getPhotos().size();
 
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -356,14 +364,19 @@ public class PicturesController {
 		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
 		    date.setValue(localDate);
-		   
+		    currentUser.writeUser();
 		    
 			System.out.println("added");
 	    }
 	    
 	}
-	private void setDate() {
+	
+	private void setDate(Photo p) {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
+	    date.setValue(localDate);
 	}
 	
 	private void copyPhoto(String albumName) {
@@ -378,13 +391,12 @@ public class PicturesController {
 				}
 				
 			}
-			//copy.addPhoto(photo);
+			copy.addPhoto(photo);
 			//System.out.println("Copied");
-			//System.out.println(copy.getPhotos().get(0).getDescription());
 			
-			File imageFile = new File(photo.getPhotoAddress());
-			String fileLocation = imageFile.toURI().toString();
-			copy.addPhoto(fileLocation);
+			//File imageFile = new File(photo.getPhotoAddress());
+			//String fileLocation = imageFile.toURI().toString();
+			//copy.addPhoto(fileLocation);
 			int size = copy.getPhotos().size();
 			Photo p = copy.getPhotos().get(size-1);
 			
@@ -396,10 +408,12 @@ public class PicturesController {
 			
 			currentUser.writeUser();
 			System.out.println("Copied");
+			System.out.println(copy.getPhotos().get(0).getDescription());
+			System.out.println("Current photo " + album.getPhotos().get(selectedPhotoIndex).getDescription());
 		}
 		catch (Exception e)
 	    {
-			e.printStackTrace();
+			//e.printStackTrace();
 	        System.out.println("No copy");
 	    }	
 	}
@@ -420,7 +434,9 @@ public class PicturesController {
 			int num = other.getNumPhotos();
 			other.setNumPhotos(num-1);
 			currentUser.writeUser();
-			currentPane = null;
+			
+			albumList.getChildren().remove(selectedPhotoIndex);
+
 			System.out.println("Removed from " + other.getName());
 			set(0);
 		}
