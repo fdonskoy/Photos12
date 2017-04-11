@@ -140,7 +140,7 @@ public class searchController {
 		for (Album a: currentUser.getAlbums()) {
 			for (Photo p: a.getPhotos()) {
 				if (p == null) {continue;}
-				if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
+				if (albums == null || albumContainedInKeyWords(a.getName(), albums)) {
 					albumFound = true;
 				}
 				System.out.println(captionsTag);
@@ -203,6 +203,15 @@ public class searchController {
 		start = null;
 		end = null;
 		
+	}
+	public static boolean albumContainedInKeyWords(String inputStr, List<String> keyWords) {
+		for (String s: keyWords) {
+	        if(inputStr.equals(s.trim()))
+	        {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	public static boolean stringContainsItemFromList(String inputStr, List<String> captionsTag2) {
 	    inputStr = inputStr.toLowerCase();
