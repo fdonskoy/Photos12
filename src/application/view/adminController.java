@@ -50,7 +50,7 @@ public class adminController {
 	}
 	
 	public void newUser(ActionEvent e) throws IOException {
-		if (newUserField.getText().trim().length() <= 0) {
+		if (newUserField.getText().trim().length() <= 0 || newUserField.getText().contains("\\") || newUserField.getText().contains("/")) {
 			error.setVisible(true);
 			error.setText("Invalid username");
 			return;
@@ -59,6 +59,8 @@ public class adminController {
 		String s = newUserField.getText();
 		String p = newUserPasswordField.getText();
 		if (s.toLowerCase().equals("admin")) {
+			error.setVisible(true);
+			error.setText("Can't create a user with name 'admin'");
 			System.out.println("Can't create a user with name 'admin'");
 			return;
 		}
@@ -91,6 +93,8 @@ public class adminController {
 		
 		String s = deleteUserField.getText();
 		if (!LoginController.usernames.contains(s)) {
+			error.setVisible(true);
+			error.setText("Username '"  + s + "' not found ");
 			System.out.println("Username not found " + s);
 			return;
 		}
