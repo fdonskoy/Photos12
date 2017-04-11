@@ -97,7 +97,7 @@ public class PicturesController {
 			setEvent(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
-			dateLabel.setText(first.getLocalDate() + "");
+			dateLabel.setText("Date: " + first.getLocalDate() + "");
 			
 			for (Photo p: album.getPhotos()) {
 				System.out.println(p.getPhotoAddress());
@@ -160,7 +160,7 @@ public class PicturesController {
 			caption.setText(first.getDescription());
 			preview.setImage(img);
 			setDate(first);
-			dateLabel.setText(first.getLocalDate() + "");
+			dateLabel.setText("Date: " + first.getLocalDate() + "");
 			currentUser.writeUser();
 		}
 		catch (Exception e)
@@ -264,7 +264,7 @@ public class PicturesController {
 					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 				    LocalDate localDate = LocalDate.parse(sdf.format(thisPhoto.getLastModifiedLong()).substring(0, 10), formatter);
-				    dateLabel.setText(thisPhoto.getLocalDate() + ""); 
+				    dateLabel.setText("Date: " + thisPhoto.getLocalDate() + ""); 
 				    
 					
 					handleMenuItems(thisPhoto);
@@ -402,7 +402,7 @@ public class PicturesController {
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
-		    dateLabel.setText(localDate + "");
+		    dateLabel.setText("Date: " +  localDate + "");
 		    p.setLocalDate(localDate);
 		    
 			album.addPhoto(p);
@@ -443,7 +443,7 @@ public class PicturesController {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
-	    dateLabel.setText(p.getLocalDate() + "");
+	    dateLabel.setText("Date: " + p.getLocalDate() + "");
 	}
 	
 	private void copyPhoto(String albumName) throws IOException {
