@@ -70,6 +70,7 @@ public class PicturesController {
 	
 	
 	@FXML Label albumTitle;
+	@FXML Label dateLabel;
 	
 	@FXML TextArea caption;
 	@FXML ImageView preview;
@@ -82,13 +83,11 @@ public class PicturesController {
 	
 	@FXML Menu manage;
 	
-	@FXML DatePicker date;
 	
 	@FXML Button update;
 	
 	public void initialize() throws ClassNotFoundException, IOException {
 		albumTitle.setText(album.getName());
-		date.setDisable(true);
 		
 		try {
 			Photo first = album.getPhotos().get(0);
@@ -98,6 +97,7 @@ public class PicturesController {
 			setEvent(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
+			dateLabel.setText(first.getLocalDate() + "");
 			
 			for (Photo p: album.getPhotos()) {
 				System.out.println(p.getPhotoAddress());
@@ -160,6 +160,7 @@ public class PicturesController {
 			caption.setText(first.getDescription());
 			preview.setImage(img);
 			setDate(first);
+			dateLabel.setText(first.getLocalDate() + "");
 			currentUser.writeUser();
 		}
 		catch (Exception e)
@@ -169,7 +170,7 @@ public class PicturesController {
 			events.setText("");
 			caption.setText("");
 			preview.setImage(null);
-			date.setValue(null);
+			dateLabel.setText("");
 	        System.out.println("Set all to null");
 	    }
 		
@@ -263,8 +264,7 @@ public class PicturesController {
 					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 				    LocalDate localDate = LocalDate.parse(sdf.format(thisPhoto.getLastModifiedLong()).substring(0, 10), formatter);
-				    date.setValue(localDate);
-				    
+				    dateLabel.setText(thisPhoto.getLocalDate() + ""); 
 				    
 					
 					handleMenuItems(thisPhoto);
@@ -366,7 +366,7 @@ public class PicturesController {
 	}
 	
 	public void add() throws IOException {
-		if (selectedPhotoIndex == -1) {
+		if (selectedPhotoIndex == -1 && !add.isArmed()) {
 			album.addPhoto(deletedPhoto);
 			selectedPhotoIndex = album.getPhotos().size() - 1;
 			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
@@ -381,13 +381,8 @@ public class PicturesController {
 		
 	    String s = null;
 	    if (file != null) {
-	    	if (selectedPhotoIndex == -1) {
-	    		s = remainingAddress;
-	    	}
-	    	else {
-	    		s = file.getAbsolutePath();
-	    		s = "file:/" + s.replace("\\", "/");
-	    	}
+	    	s = file.getAbsolutePath();
+	    	s = "file:/" + s.replace("\\", "/");
 	    	
 			System.out.println("Adding " + s);
 	    	
@@ -404,7 +399,7 @@ public class PicturesController {
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
-		    date.setValue(localDate);
+		    dateLabel.setText(localDate + "");
 		    p.setLocalDate(localDate);
 		    
 			album.addPhoto(p);
@@ -437,7 +432,7 @@ public class PicturesController {
 			System.out.println("added");
 			
 	    }
-	    
+
 	}
 	
 	private void setDate(Photo p) {
@@ -445,7 +440,7 @@ public class PicturesController {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
-	    date.setValue(localDate);
+	    dateLabel.setText(p.getLocalDate() + "");
 	}
 	
 	private void copyPhoto(String albumName) throws IOException {
