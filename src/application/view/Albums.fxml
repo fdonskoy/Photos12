@@ -49,9 +49,9 @@
             </MenuBar>
          </children>
       </Pane>
-      <ScrollPane layoutX="14.0" layoutY="79.0" prefHeight="309.0" prefWidth="573.0">
+      <ScrollPane layoutX="14.0" layoutY="79.0" prefHeight="309.0" prefWidth="573.0" >
          <content>
-            <TilePane fx:id="albumList" maxHeight="-Infinity" prefHeight="290.0">
+            <TilePane fx:id="albumList" maxHeight="290.0" prefHeight="290.0">
                <children></children>
             </TilePane>
          </content>

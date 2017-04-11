@@ -43,13 +43,22 @@ public class AlbumsController {
 	
 	@FXML MenuItem newAlbum;
 	@FXML TilePane albumList;
+	@FXML MenuItem rename;
+	@FXML MenuItem open;
+	@FXML MenuItem delete;
 	
 	/**@author Tim
 	 * gets current user and constructs the custom ui
 	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		currentUser = LoginController.currentUser;
+		currentAlbum = null;
 		populateListView();
+		if(currentAlbum == null){
+			open.setDisable(true);
+			rename.setDisable(true);
+			delete.setDisable(true);
+		}
 	}
 	
 	/**@author Tim
@@ -74,6 +83,9 @@ public class AlbumsController {
 	 * redirects to a view of pictures within the selected album
 	 * */
 	public void open(ActionEvent e) throws IOException{
+		if(currentAlbum == null){
+			return;
+		}
 		currentUser.writeUser();
 		PicturesController.album = currentAlbum;
 		SceneLoader.getInstance().changeScene("pictures.fxml");
@@ -83,6 +95,9 @@ public class AlbumsController {
 	 * replaces album title with a text field. The save part of the rename is covered in renameController because the album ui is covered in a different fxml file, which does not like to share controllers with others
 	 * */
 	public void rename(ActionEvent e){
+		if(currentAlbum == null){
+			return;
+		}
 		if(currentAlbum != null){
 			currentPane.lookup("#albumName").setVisible(false);
 			currentPane.lookup("#albumNameEditable").setVisible(true);
@@ -93,6 +108,9 @@ public class AlbumsController {
 	 * Deletes and album, saves user, and refreshes the scene
 	 * */
 	public void delete(ActionEvent e) throws IOException{
+		if(currentAlbum == null){
+			return;
+		}
 		albumList.getChildren().remove(albumList.lookup("#" + currentAlbum.getName() + "_" + currentUser.getUsername()));
 		currentUser.removeAlbum(currentAlbum);
 		currentUser.writeUser();
@@ -140,6 +158,9 @@ public class AlbumsController {
 		albumView.setId(album.getName() + "_id");
 		albumView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent me) {
+		    	rename.setDisable(false);
+		    	open.setDisable(false);
+		    	delete.setDisable(false);
 		    	if(currentPane != null){
 		    		((TextField) currentPane.lookup("#albumNameEditable")).setText(null);
 		    		currentPane.lookup("#albumNameEditable").setVisible(false);
