@@ -46,38 +46,6 @@ public class AlbumsController {
 	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		currentUser = LoginController.currentUser;
-		currentUser.removeAlbum("Colors");
-		Album album = currentUser.addAlbum("Colors");
-		/*if(album != null){
-			File imageFile = new File("src/utility/blue.png");
-			String fileLocation = imageFile.toURI().toString();
-			album.addPhoto(fileLocation);
-			imageFile = new File("src/utility/red.png");
-			fileLocation = imageFile.toURI().toString();
-			album.addPhoto(fileLocation);
-			imageFile = new File("src/utility/green.png");
-			fileLocation = imageFile.toURI().toString();
-			album.addPhoto(fileLocation);
-			imageFile = new File("src/utility/yellow.png");
-			fileLocation = imageFile.toURI().toString();
-			album.addPhoto(fileLocation);
-			List<String> strings = Arrays.asList("sup1", "sup2", "sup3"); 
-			strings.set(0, "some");
-			strings.set(1, "body");
-			strings.set(2, "once");
-			album.getPhotos().get(0).setLocations(strings); 
-			List<String> strings2 = Arrays.asList("sup1", "sup2", "sup3"); 
-			strings2.set(0, "Only");
-			strings2.set(1, "sh00ting");
-			strings2.set(2, "stars");
-			album.getPhotos().get(0).setPeople(strings2);
-			List<String> strings3 = Arrays.asList("sup1", "sup2", "sup3"); 
-			strings3.set(0, "All");
-			strings3.set(1, "that");
-			strings3.set(2, "glitters");
-			album.getPhotos().get(0).setEvents(strings3);
-			album.getPhotos().get(0).setDescription("Smash Mouth - All star");
-		}*/
 		populateListView();
 	}
 	
