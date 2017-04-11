@@ -3,6 +3,9 @@ package application.view;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -117,9 +120,19 @@ public class AlbumsController {
 		Label dateRange = (Label)albumView.lookup("#dateRange");
 		Label numPhotots = (Label)albumView.lookup("#numberOfPhotos");
 		
+		System.out.println("sdsd" + album.getFirstPhotoDateString());
+		//System.out.println("sdsd" + album.getPhotos().get(0).getLastModified());
 		if(album.getFirstPhotoThumbnail() != null){
 			img = new Image(album.getFirstPhotoThumbnail());
-			dateString = album.getFirstPhotoDateString() + " - " + album.getLastPhotoDateString(); 
+			dateString = album.getFirstPhotoDateString() + " - " + album.getLastPhotoDateString();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		    LocalDate localDate = LocalDate.parse(sdf.format(album.getPhotos().get(0).getLastModifiedLong()).substring(0, 10), formatter);
+		    LocalDate finalDate = LocalDate.parse(sdf.format(album.getPhotos().get(album.getPhotos().size()-1).getLastModifiedLong()).substring(0, 10), formatter);
+		    dateString = (localDate + " - " + finalDate).replace("-", "/");
+		    dateString = dateString.substring(0,11)+'-'+ dateString.substring(12);
 		}
 		else{
 			File imageFile = new File("src/utility/placeholder.png");

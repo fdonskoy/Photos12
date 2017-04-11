@@ -4,12 +4,20 @@ import java.awt.Component;
 import java.awt.ScrollPane;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.print.DocFlavor.URL;
@@ -48,6 +56,7 @@ import application.User;
 public class PicturesController {
 	public static Album album;
 	public static int selectedPhotoIndex;
+	public static String remainingAddress;
 	
 	/**The user currently logged in*/
 	public static User currentUser = LoginController.currentUser;
@@ -131,6 +140,13 @@ public class PicturesController {
 			});
 			manage.getItems().add(e);	
 		}
+		if (album.getPhotos().size() == 0) {
+			handleMenuItems(null);
+		}
+		else {
+			handleMenuItems(album.getPhotos().get(0));
+		}
+		
 	}
 	
 	public void set(int index) {
@@ -163,7 +179,13 @@ public class PicturesController {
 	
 	public void update() {
 		try {
-			Photo p = album.getPhotos().get(selectedPhotoIndex);
+			Photo p = null;
+			if (selectedPhotoIndex == -1) {
+				p = album.getPhotos().get(album.getNumPhotos()-1);
+			}
+			else {
+				p = album.getPhotos().get(selectedPhotoIndex);
+			}
 			List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
 			List<String> locationList = Arrays.asList(locations.getText().split("\\s*,\\s*"));
 			List<String> peopleList = Arrays.asList(peoples.getText().split("\\s*,\\s*"));
@@ -221,6 +243,7 @@ public class PicturesController {
 					for (Photo curPhoto: album.getPhotos()) {
 		    			if (curPhoto.getPhotoAddress().equals(pane.getAccessibleText())) {
 		    				thisPhoto = curPhoto;
+		    				System.out.println("Current photo address " + thisPhoto.getPhotoAddress());
 		    				break;
 		    			}
 		    			c++;
@@ -341,16 +364,24 @@ public class PicturesController {
 	}
 	
 	public void add() throws IOException {
-		FileChooser chooser = new FileChooser();
-	    chooser.setTitle("Open File");
-	    File file = new File("");
-	    file = chooser.showOpenDialog(new Stage());
-		
+		File file = new File("");
+		if (selectedPhotoIndex != -1) {
+			FileChooser chooser = new FileChooser();
+			chooser.setTitle("Open File");
+			file = chooser.showOpenDialog(new Stage());
+		}
+
 	    String s = null;
 	    if (file != null) {
-	    	s = file.getAbsolutePath();
-	    	s = "file:/" + s.replace("\\", "/");
-			System.out.println("Adding" + s);
+	    	if (selectedPhotoIndex == -1) {
+	    		s = remainingAddress;
+	    	}
+	    	else {
+	    		s = file.getAbsolutePath();
+	    		s = "file:/" + s.replace("\\", "/");
+	    	}
+	    	
+			System.out.println("Adding " + s);
 	    	
 			Photo p = new Photo(s);
 			
@@ -373,11 +404,14 @@ public class PicturesController {
 			cal.set(Calendar.YEAR, Integer.parseInt(sdf.format(file.lastModified()).substring(6, 10)));
 			cal.set(Calendar.MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(0, 2)));
 			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(3, 5)));
+			
 			album.getPhotos().get(selectedPhotoIndex).setLastModifiedLong(cal);
 			album.getPhotos().get(selectedPhotoIndex).setLastModifiedLong(file.lastModified());;
 			
+			System.out.println(album.getFirstPhotoDateString() + " + " + album.getLastPhotoDateString());
+			
 			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
-		    set(selectedPhotoIndex);
+		    //set(selectedPhotoIndex);
 		    
 		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
@@ -387,6 +421,7 @@ public class PicturesController {
 		    manage.setDisable(false);
 		    update.setDisable(false);
 			System.out.println("added");
+			
 	    }
 	    
 	}
@@ -400,6 +435,17 @@ public class PicturesController {
 	}
 	
 	private void copyPhoto(String albumName) throws IOException {
+		if (selectedPhotoIndex == -1) {
+			System.out.println(remainingAddress);
+			System.out.println("Loations " + locations.getText());
+			add();
+			update();
+			selectedPhotoIndex = album.getNumPhotos()-1;
+			System.out.println(album.getNumPhotos()-1);
+			set(selectedPhotoIndex);
+			currentUser.writeUser();
+			return;
+		}
 		Photo photo = album.getPhotos().get(selectedPhotoIndex);
 		Album copy = null;
 		for (Album a: currentUser.getAlbums()) {
@@ -435,16 +481,18 @@ public class PicturesController {
 		
 		if(albumName.equals(album.getName())){
 			albumList.getChildren().remove(selectedPhotoIndex);
+			selectedPhotoIndex = -1;
+			remainingAddress = p.getPhotoAddress();
 		}
 		
-		if(album.getPhotos().size() <= 0){
+		/*if(album.getPhotos().size() <= 0){
 			update.setDisable(true);
 			manage.setDisable(true);
-		}
-		
+		}*/
+
 		System.out.println("Removed from " + other.getName());
 		
-		set(0);
+		//set(0);
 	}
 	
 	

@@ -214,7 +214,10 @@ public class searchController {
 	    return false;
 	}
 	public static boolean stringContainsItemFromList(String inputStr, List<String> captionsTag2) {
-	    inputStr = inputStr.toLowerCase();
+	    if (inputStr == null) {
+	    	return false;
+	    }
+		inputStr = inputStr.toLowerCase();
 		for (String s: captionsTag2) {
 	        if(inputStr.contains(s.toLowerCase().trim()))
 	        {
@@ -225,6 +228,9 @@ public class searchController {
 	}
 	public static List<String> replace(List<String> strings)
 	{
+		if (strings == null) {
+			return null;
+		}
 		List<String> lower = new ArrayList<String>();
 	    ListIterator<String> iterator = strings.listIterator();
 	    while (iterator.hasNext())
