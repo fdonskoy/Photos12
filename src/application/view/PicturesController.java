@@ -57,6 +57,7 @@ public class PicturesController {
 	public static Album album;
 	public static int selectedPhotoIndex;
 	public static String remainingAddress;
+	public static Photo deletedPhoto;
 	
 	/**The user currently logged in*/
 	public static User currentUser = LoginController.currentUser;
@@ -359,18 +360,25 @@ public class PicturesController {
 	}
 	
 	public void back() throws IOException{
+			selectedPhotoIndex = 0;
 			LoginController.currentUser.writeUser();
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
 	public void add() throws IOException {
-		File file = new File("");
-		if (selectedPhotoIndex != -1) {
-			FileChooser chooser = new FileChooser();
-			chooser.setTitle("Open File");
-			file = chooser.showOpenDialog(new Stage());
+		if (selectedPhotoIndex == -1) {
+			album.addPhoto(deletedPhoto);
+			selectedPhotoIndex = album.getPhotos().size() - 1;
+			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
+		    set(selectedPhotoIndex);
+			currentUser.writeUser();
+			return;
 		}
-
+		File file = new File("");
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Open File");
+		file = chooser.showOpenDialog(new Stage());
+		
 	    String s = null;
 	    if (file != null) {
 	    	if (selectedPhotoIndex == -1) {
@@ -393,11 +401,16 @@ public class PicturesController {
 					return;
 				}	
 			}*/
-			
+			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
+		    date.setValue(localDate);
+		    p.setLocalDate(localDate);
+		    
 			album.addPhoto(p);
 			selectedPhotoIndex = album.getPhotos().size() - 1;
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+			
 			
 		    Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.MILLISECOND,0);
@@ -408,14 +421,15 @@ public class PicturesController {
 			album.getPhotos().get(selectedPhotoIndex).setLastModifiedLong(cal);
 			album.getPhotos().get(selectedPhotoIndex).setLastModifiedLong(file.lastModified());;
 			
+			
 			System.out.println(album.getFirstPhotoDateString() + " + " + album.getLastPhotoDateString());
 			
 			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
-		    //set(selectedPhotoIndex);
+		    set(selectedPhotoIndex);
 		    
-		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
-		    date.setValue(localDate);
+		    
+		    System.out.println("This is the local date added " + localDate);
+		    
 		    currentUser.writeUser();
 		    
 		    manage.setDisable(false);
@@ -435,18 +449,17 @@ public class PicturesController {
 	}
 	
 	private void copyPhoto(String albumName) throws IOException {
-		if (selectedPhotoIndex == -1) {
-			System.out.println(remainingAddress);
-			System.out.println("Loations " + locations.getText());
+		if (selectedPhotoIndex == -1 && album.getName().equals(albumName)) {
 			add();
-			update();
-			selectedPhotoIndex = album.getNumPhotos()-1;
-			System.out.println(album.getNumPhotos()-1);
-			set(selectedPhotoIndex);
-			currentUser.writeUser();
 			return;
 		}
-		Photo photo = album.getPhotos().get(selectedPhotoIndex);
+		Photo photo = null;
+		if (selectedPhotoIndex == -1) {
+			photo = deletedPhoto;
+		}
+		else {
+			photo = album.getPhotos().get(selectedPhotoIndex);
+		}
 		Album copy = null;
 		for (Album a: currentUser.getAlbums()) {
 			if (a.getName().equals(albumName)) {
@@ -466,7 +479,13 @@ public class PicturesController {
 	}
 	
 	private void removePhoto(String albumName) throws IOException {
-		Photo p = album.getPhotos().get(selectedPhotoIndex);
+		Photo p = null;
+		if (selectedPhotoIndex == -1) {
+			p = deletedPhoto;
+		}
+		else {
+			p = album.getPhotos().get(selectedPhotoIndex);
+		}
 		Album other = null;
 		for (Album a: currentUser.getAlbums()) {
 			if (a.getName().equals(albumName)) {
@@ -482,7 +501,7 @@ public class PicturesController {
 		if(albumName.equals(album.getName())){
 			albumList.getChildren().remove(selectedPhotoIndex);
 			selectedPhotoIndex = -1;
-			remainingAddress = p.getPhotoAddress();
+			deletedPhoto = p;
 		}
 		
 		/*if(album.getPhotos().size() <= 0){

@@ -3,6 +3,7 @@ package application;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Photo implements Serializable{
 	private String description;
 	private Calendar lastModified;
 	private long lastModifiedLong;
+	private LocalDate date;
 	
 	private String photoAddress;
 	private List<String> people;
@@ -57,6 +59,14 @@ public class Photo implements Serializable{
 	
 	public long getLastModifiedLong(){
 		return lastModifiedLong;
+	}
+	
+	public LocalDate getLocalDate(){
+		return date;
+	}
+	
+	public void setLocalDate(LocalDate dateIn){
+		this.date = dateIn;
 	}
 	
 	public void setDescription(String description){
