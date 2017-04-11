@@ -388,7 +388,20 @@ public class PicturesController {
 	    	s = "file:/" + s.replace("\\", "/");
 	    	
 			System.out.println("Adding " + s);
-	    	
+			//check for duplicate photo
+			for (Album a: currentUser.getAlbums()) {
+				for (Photo curPhoto: album.getPhotos()) {
+	    			if (curPhoto.getPhotoAddress().replace("\\", "/").equals(s)) {
+	    				album.addPhoto(curPhoto);
+	    				System.out.println("Added already existing photo");
+	    				selectedPhotoIndex = album.getPhotos().size() - 1;
+	    				albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
+	    			    set(selectedPhotoIndex);
+	    				return;
+	    			}
+				}
+			}
+			
 			Photo p = new Photo(s);
 			
 			//duplicate photos allowed as different objects for potentially different descriptions
