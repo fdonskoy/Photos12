@@ -1,11 +1,16 @@
 package application.view;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import application.Account;
 import application.Admin;
@@ -54,6 +59,30 @@ public class LoginController {
 		getAllFiles(new File("src/savedObjects/Users"));
 		
 		
+		int count = 0;
+		File[] filesList = new File("src/savedObjects/Users").listFiles();
+        for(File f : filesList){
+        	System.out.println(f.getName().substring(0, f.getName().lastIndexOf(".")));
+        	if(f.isFile() && (f.getName().substring(0, f.getName().lastIndexOf(".")).equals("stock"))){
+        		if (f.length() == 0) {
+        			System.out.println("No errors, and file empty");
+        			stockFlag = true;
+        		}
+        		if (stockFlag) {
+	        		usernames.remove(count-1);
+	        		f.delete();
+	        		User u = new User("stock", "stock");
+	        		u.writeUser();
+	        		usernames.add("stock");
+	        		System.out.println("Stock created");
+	        		break;
+        		}
+        	}
+        	count++;
+        	
+        	
+        }
+		
 	}
 	
 	/**@author Tim
@@ -72,8 +101,7 @@ public class LoginController {
 			currentUser = User.readUser(username);
 			System.out.println("Current User: " + username);
 			if(currentUser.checkPassword(passwordInput.getText())) {
-				if (username.equals("stock") && currentUser.getAlbums().size() == 0 && !stockFlag){
-					stockFlag = true;
+				if (username.equals("stock") && stockFlag){
 					File[] filesList = new File("src/utility").listFiles();
 			        currentUser.addAlbum("Colors");
 			        for(File f : filesList){
@@ -85,6 +113,7 @@ public class LoginController {
 					    p.setLocalDate(localDate);
 					    currentUser.getAlbums().get(0).addPhoto(p);
 			        }
+			        stockFlag = false;
 				}
 				
 				SceneLoader.getInstance().changeScene("Albums.fxml");
