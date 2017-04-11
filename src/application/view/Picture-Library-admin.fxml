@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+<Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
 	fx:controller="application.view.adminController" >
    <children>
       <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="600.0">
@@ -19,7 +19,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <ListView fx:id="users" layoutX="376.0" layoutY="67.0" prefHeight="310.0" prefWidth="210.0" onMouseClicked="#handleMouseClick" />
+      <ListView fx:id="users" layoutX="376.0" layoutY="67.0" prefHeight="360.0" prefWidth="210.0" onMouseClicked="#handleMouseClick" />
       <Label layoutX="376.0" layoutY="38.0" text="Users:" />
       <Pane layoutX="14.0" layoutY="116.0" prefHeight="261.0" prefWidth="330.0">
          <children>

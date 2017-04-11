@@ -105,7 +105,7 @@ public class LoginController {
 					File[] filesList = new File("src/utility").listFiles();
 			        currentUser.addAlbum("Colors");
 			        for(File f : filesList){
-			        	if (!f.getPath().substring(12, f.getPath().lastIndexOf(".")).equals("placeholder")){
+			        	if (!f.getPath().substring(12, f.getPath().lastIndexOf(".")).replace('\\', '/').equals("placeholder")){
 			        		Photo p = new Photo("file:/" + f.getAbsolutePath());
 				        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
