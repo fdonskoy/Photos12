@@ -58,8 +58,6 @@ public class PicturesController {
 	public static int selectedPhotoIndex;
 	public static String remainingAddress;
 	public static Photo deletedPhoto;
-	private static FileChooser chooser = new FileChooser();
-	private static Stage stage = new Stage();
 	
 	/**The user currently logged in*/
 	public static User currentUser = LoginController.currentUser;
@@ -380,20 +378,12 @@ public class PicturesController {
 
 		
 		File file = new File("");
-		//chooser = new FileChooser();
+		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Open File");
-		System.out.println("Every time initial " + chooser.getInitialDirectory());
-		file = chooser.showOpenDialog(stage);
+		file = chooser.showOpenDialog(new Stage());
 
 	    String s = null;
-	    if (file != null) {
-	    	//System.out.println("Every time" + chooser.getInitialDirectory());
-	    	if (chooser.getInitialDirectory() == null) {
-	    		System.out.println("Every time" + file.getAbsolutePath());
-	    		System.out.println("Every time again" + new File(file.getAbsolutePath().replace("\\", "/")));
-	    		chooser.setInitialDirectory(new File(file.getAbsolutePath().replace("\\", "/")));
-	    	}
-	    	
+	    if (file != null) {	    	
 	    	s = file.getAbsolutePath();
 	    	s = "file:/" + s.replace("\\", "/");
 	    	
