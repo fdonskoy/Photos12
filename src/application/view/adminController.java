@@ -88,6 +88,7 @@ public class adminController {
 		if (deleteUserField.getLength() == 0) {
 			return;
 		}
+		
 		String s = deleteUserField.getText();
 		if (!LoginController.usernames.contains(s)) {
 			System.out.println("Username not found " + s);

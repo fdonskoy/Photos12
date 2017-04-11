@@ -81,11 +81,13 @@ public class User extends Account {
 		ObjectOutputStream oos = new ObjectOutputStream(
 									new FileOutputStream(storeDir + File.separator + storeFile));
 		oos.writeObject(this);
+		oos.close();
 	} 
 	
 	public static User readUser(String username) throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + username + ".dat"));
 		User user = (User)ois.readObject();
+		ois.close();
 		return user;
 	} 
 	
@@ -94,8 +96,9 @@ public class User extends Account {
 		File init = new File("src/savedObjects/Users");
 		File[] filesList = init.listFiles();
         for(File f : filesList){
+        	System.out.println(f.getName());
             if(f.isFile() && (f.getName().substring(0, f.getName().lastIndexOf(".")).toLowerCase().equals(username))){
-            	if (filesList[c].delete()) {
+            	if (f.delete()) {
             		return;
             	}
             	System.out.println("Failed to delete");
