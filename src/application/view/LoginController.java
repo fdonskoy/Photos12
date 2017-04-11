@@ -29,6 +29,7 @@ public class LoginController {
 	 * Once the login is successful, holds the logged in user
 	 * */
 	public static User currentUser;
+	public static boolean stockFlag = false;
 	
 	/**@author Tim
 	 * holds all usernames
@@ -71,7 +72,8 @@ public class LoginController {
 			currentUser = User.readUser(username);
 			System.out.println("Current User: " + username);
 			if(currentUser.checkPassword(passwordInput.getText())) {
-				if (username.equals("stock") && currentUser.getAlbums().size() == 0){
+				if (username.equals("stock") && currentUser.getAlbums().size() == 0 && !stockFlag){
+					stockFlag = true;
 					File[] filesList = new File("src/utility").listFiles();
 			        currentUser.addAlbum("Colors");
 			        for(File f : filesList){
