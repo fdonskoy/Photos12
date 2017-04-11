@@ -70,6 +70,7 @@ public class PicturesController {
 	
 	
 	@FXML Label albumTitle;
+	@FXML Label dateLabel;
 	
 	@FXML TextArea caption;
 	@FXML ImageView preview;
@@ -98,6 +99,7 @@ public class PicturesController {
 			setEvent(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
+			dateLabel.setText(first.getLocalDate() + "");
 			
 			for (Photo p: album.getPhotos()) {
 				System.out.println(p.getPhotoAddress());
@@ -160,6 +162,7 @@ public class PicturesController {
 			caption.setText(first.getDescription());
 			preview.setImage(img);
 			setDate(first);
+			dateLabel.setText(first.getLocalDate() + "");
 			currentUser.writeUser();
 		}
 		catch (Exception e)
@@ -170,6 +173,7 @@ public class PicturesController {
 			caption.setText("");
 			preview.setImage(null);
 			date.setValue(null);
+			dateLabel.setText("");
 	        System.out.println("Set all to null");
 	    }
 		
@@ -264,7 +268,7 @@ public class PicturesController {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 				    LocalDate localDate = LocalDate.parse(sdf.format(thisPhoto.getLastModifiedLong()).substring(0, 10), formatter);
 				    date.setValue(localDate);
-				    
+				    dateLabel.setText(thisPhoto.getLocalDate() + ""); 
 				    
 					
 					handleMenuItems(thisPhoto);
@@ -400,6 +404,7 @@ public class PicturesController {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
 		    date.setValue(localDate);
+		    dateLabel.setText(localDate + "");
 		    p.setLocalDate(localDate);
 		    
 			album.addPhoto(p);
@@ -441,6 +446,7 @@ public class PicturesController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
 	    date.setValue(localDate);
+	    dateLabel.setText(p.getLocalDate() + "");
 	}
 	
 	private void copyPhoto(String albumName) throws IOException {
