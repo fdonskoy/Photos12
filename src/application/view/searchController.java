@@ -72,7 +72,8 @@ public class searchController {
 	
 	
 	@FXML Label albumTitle;
-	@FXML Label loginText;
+	@FXML Label description1;
+	@FXML Label description2;
 	
 	@FXML TextArea caption;
 	@FXML ImageView preview;
@@ -129,13 +130,17 @@ public class searchController {
 		boolean dateFound = false;
 		
 		if ( (startDate.getValue() != null && endDate.getValue() == null) || (startDate.getValue() == null && endDate.getValue() != null)) {
-			loginText.setTextFill(Color.web("#ff0000"));
-			loginText.setText("Please enter both start and end dates\n or none for both");
+			description1.setTextFill(Color.web("#ff0000"));
+			description2.setTextFill(Color.web("#ff0000"));
+			description1.setText("Please enter both start and end dates");
+			description2.setText("or none for both");
 			return;
 			//put a error statement on label and say to input values or no values
 		}
-		loginText.setTextFill(Color.web("#111010"));
-		loginText.setText("Tags are separated by keywords\nCaptions keywords are searched within an entire caption");
+		description1.setTextFill(Color.web("#111010"));
+		description2.setTextFill(Color.web("#111010"));
+		description1.setText("Tags are separated by commas");
+		description2.setText("Captions search does text matching, not tags");
 		
 		for (Album a: currentUser.getAlbums()) {
 			for (Photo p: a.getPhotos()) {

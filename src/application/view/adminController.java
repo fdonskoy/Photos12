@@ -27,8 +27,9 @@ public class adminController {
 	@FXML Button newUserButton;
 	@FXML Button deleteUserButton;
 
+	@FXML Label error;
 	@FXML TextField newUserField;
-	@FXML TextField newUserPasswordField;
+	@FXML PasswordField newUserPasswordField;
 	@FXML TextField deleteUserField;
 	
 	@FXML ListView<String> users;
@@ -40,7 +41,7 @@ public class adminController {
 	public void initialize() throws IOException, ClassNotFoundException {
 		Collections.sort(LoginController.usernames.subList(0, LoginController.usernames.size()));
 		ObservableList<String> obsList = FXCollections.observableArrayList(LoginController.usernames);
-
+		error.setVisible(false);
 		users.setItems(obsList);
 	}
 	
@@ -49,23 +50,32 @@ public class adminController {
 	}
 	
 	public void newUser(ActionEvent e) throws IOException {
-		if (newUserField.getLength() == 0) {
+		if (newUserField.getText().trim().length() <= 0) {
+			error.setVisible(true);
+			error.setText("Invalid username");
 			return;
 		}
+		
 		String s = newUserField.getText();
 		String p = newUserPasswordField.getText();
 		if (s.toLowerCase().equals("admin")) {
 			System.out.println("Can't create a user with name 'admin'");
 			return;
 		}
+		
 		if (LoginController.usernames.contains(s)) {
+			error.setVisible(true);
+			error.setText("This user already exists");
 			System.out.println("Duplicate username " + s);
 			return;
 		}
+		
 		try {
 			User u = new User(s, p);
 			u.writeUser();
 			LoginController.usernames.add(s);
+			newUserField.setText(null);
+			newUserPasswordField.setText(null);
 			initialize();
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -90,6 +100,7 @@ public class adminController {
 		try {
 			LoginController.usernames.remove(s);
 			User.deleteUser(s);
+			deleteUserField.setText(null);
 			initialize();
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block

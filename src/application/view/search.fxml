@@ -114,7 +114,8 @@
                </font>
             </Label>
             <Button layoutX="131.0" layoutY="281.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Cancel" onAction="#back" />
-         	<Label fx:id="loginText" layoutY="300.0" prefHeight="50.0" prefWidth="300.0" text="Tags are separated by keywords. Captions keywords are searched within an entire caption" textFill="#111010" />
+         	<Label fx:id="description1" layoutY="300.0" prefHeight="50.0" prefWidth="300.0" text="Tags are separated by commas" textFill="#111010" />
+         	<Label fx:id="description2" layoutY="314.0" prefHeight="50.0" prefWidth="300.0" text="Captions search does text matching, not tags" textFill="#111010" />
          </children>
       </Pane>
       <Button layoutX="477.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="New Album" onAction="#createAlbum"/>
