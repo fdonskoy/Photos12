@@ -83,13 +83,11 @@ public class PicturesController {
 	
 	@FXML Menu manage;
 	
-	@FXML DatePicker date;
 	
 	@FXML Button update;
 	
 	public void initialize() throws ClassNotFoundException, IOException {
 		albumTitle.setText(album.getName());
-		date.setDisable(true);
 		
 		try {
 			Photo first = album.getPhotos().get(0);
@@ -172,7 +170,6 @@ public class PicturesController {
 			events.setText("");
 			caption.setText("");
 			preview.setImage(null);
-			date.setValue(null);
 			dateLabel.setText("");
 	        System.out.println("Set all to null");
 	    }
@@ -267,7 +264,6 @@ public class PicturesController {
 					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 				    LocalDate localDate = LocalDate.parse(sdf.format(thisPhoto.getLastModifiedLong()).substring(0, 10), formatter);
-				    date.setValue(localDate);
 				    dateLabel.setText(thisPhoto.getLocalDate() + ""); 
 				    
 					
@@ -403,7 +399,6 @@ public class PicturesController {
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
-		    date.setValue(localDate);
 		    dateLabel.setText(localDate + "");
 		    p.setLocalDate(localDate);
 		    
@@ -445,7 +440,6 @@ public class PicturesController {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
-	    date.setValue(localDate);
 	    dateLabel.setText(p.getLocalDate() + "");
 	}
 	
