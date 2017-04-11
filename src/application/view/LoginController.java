@@ -2,10 +2,14 @@ package application.view;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import application.Account;
 import application.Admin;
+import application.Photo;
 import application.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,7 +75,13 @@ public class LoginController {
 					File[] filesList = new File("src/utility").listFiles();
 			        currentUser.addAlbum("Colors");
 			        for(File f : filesList){
-			        	currentUser.getAlbums().get(0).addPhoto("file:/" + f.getAbsolutePath());
+			        	Photo p = new Photo("file:/" + f.getAbsolutePath());
+			        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+					    LocalDate localDate = LocalDate.parse(sdf.format(f.lastModified()).substring(0, 10), formatter);
+					    System.out.println("Stock localdate " + localDate);
+					    p.setLocalDate(localDate);
+					    currentUser.getAlbums().get(0).addPhoto(p);
 			        }
 				}
 				
