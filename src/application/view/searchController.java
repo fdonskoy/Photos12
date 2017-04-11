@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.print.DocFlavor.URL;
@@ -145,19 +146,19 @@ public class searchController {
 		
 		Photo p = currentUser.getAlbums().get(0).getPhotos().get(0);
 		
-		if (albums == null || albums.contains(p.getDescription())) {
+		if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
 			albumFound = true;
 		}
 		if (captionsTag == null || captionsTag.equals(p.getDescription())) {
 			captionsFound = true;
 		}
-		if (locationsTag == null || locationsTag.contains(p.getLocations())) {
+		if (locationsTag == null || !Collections.disjoint(locationsTag, p.getLocations())) {
 			locationsFound = true;
 		}
-		if (peoplesTag == null || peoplesTag.contains(p.getLocations())) {
+		if (peoplesTag == null || !Collections.disjoint(peoplesTag, p.getPeople())) {
 			peoplesFound = true;
 		}
-		if (eventsTag == null || eventsTag.contains(p.getLocations())) {
+		if (eventsTag == null || !Collections.disjoint(eventsTag, p.getEvents())) {
 			eventsFound = true;
 		}
 		dateFound = true;
@@ -165,7 +166,10 @@ public class searchController {
 		if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && !photosList.contains(p)) {
 			photosList.add(p);
 			System.out.println("All true");
+			
 		}
+		System.out.println(p.getLocations());
+		System.out.println(locationsTag);
 		System.out.println(albumFound);
 		System.out.println(captionsFound);
 		System.out.println(locationsFound);
