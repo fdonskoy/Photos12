@@ -47,6 +47,8 @@ public class LoginController {
 		admin = Admin.readAdmin();
 		usernames = new ArrayList<String>();
 		getAllFiles(new File("src/savedObjects/Users"));
+		
+		
 	}
 	
 	/**@author Tim
@@ -64,8 +66,17 @@ public class LoginController {
 		else if(usernames.contains(username)){
 			currentUser = User.readUser(username);
 			System.out.println("Current User: " + username);
-			if(currentUser.checkPassword(passwordInput.getText()))
+			if(currentUser.checkPassword(passwordInput.getText())) {
+				if (username.equals("stock") && currentUser.getAlbums().size() == 0){
+					File[] filesList = new File("src/utility").listFiles();
+			        currentUser.addAlbum("Colors");
+			        for(File f : filesList){
+			        	currentUser.getAlbums().get(0).addPhoto("file:/" + f.getAbsolutePath());
+			        }
+				}
+				
 				SceneLoader.getInstance().changeScene("Albums.fxml");
+			}	
 			else{
 				wrongInput();
 			}		
