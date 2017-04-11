@@ -19,8 +19,8 @@ public class User extends Account {
 	/**@author Tim
 	 * @param username: the user's username used to log in. This is also what is used to get the name of the file used to save the user
 	 * */
-	public User(String username) {
-		super(username);
+	public User(String username, String password) {
+		super(username, password);
 		storeFile = username + ".dat";
 		albums = new ArrayList<Album>();
 	}

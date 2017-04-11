@@ -35,6 +35,7 @@ public class LoginController {
 	
 	@FXML Button loginBtn;
 	@FXML TextField loginInput;
+	@FXML TextField passwordInput;
 	@FXML Label loginText;
 	
 	@FXML MenuItem exit;
@@ -55,16 +56,22 @@ public class LoginController {
 		String username = loginInput.getText();
 		
 		if(username.equals(admin.getUsername())){
-			SceneLoader.getInstance().changeScene("Picture-Library-admin.fxml");
+			if(admin.checkPassword(passwordInput.getText()))
+				SceneLoader.getInstance().changeScene("Picture-Library-admin.fxml");
+			else
+				wrongInput();
 		}
 		else if(usernames.contains(username)){
 			currentUser = User.readUser(username);
 			System.out.println("Current User: " + username);
-			SceneLoader.getInstance().changeScene("Albums.fxml");
+			if(currentUser.checkPassword(passwordInput.getText()))
+				SceneLoader.getInstance().changeScene("Albums.fxml");
+			else{
+				wrongInput();
+			}		
 		}
 		else{
-			loginText.setTextFill(Color.web("#ff0000"));
-			loginText.setText("Invalid username.\nPlease try again");
+			wrongInput();
 		}
 	}
 	
@@ -92,5 +99,11 @@ public class LoginController {
 	public static void save() throws IOException{
 		if(currentUser != null)
 			currentUser.writeUser();
+	}
+	
+	private void wrongInput(){
+		currentUser = null;
+		loginText.setTextFill(Color.web("#ff0000"));
+		loginText.setText("Invalid username or password.\nPlease try again");
 	}
 }

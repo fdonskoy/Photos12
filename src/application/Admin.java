@@ -18,8 +18,8 @@ public class Admin extends Account {
 	/**@author Tim
 	 * @param Username of the new account admin
 	 * */
-	public Admin(String username) {
-		super(username);
+	public Admin(String username, String password) {
+		super(username, password);
 	}
 
 	/**@author Tim

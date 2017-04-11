@@ -28,6 +28,7 @@ public class adminController {
 	@FXML Button deleteUserButton;
 
 	@FXML TextField newUserField;
+	@FXML TextField newUserPasswordField;
 	@FXML TextField deleteUserField;
 	
 	@FXML ListView<String> users;
@@ -52,6 +53,7 @@ public class adminController {
 			return;
 		}
 		String s = newUserField.getText();
+		String p = newUserPasswordField.getText();
 		if (s.toLowerCase().equals("admin")) {
 			System.out.println("Can't create a user with name 'admin'");
 			return;
@@ -61,7 +63,7 @@ public class adminController {
 			return;
 		}
 		try {
-			User u = new User(s);
+			User u = new User(s, p);
 			u.writeUser();
 			LoginController.usernames.add(s);
 			initialize();

@@ -24,6 +24,7 @@
       <Pane layoutX="14.0" layoutY="116.0" prefHeight="261.0" prefWidth="330.0">
          <children>
             <TextField fx:id="newUserField" layoutX="146.0" layoutY="25.0" prefHeight="31.0" prefWidth="162.0" promptText="Username" />
+            <TextField fx:id="newUserPasswordField" layoutX="146.0" layoutY="60.0" prefHeight="31.0" prefWidth="162.0" promptText="Password" />
             <Button fx:id="newUserButton" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="97.0" text="New User" onAction="#newUser" />
             <Button fx:id="deleteUserButton" layoutX="14.0" layoutY="145.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="97.0" text="Delete User" onAction="#deleteUser" />
             <TextField fx:id="deleteUserField" layoutX="146.0" layoutY="145.0" prefHeight="31.0" prefWidth="162.0" promptText="Username" />

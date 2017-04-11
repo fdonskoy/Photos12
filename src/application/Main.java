@@ -29,8 +29,9 @@ public class Main extends Application{
 		sl.changeScene("Picture-Library-login.fxml");
 	}
 	
-	public static void main(String[] args) {
-		/*admin = new Admin("admin");
+	public static void main(String[] args) throws IOException {
+		/*admin = new Admin("admin", "admin");
+		Admin.writeAdmin(admin);
 		user = new User("user");
 		user2 = new User("user2");
 		
