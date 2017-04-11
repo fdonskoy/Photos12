@@ -24,7 +24,7 @@ public class adminController {
 	public static User currentUser;
 	public ArrayList<String> usernames;
 	
-	@FXML Button newUserButton;
+	@FXML Button newUserButton; 
 	@FXML Button deleteUserButton;
 
 	@FXML Label error;
