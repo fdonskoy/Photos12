@@ -58,6 +58,7 @@ public class PicturesController {
 	public static int selectedPhotoIndex;
 	public static String remainingAddress;
 	public static Photo deletedPhoto;
+	private static FileChooser chooser = new FileChooser();
 	
 	/**The user currently logged in*/
 	public static User currentUser = LoginController.currentUser;
@@ -374,13 +375,22 @@ public class PicturesController {
 			currentUser.writeUser();
 			return;
 		}
+		//String currentDir = System.getProperty("user.home");
+
+		
 		File file = new File("");
-		FileChooser chooser = new FileChooser();
+		//chooser = new FileChooser();
 		chooser.setTitle("Open File");
 		file = chooser.showOpenDialog(new Stage());
 		
 	    String s = null;
 	    if (file != null) {
+	    	//System.out.println("Every time" + chooser.getInitialDirectory());
+	    	if (chooser.getInitialDirectory() == null) {
+	    		System.out.println("Every time");
+	    		chooser.setInitialDirectory(file.getAbsoluteFile());
+	    	}
+	    	
 	    	s = file.getAbsolutePath();
 	    	s = "file:/" + s.replace("\\", "/");
 	    	

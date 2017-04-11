@@ -101,6 +101,7 @@ public class User extends Account {
             	System.out.println("Failed to delete");
             }
             c++;
+            System.out.println(f.getName().substring(0, f.getName().lastIndexOf(".")).toLowerCase() + " and username " + username);
         }
         
 	}

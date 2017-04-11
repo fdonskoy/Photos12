@@ -98,8 +98,9 @@ public class adminController {
 
 		
 		try {
-			LoginController.usernames.remove(s);
 			User.deleteUser(s);
+			LoginController.usernames.remove(s);
+			
 			deleteUserField.setText(null);
 			initialize();
 		} catch (ClassNotFoundException e1) {
