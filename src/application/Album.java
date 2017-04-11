@@ -51,16 +51,15 @@ public class Album implements Serializable {
 		
 		if (firstDate == null) {
 			firstDate = photo.getLocalDate();
-			lastDate = photo.getLocalDate();
-			System.out.println("Got local date " + photo.getLocalDate());
-			System.out.println(firstDate);
-			System.out.println(lastDate);
 		}
-		else if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) > 0){
-			this.lastDate = photo.getLocalDate();
+		if (lastDate == null) {
+			lastDate = photo.getLocalDate();
+		}
+		if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) > 0){
+			lastDate = photo.getLocalDate();
 		} 
-		else if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) < 0){
-			this.firstDate = photo.getLocalDate();
+		if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) < 0){
+			firstDate = photo.getLocalDate();
 		} 
 		
 		
@@ -80,16 +79,15 @@ public class Album implements Serializable {
 	public void addPhoto(Photo photo){
 		if (firstDate == null) {
 			firstDate = photo.getLocalDate();
-			lastDate = photo.getLocalDate();
-			System.out.println("Got local date " + photo.getLocalDate());
-			System.out.println(firstDate);
-			System.out.println(lastDate);
 		}
-		else if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) > 0){
-			this.lastDate = photo.getLocalDate();
+		if (lastDate == null) {
+			lastDate = photo.getLocalDate();
+		}
+		if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) > 0){
+			lastDate = photo.getLocalDate();
 		} 
-		else if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) < 0){
-			this.firstDate = photo.getLocalDate();
+		if(photo.getLocalDate() != null && photo.getLocalDate().compareTo(firstDate) < 0){
+			firstDate = photo.getLocalDate();
 		} 
 		
 		/*
@@ -110,7 +108,27 @@ public class Album implements Serializable {
 	public Photo removePhoto(Photo photo){
 		photos.remove(photo);
 		numPhotos--;
-		
+		if (this.getNumPhotos() == 0) {
+			firstDate = null;
+			lastDate = null;
+		}
+		else if(firstDate != null && firstDate.equals(photo.getLocalDate())){
+			LocalDate min = lastDate;
+			for(Photo p : photos){
+				if(p.getLocalDate().compareTo(min) <= 0){
+					min = p.getLocalDate();
+				}
+			}
+			firstDate = min;
+		} else if(lastDate != null && lastDate.equals(photo.getLocalDate())){
+			LocalDate max = firstDate;
+			for(Photo p : photos){
+				if(p.getLocalDate().compareTo(max) >= 0){
+					max = p.getLocalDate();
+				}
+			}
+			lastDate = max;
+		}
 		
 		/*if(firstPhotoDate != null && firstPhotoDate.equals(photo.getLastModified())){
 			Calendar min = lastPhotoDate;
@@ -133,7 +151,14 @@ public class Album implements Serializable {
 		return photo;
 	}
 	
-	
+	/*public void testLocalDate(Photo photo){
+		if (photo.getLocalDate().compareTo(firstDate) <= 0) {
+			firstDate = photo.getLocalDate();
+		}
+		else if (photo.getLocalDate().compareTo(lastDate) >= 0) {
+			lastDate = photo.getLocalDate();
+		}
+	}*/
 	public String getFirstPhotoThumbnail(){
 		return (photos.size() > 0) ? photos.get(0).getPhotoAddress() : null;
 	}

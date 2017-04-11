@@ -131,7 +131,6 @@ public class AlbumsController {
 			String fileLocation = imageFile.toURI().toString();
 			img = new Image(fileLocation);
 		}
-		System.out.println("This is date string " + dateString);
 		
 		albumName.setText(album.getName());
 		photo.setImage(img);

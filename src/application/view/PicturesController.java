@@ -182,7 +182,7 @@ public class PicturesController {
 		try {
 			Photo p = null;
 			if (selectedPhotoIndex == -1) {
-				p = album.getPhotos().get(album.getNumPhotos()-1);
+				p = deletedPhoto;
 			}
 			else {
 				p = album.getPhotos().get(selectedPhotoIndex);
@@ -471,6 +471,7 @@ public class PicturesController {
 		}
 		
 		copy.addPhoto(photo);
+		//copy.testLocalDate(photo);
 		
 		currentUser.writeUser();
 		System.out.println("Copied");
@@ -496,6 +497,7 @@ public class PicturesController {
 		}
 		
 		other.removePhoto(p);
+		//other.testLocalDate(p);
 		currentUser.writeUser();
 		
 		if(albumName.equals(album.getName())){
