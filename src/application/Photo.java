@@ -13,7 +13,6 @@ public class Photo implements Serializable{
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	private String description;
-	private Calendar date;
 	private Calendar lastModified;
 	private long lastModifiedLong;
 	
@@ -34,10 +33,6 @@ public class Photo implements Serializable{
 	
 	public String getDescription(){
 		return description;
-	}
-	
-	public Calendar getDate(){
-		return date;
 	}
 	
 	public Calendar getLastModified(){
@@ -80,8 +75,8 @@ public class Photo implements Serializable{
 		this.locations = locations;
 	}
 	
-	public void setDate(Calendar cal){
-		this.date = cal;
+	public void setLastModifiedLong(Calendar lm){
+		this.lastModified = lm;
 	}
 	
 	public void setLastModifiedLong(long mod){

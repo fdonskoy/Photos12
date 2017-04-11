@@ -46,11 +46,11 @@ public class Album implements Serializable {
 	public void addPhoto(String photoAddress){
 		Photo photo = new Photo(photoAddress);
 		
-		if(photo.getDate() != null && photo.getDate().compareTo(firstPhotoDate) < 0){
-			lastPhotoDate = photo.getDate();
+		if(photo.getLastModified() != null && photo.getLastModified().compareTo(firstPhotoDate) < 0){
+			lastPhotoDate = photo.getLastModified();
 		} 
-		else if(photo.getDate() != null && photo.getDate().compareTo(lastPhotoDate) > 0){
-			lastPhotoDate = photo.getDate();
+		else if(photo.getLastModified() != null && photo.getLastModified().compareTo(lastPhotoDate) > 0){
+			lastPhotoDate = photo.getLastModified();
 		}
 		
 		numPhotos++;
@@ -62,15 +62,41 @@ public class Album implements Serializable {
 	public void addPhoto(Photo photo){
 		if (firstPhotoDate == null) {
 		}
-		else if(photo.getDate().compareTo(firstPhotoDate) < 0){
-			lastPhotoDate = photo.getDate();
+		else if(photo.getLastModified().compareTo(firstPhotoDate) < 0){
+			lastPhotoDate = photo.getLastModified();
 		} 
-		else if(photo.getDate().compareTo(lastPhotoDate) > 0){
-			lastPhotoDate = photo.getDate();
+		else if(photo.getLastModified().compareTo(lastPhotoDate) > 0){
+			lastPhotoDate = photo.getLastModified();
 		}
 		
 		numPhotos++;
 		photos.add(photo);
+	}
+	
+	public Photo removePhoto(Photo photo){
+		photos.remove(photo);
+		numPhotos--;
+		
+		
+		if(firstPhotoDate != null && firstPhotoDate.equals(photo.getLastModified())){
+			Calendar min = lastPhotoDate;
+			for(Photo p : photos){
+				if(photo.getLastModified().compareTo(min) <= 0){
+					min = photo.getLastModified();
+				}
+			}
+		}
+		
+		if(lastPhotoDate != null && lastPhotoDate.equals(photo.getLastModified())){
+			Calendar max = firstPhotoDate;
+			for(Photo p : photos){
+				if(photo.getLastModified().compareTo(max) >= 0){
+					max = photo.getLastModified();
+				}
+			}
+		}
+		
+		return photo;
 	}
 	
 	

@@ -74,6 +74,8 @@ public class PicturesController {
 	
 	@FXML DatePicker date;
 	
+	@FXML Button update;
+	
 	public void initialize() throws ClassNotFoundException, IOException {
 		albumTitle.setText(album.getName());
 		date.setDisable(true);
@@ -89,11 +91,13 @@ public class PicturesController {
 			
 			for (Photo p: album.getPhotos()) {
 				System.out.println(p.getPhotoAddress());
-				albumList.getChildren().add(constructAlbumView(p));
+				albumList.getChildren().add(constructPhotoView(p));
 			}
 			
 		}catch (Exception e)
 	    {
+			manage.setDisable(true);
+			update.setDisable(true);
 	        System.out.println("No first photo foundd");
 	    }
 		
@@ -106,11 +110,23 @@ public class PicturesController {
 			e.setOnAction(MouseClick -> {
 				if (e.isSelected()) {
 			    //execute this code if checked
-					copyPhoto(e.getText());System.out.println("Selected");
+					try {
+						copyPhoto(e.getText());
+					} catch (Exception e1) {
+						System.out.println("copy failed");
+						e1.printStackTrace();
+					}
+					System.out.println(e.getText() + " now Selected");
 				}
 				else {
 			    //execute this code if unchecked
-					removePhoto(e.getText());System.out.println("unSelected");
+					try {
+						removePhoto(e.getText());
+					} catch (Exception e1) {
+						System.out.println("remove failed");
+						e1.printStackTrace();
+					}
+					System.out.println(e.getText() + " now unSelected");
 				}
 			});
 			manage.getItems().add(e);	
@@ -140,7 +156,9 @@ public class PicturesController {
 	        System.out.println("Set all to null");
 	    }
 		
-		handleMenuItems(album.getPhotos().get(index));
+		if(album.getPhotos().size() > 0){
+			handleMenuItems(album.getPhotos().get(index));
+		}	
 	}
 	
 	public void update() {
@@ -166,7 +184,7 @@ public class PicturesController {
 		
 	}
 	
-	private Pane constructAlbumView(Photo p) throws IOException{
+	private Pane constructPhotoView(Photo p) throws IOException{
 		
 		FXMLLoader loader = new FXMLLoader(); 
 		loader.setLocation(getClass().getResource("/application/view/PhotoView.fxml"));
@@ -248,15 +266,16 @@ public class PicturesController {
 	private void handleMenuItems(Photo thisPhoto) {
 		//set checkmenuitems to unchecked or checked
 		if (thisPhoto == null) {
-			for (MenuItem e: manage.getItems()) {
-				((CheckMenuItem) e).setSelected(false);
-			}
+			System.out.println("No Photos: disabling manage dropdown");
+			manage.setDisable(true);
+			
 			return;
 		}
+		
 		for (Album a: currentUser.getAlbums()) {
 			boolean found = false;
 			for (Photo photo: a.getPhotos()) {
-				if (photo.getPhotoAddress().equals(thisPhoto.getPhotoAddress())) {
+				if (photo.equals(thisPhoto)) {
 					for (MenuItem e: manage.getItems()) {
 						if (e.getText().equals(a.getName())) {
 							((CheckMenuItem) e).setSelected(true);
@@ -265,14 +284,14 @@ public class PicturesController {
 					}
 				}
 			}
+			
 			if (!found) {
 				for (MenuItem e: manage.getItems()) {
 					if (e.getText().equals(a.getName())) {
 						((CheckMenuItem) e).setSelected(false);
 					}
 				}
-			}
-			
+			}	
 		}
 	}
 
@@ -286,6 +305,7 @@ public class PicturesController {
 		}
 		locations.setText(locationString);
 	}
+	
 	private void setPeople(Photo p) {
 		String string = "";
 		if (p.getPeople() != null) {
@@ -296,6 +316,7 @@ public class PicturesController {
 		}
 		peoples.setText(string);
 	}
+	
 	private void setEvent(Photo p) {
 		String string = "";
 		if (p.getEvents() != null) {
@@ -328,28 +349,23 @@ public class PicturesController {
 	    String s = null;
 	    if (file != null) {
 	    	s = file.getAbsolutePath();
-	    	s = s.replace("\\", "/");
-		    System.out.println("file:/" + s);
-		    
-		    File imageFile = new File(s);
-			String fileLocation = imageFile.toURI().toString();
+	    	s = "file:/" + s.replace("\\", "/");
+			System.out.println("Adding" + s);
+	    	
+			Photo p = new Photo(s);
 			
-			Photo p = new Photo(fileLocation);
-			
-
-			for (Photo photo: album.getPhotos()) {
+			//duplicate photos allowed as different objects for potentially different descriptions
+			/*for (Photo photo: album.getPhotos()) {
 				if (photo.getPhotoAddress().equals(p.getPhotoAddress())) {
 					System.out.println("Can't add duplicate photo");
-					p = null;return;
-				}
-				
-			}
-			
+					p = null;
+					return;
+				}	
+			}*/
 			
 			album.addPhoto(p);
-			//album.addPhoto(s);
-			int size = album.getPhotos().size();
-
+			selectedPhotoIndex = album.getPhotos().size() - 1;
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 			
 		    Calendar cal = Calendar.getInstance();
@@ -357,17 +373,19 @@ public class PicturesController {
 			cal.set(Calendar.YEAR, Integer.parseInt(sdf.format(file.lastModified()).substring(6, 10)));
 			cal.set(Calendar.MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(0, 2)));
 			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(3, 5)));
-			album.getPhotos().get(size-1).setDate(cal);
-			album.getPhotos().get(size-1).setLastModifiedLong(file.lastModified());;
+			album.getPhotos().get(selectedPhotoIndex).setLastModifiedLong(cal);
+			album.getPhotos().get(selectedPhotoIndex).setLastModifiedLong(file.lastModified());;
 			
-			albumList.getChildren().add(constructAlbumView(album.getPhotos().get(size-1)));
-		    set(size-1);
+			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
+		    set(selectedPhotoIndex);
 		    
 		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
 		    date.setValue(localDate);
 		    currentUser.writeUser();
 		    
+		    manage.setDisable(false);
+		    update.setDisable(false);
 			System.out.println("added");
 	    }
 	    
@@ -381,71 +399,52 @@ public class PicturesController {
 	    date.setValue(localDate);
 	}
 	
-	private void copyPhoto(String albumName) {
-		try {
-			Photo photo = album.getPhotos().get(selectedPhotoIndex);
-			Album copy = null;
-			for (Album a: currentUser.getAlbums()) {
-				if (a.getName().equals(albumName)) {
-					System.out.println("This is album name " + a.getName());
-					copy = a;
-					break;
-				}
-				
+	private void copyPhoto(String albumName) throws IOException {
+		Photo photo = album.getPhotos().get(selectedPhotoIndex);
+		Album copy = null;
+		for (Album a: currentUser.getAlbums()) {
+			if (a.getName().equals(albumName)) {
+				System.out.println("Copying to album " + a.getName());
+				copy = a;
+				break;
 			}
-			copy.addPhoto(photo);
-			//System.out.println("Copied");
 			
-			//File imageFile = new File(photo.getPhotoAddress());
-			//String fileLocation = imageFile.toURI().toString();
-			//copy.addPhoto(fileLocation);
-			int size = copy.getPhotos().size();
-			Photo p = copy.getPhotos().get(size-1);
-			
-			p.setDate(photo.getDate());
-			p.setDescription(photo.getDescription());
-			p.setEvents(photo.getEvents());
-			p.setLocations(photo.getLocations());
-			p.setPeople(photo.getPeople());
-			
-			currentUser.writeUser();
-			System.out.println("Copied");
-			System.out.println(copy.getPhotos().get(0).getDescription());
-			System.out.println("Current photo " + copy.getPhotos().get(selectedPhotoIndex).getDescription());
 		}
-		catch (Exception e)
-	    {
-			//e.printStackTrace();
-	        System.out.println("No copy");
-	    }	
+		
+		copy.addPhoto(photo);
+		
+		currentUser.writeUser();
+		System.out.println("Copied");
+		System.out.println(copy.getPhotos().get(0).getDescription());
+		System.out.println("Current photo " + copy.getPhotos().get(copy.getPhotos().size() - 1).getDescription());	
 	}
 	
-	private void removePhoto(String albumName) {
-		try {
-			Photo p = album.getPhotos().get(selectedPhotoIndex);
-			Album other = null;
-			for (Album a: currentUser.getAlbums()) {
-				if (a.getName().equals(albumName)) {
-					System.out.println("This is album name " + a.getName());
-					other = a;
-					break;
-				}
+	private void removePhoto(String albumName) throws IOException {
+		Photo p = album.getPhotos().get(selectedPhotoIndex);
+		Album other = null;
+		for (Album a: currentUser.getAlbums()) {
+			if (a.getName().equals(albumName)) {
+				System.out.println("This is album name " + a.getName());
+				other = a;
+				break;
 			}
-			
-			other.getPhotos().remove(p);
-			int num = other.getNumPhotos();
-			other.setNumPhotos(num-1);
-			currentUser.writeUser();
-			
-			albumList.getChildren().remove(selectedPhotoIndex);
-
-			System.out.println("Removed from " + other.getName());
-			set(0);
 		}
-		catch (Exception e)
-	    {
-	        System.out.println("No remove");
-	    }		
+		
+		other.removePhoto(p);
+		currentUser.writeUser();
+		
+		if(albumName.equals(album.getName())){
+			albumList.getChildren().remove(selectedPhotoIndex);
+		}
+		
+		if(album.getPhotos().size() <= 0){
+			update.setDisable(true);
+			manage.setDisable(true);
+		}
+		
+		System.out.println("Removed from " + other.getName());
+		
+		set(0);
 	}
 	
 	
