@@ -388,9 +388,23 @@ public class PicturesController {
 	    	s = "file:/" + s.replace("\\", "/");
 	    	
 			System.out.println("Adding " + s);
-			//check for duplicate photo
+			
+			int c = 0;
+			for (Photo photo: album.getPhotos()) {
+				if (photo.getPhotoAddress().replace("\\", "/").equals(s)) {
+					System.out.println("Selected existing photo in album");
+					selectedPhotoIndex = c;
+    			    set(selectedPhotoIndex);
+					return;
+				}	
+				c++;
+			}
+			//check for duplicate photo in other albums
 			for (Album a: currentUser.getAlbums()) {
-				for (Photo curPhoto: album.getPhotos()) {
+				if (a.equals(album.getName())) {
+					continue;
+				}
+				for (Photo curPhoto: a.getPhotos()) {
 	    			if (curPhoto.getPhotoAddress().replace("\\", "/").equals(s)) {
 	    				album.addPhoto(curPhoto);
 	    				System.out.println("Added already existing photo");
@@ -401,6 +415,7 @@ public class PicturesController {
 	    			}
 				}
 			}
+			
 			
 			Photo p = new Photo(s);
 			
