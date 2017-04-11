@@ -72,6 +72,7 @@ public class searchController {
 	
 	
 	@FXML Label albumTitle;
+	@FXML Label loginText;
 	
 	@FXML TextArea caption;
 	@FXML ImageView preview;
@@ -128,11 +129,17 @@ public class searchController {
 		boolean dateFound = false;
 		
 		if ( (startDate.getValue() != null && endDate.getValue() == null) || (startDate.getValue() == null && endDate.getValue() != null)) {
-			
+			loginText.setTextFill(Color.web("#ff0000"));
+			loginText.setText("Please enter both start and end dates\n or none for both");
+			return;
+			//put a error statement on label and say to input values or no values
 		}
+		loginText.setTextFill(Color.web("#111010"));
+		loginText.setText("Tags are separated by keywords\nCaptions keywords are searched within an entire caption");
 		
 		for (Album a: currentUser.getAlbums()) {
 			for (Photo p: a.getPhotos()) {
+				if (p == null) {continue;}
 				if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
 					albumFound = true;
 				}
@@ -149,9 +156,9 @@ public class searchController {
 				if (eventsTag == null || !Collections.disjoint(replace(eventsTag), replace(p.getEvents()))) {
 					eventsFound = true;
 				}
-				//if (startDate == null || (date.getValue().compareTo(startDate.getValue()) > 0 && (date.getValue().compareTo(endDate.getValue()) < 0))) {
+				if (startDate.getValue() == null || (convertDate(p).compareTo(startDate.getValue()) >= 0 && (convertDate(p).compareTo(endDate.getValue()) <= 0))) {
 					dateFound = true;
-				//}
+				}
 				
 				if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && !photosList.contains(p)) {
 					photosList.add(p);
@@ -164,6 +171,8 @@ public class searchController {
 				peoplesFound = false;
 				eventsFound = false;
 				dateFound = false;
+			
+				
 			}
 		}
 		
@@ -391,6 +400,14 @@ public class searchController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
 	    date.setValue(localDate);
+	}
+	private LocalDate convertDate(Photo p) {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
+
+	    return localDate;
 	}
 
 	/**@author Tim

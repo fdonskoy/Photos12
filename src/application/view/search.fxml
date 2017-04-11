@@ -114,6 +114,7 @@
                </font>
             </Label>
             <Button layoutX="131.0" layoutY="281.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Cancel" onAction="#back" />
+         	<Label fx:id="loginText" layoutY="300.0" prefHeight="50.0" prefWidth="300.0" text="Tags are separated by keywords. Captions keywords are searched within an entire caption" textFill="#111010" />
          </children>
       </Pane>
       <Button layoutX="477.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="New Album" onAction="#createAlbum"/>
