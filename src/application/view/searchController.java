@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.print.DocFlavor.URL;
 
@@ -58,12 +59,14 @@ public class searchController {
 	
 	private ArrayList<Photo> photosList = new ArrayList<Photo>();
 	private List<String> albums = null;
-	private String captionsTag = null;
+	private List<String> captionsTag = null;
 	private List<String> locationsTag = null;
 	private List<String> peoplesTag = null;
 	private List<String> eventsTag = null;
 	private LocalDate start = null;
 	private LocalDate end = null;
+	
+	private List<String> photoDescription = null;
 	
 	@FXML Button createAlbum;
 	
@@ -91,28 +94,6 @@ public class searchController {
 	
 	public void initialize() throws ClassNotFoundException, IOException {
 		date.setDisable(true);
-		//Image img = new Image(currentUser.getAlbums().get(0).getPhotos().get(0).getPhotoAddress());
-		//preview.setImage(img);
-		/*
-		try {
-			Photo first = album.getPhotos().get(0);
-			Image img = new Image(first.getPhotoAddress());
-			setLocations(first);
-			setPeople(first);
-			setEvent(first);
-			caption.setText(first.getDescription());
-			preview.setImage(img);
-			
-			for (Photo p: album.getPhotos()) {
-				System.out.println(p.getPhotoAddress());
-				albumList.getChildren().add(constructAlbumView(p));
-			}
-			
-		}catch (Exception e)
-	    {
-	        System.out.println("No first photo foundd");
-	    }
-		*/
 	}
 	
 	public void searchCall(){
@@ -124,7 +105,7 @@ public class searchController {
 			albums = Arrays.asList(ALBUMStag.getText().split("\\s*,\\s*"));
 		}
 		if (!CAPTIONStag.getText().trim().equals("")) {
-			captionsTag = CAPTIONStag.getText();
+			captionsTag = Arrays.asList(CAPTIONStag.getText().split("\\s*,\\s*"));
 		}
 		if (!LOCATIONStag.getText().trim().equals("")) {
 			locationsTag = Arrays.asList(LOCATIONStag.getText().split("\\s*,\\s*"));
@@ -146,24 +127,31 @@ public class searchController {
 		boolean eventsFound = false;
 		boolean dateFound = false;
 		
+		if ( (startDate.getValue() != null && endDate.getValue() == null) || (startDate.getValue() == null && endDate.getValue() != null)) {
+			
+		}
+		
 		for (Album a: currentUser.getAlbums()) {
 			for (Photo p: a.getPhotos()) {
 				if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
 					albumFound = true;
 				}
-				if (captionsTag == null || captionsTag.equals(p.getDescription())) {
+				System.out.println(captionsTag);
+				if (captionsTag == null ||  stringContainsItemFromList(p.getDescription(), captionsTag)) {
 					captionsFound = true;
 				}
-				if (locationsTag == null || !Collections.disjoint(locationsTag, p.getLocations())) {
+				if (locationsTag == null || !Collections.disjoint(replace(locationsTag), replace(p.getLocations()))) {
 					locationsFound = true;
 				}
-				if (peoplesTag == null || !Collections.disjoint(peoplesTag, p.getPeople())) {
+				if (peoplesTag == null || !Collections.disjoint(replace(peoplesTag), replace(p.getPeople()))) {
 					peoplesFound = true;
 				}
-				if (eventsTag == null || !Collections.disjoint(eventsTag, p.getEvents())) {
+				if (eventsTag == null || !Collections.disjoint(replace(eventsTag), replace(p.getEvents()))) {
 					eventsFound = true;
 				}
-				dateFound = true;
+				//if (startDate == null || (date.getValue().compareTo(startDate.getValue()) > 0 && (date.getValue().compareTo(endDate.getValue()) < 0))) {
+					dateFound = true;
+				//}
 				
 				if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && !photosList.contains(p)) {
 					photosList.add(p);
@@ -203,8 +191,29 @@ public class searchController {
 		locationsTag = null;
 		peoplesTag = null;
 		eventsTag = null;
+		start = null;
+		end = null;
 		
-		
+	}
+	public static boolean stringContainsItemFromList(String inputStr, List<String> captionsTag2) {
+	    inputStr = inputStr.toLowerCase();
+		for (String s: captionsTag2) {
+	        if(inputStr.contains(s.toLowerCase().trim()))
+	        {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	public static List<String> replace(List<String> strings)
+	{
+		List<String> lower = new ArrayList<String>();
+	    ListIterator<String> iterator = strings.listIterator();
+	    while (iterator.hasNext())
+	    {
+	        lower.add(iterator.next().toLowerCase().trim());
+	    }
+	    return lower;
 	}
 	
 	public void set(int index) {
@@ -383,48 +392,7 @@ public class searchController {
 	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
 	    date.setValue(localDate);
 	}
-	
-	/*private void copyPhoto(String albumName) {
-		try {
-			Photo photo = album.getPhotos().get(selectedPhotoIndex);
-			Album copy = null;
-			for (Album a: currentUser.getAlbums()) {
-				if (a.getName().equals(albumName)) {
-					System.out.println("This is album name " + a.getName());
-					copy = a;
-					break;
-				}
-				
-			}
-			copy.addPhoto(photo);
-			//System.out.println("Copied");
-			
-			//File imageFile = new File(photo.getPhotoAddress());
-			//String fileLocation = imageFile.toURI().toString();
-			//copy.addPhoto(fileLocation);
-			int size = copy.getPhotos().size();
-			Photo p = copy.getPhotos().get(size-1);
-			
-			p.setDate(photo.getDate());
-			p.setDescription(photo.getDescription());
-			p.setEvents(photo.getEvents());
-			p.setLocations(photo.getLocations());
-			p.setPeople(photo.getPeople());
-			
-			currentUser.writeUser();
-			System.out.println("Copied");
-			System.out.println(copy.getPhotos().get(0).getDescription());
-			System.out.println("Current photo " + copy.getPhotos().get(selectedPhotoIndex).getDescription());
-		}
-		catch (Exception e)
-	    {
-			//e.printStackTrace();
-	        System.out.println("No copy");
-	    }	
-	}*/
 
-	
-	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and exits
 	 * */
