@@ -146,47 +146,46 @@ public class searchController {
 		boolean eventsFound = false;
 		boolean dateFound = false;
 		
-		Photo p = currentUser.getAlbums().get(0).getPhotos().get(0);
-		
-		if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
-			albumFound = true;
+		//Photo p = currentUser.getAlbums().get(0).getPhotos().get(0);
+		for (Album a: currentUser.getAlbums()) {
+			for (Photo p: a.getPhotos()) {
+				if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
+					albumFound = true;
+				}
+				if (captionsTag == null || captionsTag.equals(p.getDescription())) {
+					captionsFound = true;
+				}
+				if (locationsTag == null || !Collections.disjoint(locationsTag, p.getLocations())) {
+					locationsFound = true;
+				}
+				if (peoplesTag == null || !Collections.disjoint(peoplesTag, p.getPeople())) {
+					peoplesFound = true;
+				}
+				if (eventsTag == null || !Collections.disjoint(eventsTag, p.getEvents())) {
+					eventsFound = true;
+				}
+				dateFound = true;
+				
+				if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && !photosList.contains(p)) {
+					photosList.add(p);
+					System.out.println("All true");
+					
+				}
+				albumFound = false;
+				captionsFound = false;
+				locationsFound = false;
+				peoplesFound = false;
+				eventsFound = false;
+				dateFound = false;
+			}
 		}
-		if (captionsTag == null || captionsTag.equals(p.getDescription())) {
-			captionsFound = true;
-		}
-		if (locationsTag == null || !Collections.disjoint(locationsTag, p.getLocations())) {
-			locationsFound = true;
-		}
-		if (peoplesTag == null || !Collections.disjoint(peoplesTag, p.getPeople())) {
-			peoplesFound = true;
-		}
-		if (eventsTag == null || !Collections.disjoint(eventsTag, p.getEvents())) {
-			eventsFound = true;
-		}
-		dateFound = true;
-		
-		if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && !photosList.contains(p)) {
-			photosList.add(p);
-			System.out.println("All true");
-			
-		}
-		System.out.println(p.getLocations());
-		System.out.println(locationsTag);
-		System.out.println(albumFound);
-		System.out.println(captionsFound);
-		System.out.println(locationsFound);
-		System.out.println(peoplesFound);
-		System.out.println(eventsFound);
-		System.out.println(dateFound);
-		System.out.println(!photosList.contains(p));
 		
 		if (photosList.isEmpty()) {
 			albumList.getChildren().clear();
-			set(0);
 		}
 		else {
 			for (Photo photo: photosList) {
-				System.out.println(p.getPhotoAddress());
+				System.out.println(photo.getPhotoAddress());
 				try {
 					albumList.getChildren().add(constructAlbumView(photo));
 					System.out.println("Displayed");
@@ -197,6 +196,7 @@ public class searchController {
 				}
 			}
 		}
+		set(0);
 		
 		
 		albums = null;
