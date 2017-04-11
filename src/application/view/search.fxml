@@ -75,7 +75,8 @@
                </items>
             </SplitPane>
             <DatePicker fx:id="date" layoutY="299.0" prefHeight="25.0" prefWidth="162.0" promptText="date" />
-            <Button fx:id="update" layoutX="163.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update" />
+            <Button fx:id="update" layoutX="163.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update"
+            onAction="#update" />
          </children>
       </Pane>
       <Pane layoutX="5.0" layoutY="46.0" prefHeight="348.0" prefWidth="200.0">

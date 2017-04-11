@@ -117,6 +117,8 @@ public class searchController {
 	
 	public void searchCall(){
 		photosList.clear();
+		set(0);
+		albumList.getChildren().clear();
 		
 		if (!ALBUMStag.getText().trim().equals("")) {
 			albums = Arrays.asList(ALBUMStag.getText().split("\\s*,\\s*"));
@@ -368,7 +370,7 @@ public class searchController {
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
-	public void add() throws IOException {
+	/*public void add() throws IOException {
 		FileChooser chooser = new FileChooser();
 	    chooser.setTitle("Open File");
 	    File file = new File("");
@@ -420,7 +422,7 @@ public class searchController {
 			System.out.println("added");
 	    }
 	    
-	}
+	}*/
 	
 	private void setDate(Photo p) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -430,7 +432,7 @@ public class searchController {
 	    date.setValue(localDate);
 	}
 	
-	private void copyPhoto(String albumName) {
+	/*private void copyPhoto(String albumName) {
 		try {
 			Photo photo = album.getPhotos().get(selectedPhotoIndex);
 			Album copy = null;
@@ -467,7 +469,7 @@ public class searchController {
 			//e.printStackTrace();
 	        System.out.println("No copy");
 	    }	
-	}
+	}*/
 
 	
 	
