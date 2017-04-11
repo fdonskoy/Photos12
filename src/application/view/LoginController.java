@@ -105,13 +105,15 @@ public class LoginController {
 					File[] filesList = new File("src/utility").listFiles();
 			        currentUser.addAlbum("Colors");
 			        for(File f : filesList){
-			        	Photo p = new Photo("file:/" + f.getAbsolutePath());
-			        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-					    LocalDate localDate = LocalDate.parse(sdf.format(f.lastModified()).substring(0, 10), formatter);
-					    System.out.println("Stock localdate " + localDate);
-					    p.setLocalDate(localDate);
-					    currentUser.getAlbums().get(0).addPhoto(p);
+			        	if (!f.getPath().substring(12, f.getPath().lastIndexOf(".")).equals("placeholder")){
+			        		Photo p = new Photo("file:/" + f.getAbsolutePath());
+				        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+						    LocalDate localDate = LocalDate.parse(sdf.format(f.lastModified()).substring(0, 10), formatter);
+						    System.out.println("Stock localdate " + localDate);
+						    p.setLocalDate(localDate);
+						    currentUser.getAlbums().get(0).addPhoto(p);
+			        	}
 			        }
 			        stockFlag = false;
 				}
