@@ -366,7 +366,7 @@ public class PicturesController {
 	}
 	
 	public void add() throws IOException {
-		if (selectedPhotoIndex == -1) {
+		if (selectedPhotoIndex == -1 && !add.isArmed()) {
 			album.addPhoto(deletedPhoto);
 			selectedPhotoIndex = album.getPhotos().size() - 1;
 			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
@@ -381,13 +381,8 @@ public class PicturesController {
 		
 	    String s = null;
 	    if (file != null) {
-	    	if (selectedPhotoIndex == -1) {
-	    		s = remainingAddress;
-	    	}
-	    	else {
-	    		s = file.getAbsolutePath();
-	    		s = "file:/" + s.replace("\\", "/");
-	    	}
+	    	s = file.getAbsolutePath();
+	    	s = "file:/" + s.replace("\\", "/");
 	    	
 			System.out.println("Adding " + s);
 	    	
@@ -437,7 +432,7 @@ public class PicturesController {
 			System.out.println("added");
 			
 	    }
-	    
+
 	}
 	
 	private void setDate(Photo p) {
