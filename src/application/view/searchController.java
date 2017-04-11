@@ -146,7 +146,6 @@ public class searchController {
 		boolean eventsFound = false;
 		boolean dateFound = false;
 		
-		//Photo p = currentUser.getAlbums().get(0).getPhotos().get(0);
 		for (Album a: currentUser.getAlbums()) {
 			for (Photo p: a.getPhotos()) {
 				if (albums == null || albums.contains(p.getDescription())) { //fix this, how to get album name from p
@@ -370,59 +369,12 @@ public class searchController {
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
-	/*public void add() throws IOException {
-		FileChooser chooser = new FileChooser();
-	    chooser.setTitle("Open File");
-	    File file = new File("");
-	    file = chooser.showOpenDialog(new Stage());
-		
-	    String s = null;
-	    if (file != null) {
-	    	s = file.getAbsolutePath();
-	    	s = s.replace("\\", "/");
-		    System.out.println("file:/" + s);
-		    
-		    File imageFile = new File(s);
-			String fileLocation = imageFile.toURI().toString();
-			
-			Photo p = new Photo(fileLocation);
-			
-
-			for (Photo photo: album.getPhotos()) {
-				if (photo.getPhotoAddress().equals(p.getPhotoAddress())) {
-					System.out.println("Can't add duplicate photo");
-					p = null;return;
-				}
-				
-			}
-			
-			
-			album.addPhoto(p);
-			//album.addPhoto(s);
-			int size = album.getPhotos().size();
-
-			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-			
-		    Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.MILLISECOND,0);
-			cal.set(Calendar.YEAR, Integer.parseInt(sdf.format(file.lastModified()).substring(6, 10)));
-			cal.set(Calendar.MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(0, 2)));
-			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sdf.format(file.lastModified()).substring(3, 5)));
-			album.getPhotos().get(size-1).setDate(cal);
-			album.getPhotos().get(size-1).setLastModifiedLong(file.lastModified());;
-			
-			albumList.getChildren().add(constructAlbumView(album.getPhotos().get(size-1)));
-		    set(size-1);
-		    
-		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-		    LocalDate localDate = LocalDate.parse(sdf.format(file.lastModified()).substring(0, 10), formatter);
-		    date.setValue(localDate);
-		    currentUser.writeUser();
-		    
-			System.out.println("added");
-	    }
-	    
-	}*/
+	public void createAlbum() throws IOException {
+		currentUser.writeUser();
+		newAlbumController.photos = photosList;
+		System.out.println("added");
+		SceneLoader.getInstance().changeScene("NewAlbum.fxml");  
+	}
 	
 	private void setDate(Photo p) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");

@@ -116,7 +116,6 @@
             <Button layoutX="131.0" layoutY="281.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Cancel" onAction="#back" />
          </children>
       </Pane>
-      <TextField layoutX="477.0" layoutY="69.0" prefHeight="25.0" prefWidth="109.0" promptText="Album Name" />
-      <Button layoutX="477.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="New Album" />
+      <Button layoutX="477.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="New Album" onAction="#createAlbum"/>
    </children>
 </Pane>
