@@ -381,6 +381,7 @@ public class PicturesController {
 		File file = new File("");
 		//chooser = new FileChooser();
 		chooser.setTitle("Open File");
+		System.out.println("Every time initial " + chooser.getInitialDirectory());
 		file = chooser.showOpenDialog(new Stage());
 		
 	    String s = null;
