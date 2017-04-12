@@ -169,7 +169,7 @@ public class searchController {
 					photosList.add(p);
 					System.out.println("All true");
 					
-				}
+				} 
 				albumFound = false;
 				captionsFound = false;
 				locationsFound = false;
