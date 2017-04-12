@@ -55,7 +55,7 @@ public class searchController {
 	public static int selectedPhotoIndex;
 	
 	/**The user currently logged in*/
-	public static User currentUser = LoginController.currentUser;
+	public static User currentUser;
 
 	/**The current selected album's Pane, used for rename only, as the class used there is different from this one*/
 	public static Pane currentPane;
@@ -103,6 +103,7 @@ public class searchController {
 	/**@author Fil 
 	 * handles conditions for searching for all criteria*/
 	public void searchCall(){
+		currentUser = LoginController.currentUser;
 		photosList.clear();
 		set(0);
 		albumList.getChildren().clear();
@@ -150,6 +151,7 @@ public class searchController {
 		description1.setText("Tags are separated by commas");
 		description2.setText("Captions search does text matching, not tags");
 		
+		System.out.println("Searching through " + currentUser.getUsername() + "'s albums");
 		for (Album a: currentUser.getAlbums()) {
 			for (Photo p: a.getPhotos()) {
 				if (p == null) {continue;}
@@ -223,7 +225,7 @@ public class searchController {
 	}
 	/**@author Fil 
 	 * @return boolean that represents if keywords for caption are contained within a photo's description*/
-	public static boolean albumContainedInKeyWords(String inputStr, List<String> keyWords) {
+	private static boolean albumContainedInKeyWords(String inputStr, List<String> keyWords) {
 		for (String s: keyWords) {
 	        if(inputStr.equals(s.trim()))
 	        {
@@ -234,7 +236,7 @@ public class searchController {
 	}
 	/**@author Fil 
 	 * @return boolean if a string contains tags from a list*/
-	public static boolean stringContainsItemFromList(String inputStr, List<String> captionsTag2) {
+	private static boolean stringContainsItemFromList(String inputStr, List<String> captionsTag2) {
 	    if (inputStr == null) {
 	    	return false;
 	    }
@@ -249,7 +251,7 @@ public class searchController {
 	}
 	/**@author Fil 
 	 * @return a list that lowercases and trims a list of strings*/
-	public static List<String> replace(List<String> strings)
+	private static List<String> replace(List<String> strings)
 	{
 		if (strings == null) {
 			return null;
@@ -265,7 +267,7 @@ public class searchController {
 	
 	/**@author Fil 
 	 * sets information for the new selected photo*/
-	public void set(int index) {
+	private void set(int index) {
 		try {
 			Photo first = photosList.get(index);
 			Image img = new Image(first.getPhotoAddress());
@@ -296,6 +298,7 @@ public class searchController {
 	/**@author Fil 
 	 * updates the photo information based on user input once update button clicked*/
 	public void update() {
+		currentUser = LoginController.currentUser;
 		try {
 			Photo p = photosList.get(selectedPhotoIndex);
 			List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
@@ -435,6 +438,7 @@ public class searchController {
 	 * goes back to the list oh photos
 	 * @throws IOException if user fails to write correctly*/
 	public void back() throws IOException{
+			currentUser = LoginController.currentUser;
 			LoginController.currentUser.writeUser();
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
@@ -443,6 +447,7 @@ public class searchController {
 	 * creates a new album of search result photos
 	 * @throws IOException if user fails to write correctly*/
 	public void createAlbum() throws IOException {
+		currentUser = LoginController.currentUser;
 		currentUser.writeUser();
 		newAlbumController.photos = photosList;
 		System.out.println("added");

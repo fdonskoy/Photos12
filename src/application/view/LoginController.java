@@ -123,7 +123,7 @@ public class LoginController {
 		}
 		else if(usernames.contains(username)){
 			currentUser = User.readUser(username);
-			System.out.println("Current User: " + username);
+			System.out.println("Current User: " + currentUser.getUsername());
 			if(currentUser.checkPassword(passwordInput.getText())) {
 				SceneLoader.getInstance().changeScene("Albums.fxml");
 			}	
