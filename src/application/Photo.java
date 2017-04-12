@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Photo implements Serializable{
 	private static final long serialVersionUID = -3739580358789280590L;
-	public static final String storeDir = "src/application/savedObjects";
 
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
@@ -24,99 +23,130 @@ public class Photo implements Serializable{
 	private List<String> locations;
 	private List<String> other;
 	
-	/**directory to save photos to*/
-	public static final String photoDir = "Photos"; 
-	/**file  to save this photo to*/
-	public String storeFile;
-	
+	/**@author Tim
+	 * @param photoAddress
+	 * */
 	public Photo(String photoAddress){
 		this.photoAddress = photoAddress;
-		this.storeFile = photoAddress.substring(photoAddress.lastIndexOf("/") + 1, photoAddress.lastIndexOf("."));
 	}
 	
+	/**@author Tim
+	 * @return the caption of the photo
+	 * */
 	public String getDescription(){
 		return description;
 	}
 	
+	/**@author Tim
+	 * @return date of lastModification
+	 * */
 	public Calendar getLastModified(){
 		return lastModified;
 	}
 	
+	/**@author Tim
+	 * @return the address of the photo
+	 * */
 	public String getPhotoAddress(){
 		return photoAddress;
 	}
 	
+	/**@author Tim
+	 * @return list of people in the photo
+	 * */
 	public List<String> getPeople(){
 		return people;
 	}
 	
+	/**@author Tim
+	 * @return list of events the photo is associated with
+	 * */
 	public List<String> getEvents(){
 		return events;
 	}
 	
+	/**@author Tim
+	 * @return list of locations associated with the photo
+	 * */
 	public List<String> getLocations(){
 		return locations;
 	}
 	
+	/**@author Fil
+	 * @return other tags the user deems relevant
+	 * */
 	public List<String> getOther(){
 		return other;
 	}
 	
+	/**@author Fil
+	 * @return the date of last modification as a long
+	 * */
 	public long getLastModifiedLong(){
 		return lastModifiedLong;
 	}
 	
+	/**@author Fil
+	 * @return local date of photo file
+	 * */
 	public LocalDate getLocalDate(){
 		return date;
 	}
 	
+	/**@author Fil
+	 * @param dateIn the new date to be stored in dateIn
+	 * */
 	public void setLocalDate(LocalDate dateIn){
 		this.date = dateIn;
 	}
 	
+	/**@author Tim
+	 * @param description the new caption
+	 * */
 	public void setDescription(String description){
 		this.description = description;
 	}
 	
+	/**@author Tim
+	 * @param people the new list of people associated with the photo
+	 * */
 	public void setPeople(List<String> people){
 		this.people = people;
 	}
 	
+	/**@author Tim
+	 * @param events the new list of events associated with the photo
+	 * */
 	public void setEvents(List<String> events){
 		this.events = events;
 	}
 	
+	/**@author Tim
+	 * @param locations the new list of locations associated with the photo
+	 * */
 	public void setLocations(List<String> locations){
 		this.locations = locations;
 	}
 	
+	/**@author Fil
+	 * @param other the new list of other tags associated with the photo
+	 * */
 	public void setOther(List<String> other){
 		this.other = other;
 	}
 	
+	/**@author Fil
+	 * @param lm the new last modified as a long
+	 * */
 	public void setLastModifiedLong(Calendar lm){
 		this.lastModified = lm;
 	}
 	
+	/**@author Fil
+	 * @param lm the new last modified as a long
+	 * */
 	public void setLastModifiedLong(long mod){
 		this.lastModifiedLong = mod;
 	}
-	
-	/**@author Tim
-	 * Saves this photo to file
-	 * */
-	public void writePhoto() throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(
-									new FileOutputStream(storeDir + File.separator + storeFile));
-		oos.writeObject(this);
-	} 
-	
-	/**@author Tim
-	 * Reads in Photo from file
-	 * */
-	public static Photo readPhoto(String fileName) throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + fileName));
-		Photo photo = (Photo)ois.readObject();
-		return photo;
-	} 
+
 }

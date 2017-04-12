@@ -54,17 +54,19 @@ import application.Photo;
 import application.User;
 
 public class PicturesController {
+	/**the album currently being displayed*/
 	public static Album album;
+	/**the index the the photo currently selected*/
 	public static int selectedPhotoIndex;
-	public static String remainingAddress;
-	public static Photo deletedPhoto;
+	private static String remainingAddress;
+	private static Photo deletedPhoto;
 	
 	/**The user currently logged in*/
-	public static User currentUser = LoginController.currentUser;
+	private static User currentUser = LoginController.currentUser;
 	/**The current selected album*/
 
 	/**The current selected album's Pane, used for rename only, as the class used there is different from this one*/
-	public static Pane currentPane;
+	private static Pane currentPane;
 	
 	@FXML Button add;
 	
@@ -87,7 +89,9 @@ public class PicturesController {
 	
 	@FXML Button update;
 	
-	public void initialize() throws ClassNotFoundException, IOException {
+	/**@author Fil 
+	 * @throws if user fails to write correctly*/
+	public void initialize() throws IOException {
 		albumTitle.setText(album.getName());
 		
 		try {
@@ -152,7 +156,9 @@ public class PicturesController {
 		
 	}
 	
-	public void set(int index) {
+	/**@author Fil 
+	 * sets information for the new selected photo*/
+	private void set(int index) {
 		try {
 			Photo first = album.getPhotos().get(index);
 			Image img = new Image(first.getPhotoAddress());
@@ -183,6 +189,8 @@ public class PicturesController {
 		}	
 	}
 	
+	/**@author Fil 
+	 * updates the photo information based on user input once update button clicked*/
 	public void update() {
 		try {
 			Photo p = null;
@@ -214,6 +222,9 @@ public class PicturesController {
 		
 	}
 	
+	/**@author Fil 
+	 * @param p is the photo to display
+	 * @return a pane that represents the photo*/
 	private Pane constructPhotoView(Photo p) throws IOException{
 		
 		FXMLLoader loader = new FXMLLoader(); 
@@ -294,6 +305,8 @@ public class PicturesController {
 		return albumView;
 	}
 	
+	/**@author Fil 
+	 * @param thisPhoto the photo for which the dropdown is being ajusted*/
 	private void handleMenuItems(Photo thisPhoto) {
 		//set checkmenuitems to unchecked or checked
 		if (thisPhoto == null) {
@@ -370,6 +383,9 @@ public class PicturesController {
 		other.setText(string);
 	}
 	
+	/**@author Tim 
+	 * starts the slideshow from current photo
+	 * @throws IOException if user fails to write correctly*/
 	public void startSlideShow() throws IOException{
 		if(album.getPhotos().size() > 0){
 			LoginController.currentUser.writeUser();
@@ -377,12 +393,18 @@ public class PicturesController {
 		}
 	}
 	
+	/**@author Fil 
+	 * goes back to the list oh photos
+	 * @throws IOException if user fails to write correctly*/
 	public void back() throws IOException{
 			selectedPhotoIndex = 0;
 			LoginController.currentUser.writeUser();
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
+	/**@author Fil 
+	 * adds from external file if photo not currently in any album. If photo is currently in another album, then it is copied. If it is currently in this album, it is selected
+	 * @throws IOException if user fails to write correctly*/
 	public void add() throws IOException {
 		if (selectedPhotoIndex == -1 && !add.isArmed()) {
 			album.addPhoto(deletedPhoto);

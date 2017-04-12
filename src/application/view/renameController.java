@@ -33,7 +33,7 @@ public class renameController {
 			albumName.setText(name);
 			albumNameEditable.setVisible(false);
 			albumName.setVisible(true);
-			AlbumsController.currentUser.writeUser();
+			LoginController.currentUser.writeUser();
 		}
 	}
 }

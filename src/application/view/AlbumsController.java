@@ -35,7 +35,7 @@ import javafx.scene.paint.Color;
 
 public class AlbumsController {
 	/**The user currently logged in*/
-	public static User currentUser;
+	private static User currentUser;
 	/**The current selected album*/
 	public static Album currentAlbum;
 	/**The current selected album's Pane, used for rename only, as the class used there is different from this one*/
