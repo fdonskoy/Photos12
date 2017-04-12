@@ -152,13 +152,13 @@ public class searchController {
 				if (captionsTag == null ||  stringContainsItemFromList(p.getDescription(), captionsTag)) {
 					captionsFound = true;
 				}
-				if (locationsTag == null || !Collections.disjoint(replace(locationsTag), replace(p.getLocations()))) {
+				if (locationsTag == null || (p.getLocations() != null && !Collections.disjoint(replace(locationsTag), replace(p.getLocations())))) {
 					locationsFound = true;
 				}
-				if (peoplesTag == null || !Collections.disjoint(replace(peoplesTag), replace(p.getPeople()))) {
+				if (peoplesTag == null || (p.getPeople() != null && !Collections.disjoint(replace(peoplesTag), replace(p.getPeople())))) {
 					peoplesFound = true;
 				}
-				if (eventsTag == null || !Collections.disjoint(replace(eventsTag), replace(p.getEvents()))) {
+				if (eventsTag == null || (p.getEvents() != null && !Collections.disjoint(replace(eventsTag), replace(p.getEvents())))) {
 					eventsFound = true;
 				}
 				if (startDate.getValue() == null || (convertDate(p).compareTo(startDate.getValue()) >= 0 && (convertDate(p).compareTo(endDate.getValue()) <= 0))) {

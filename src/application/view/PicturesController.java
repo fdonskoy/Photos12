@@ -371,6 +371,7 @@ public class PicturesController {
 			selectedPhotoIndex = album.getPhotos().size() - 1;
 			albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
 		    set(selectedPhotoIndex);
+			update();
 			currentUser.writeUser();
 			return;
 		}
@@ -395,6 +396,7 @@ public class PicturesController {
 					System.out.println("Selected existing photo in album");
 					selectedPhotoIndex = c;
     			    set(selectedPhotoIndex);
+    			    update();
 					return;
 				}	
 				c++;
@@ -411,6 +413,7 @@ public class PicturesController {
 	    				selectedPhotoIndex = album.getPhotos().size() - 1;
 	    				albumList.getChildren().add(constructPhotoView(album.getPhotos().get(selectedPhotoIndex)));
 	    			    set(selectedPhotoIndex);
+	    			    update();
 	    				return;
 	    			}
 				}
@@ -461,7 +464,7 @@ public class PicturesController {
 		    manage.setDisable(false);
 		    update.setDisable(false);
 			System.out.println("added");
-			
+			update();
 	    }
 
 	}
