@@ -63,6 +63,7 @@ public class searchController {
 	private List<String> locationsTag = null;
 	private List<String> peoplesTag = null;
 	private List<String> eventsTag = null;
+	private List<String> otherTag = null;
 	private LocalDate start = null;
 	private LocalDate end = null;
 	
@@ -94,13 +95,9 @@ public class searchController {
 	
 	@FXML TilePane albumList;
 	
-	@FXML DatePicker date;
+	@FXML Label dateLabel;
 	
 	@FXML ScrollPane searchPane;
-	
-	public void initialize() throws ClassNotFoundException, IOException {
-		date.setDisable(true);
-	}
 	
 	public void searchCall(){
 		photosList.clear();
@@ -122,6 +119,9 @@ public class searchController {
 		if (!EVENTStag.getText().trim().equals("")) {
 			eventsTag = Arrays.asList(EVENTStag.getText().split("\\s*,\\s*"));
 		}
+		if (!OTHERtag.getText().trim().equals("")) {
+			otherTag = Arrays.asList(OTHERtag.getText().split("\\s*,\\s*"));
+		}
 
 		start = startDate.getValue();
 		end = endDate.getValue();
@@ -132,6 +132,7 @@ public class searchController {
 		boolean peoplesFound = false;
 		boolean eventsFound = false;
 		boolean dateFound = false;
+		boolean otherFound = false;
 		
 		if ( (startDate.getValue() != null && endDate.getValue() == null) || (startDate.getValue() == null && endDate.getValue() != null)) {
 			description1.setTextFill(Color.web("#ff0000"));
@@ -165,11 +166,14 @@ public class searchController {
 				if (eventsTag == null || (p.getEvents() != null && !Collections.disjoint(replace(eventsTag), replace(p.getEvents())))) {
 					eventsFound = true;
 				}
+				if (otherTag == null || (p.getOther() != null && !Collections.disjoint(replace(otherTag), replace(p.getOther())))) {
+					otherFound = true;
+				}
 				if (startDate.getValue() == null || (convertDate(p).compareTo(startDate.getValue()) >= 0 && (convertDate(p).compareTo(endDate.getValue()) <= 0))) {
 					dateFound = true;
 				}
 				
-				if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && !photosList.contains(p)) {
+				if (albumFound && captionsFound && locationsFound && peoplesFound && eventsFound && dateFound && otherFound && !photosList.contains(p)) {
 					photosList.add(p);
 					System.out.println("All true");
 					
@@ -180,6 +184,7 @@ public class searchController {
 				peoplesFound = false;
 				eventsFound = false;
 				dateFound = false;
+				otherFound = false;
 			
 				
 			}
@@ -195,7 +200,6 @@ public class searchController {
 					albumList.getChildren().add(constructAlbumView(photo));
 					System.out.println("Displayed");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("Failed to display");
 				}
@@ -209,9 +213,10 @@ public class searchController {
 		locationsTag = null;
 		peoplesTag = null;
 		eventsTag = null;
+		otherTag = null;
 		start = null;
 		end = null;
-		//searchPane.
+		searchPane.setVvalue(0);
 	}
 	public static boolean albumContainedInKeyWords(String inputStr, List<String> keyWords) {
 		for (String s: keyWords) {
@@ -256,19 +261,20 @@ public class searchController {
 			setLocations(first);
 			setPeople(first);
 			setEvent(first);
+			setOther(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
-			setDate(first);
-			//currentUser.writeUser();
+			dateLabel.setText("Date: " + photosList.get(index).getLocalDate());
 		}
 		catch (Exception e)
 	    {
 			locations.setText("");
 			peoples.setText("");
 			events.setText("");
+			other.setText("");
 			caption.setText("");
 			preview.setImage(null);
-			date.setValue(null);
+			dateLabel.setText("Date: ");
 			albumList.getChildren().clear();
 	        System.out.println("Set all to null");
 	    }
@@ -282,12 +288,14 @@ public class searchController {
 			List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
 			List<String> locationList = Arrays.asList(locations.getText().split("\\s*,\\s*"));
 			List<String> peopleList = Arrays.asList(peoples.getText().split("\\s*,\\s*"));
+			List<String> otherList = Arrays.asList(other.getText().split("\\s*,\\s*"));
 			
 			p.setDescription(caption.getText());
 			
 			p.setEvents(eventList);
 			p.setLocations(locationList);
 			p.setPeople(peopleList);
+			p.setOther(otherList);
 			
 			currentUser.writeUser();
 			System.out.println("Updated");
@@ -344,17 +352,8 @@ public class searchController {
 						set(0); return;
 					}
 					selectedPhotoIndex = c;
-					setLocations(thisPhoto);
-					setPeople(thisPhoto);
-					setEvent(thisPhoto);
-					caption.setText(thisPhoto.getDescription());
-					preview.setImage(img);
-
-					SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-					
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-				    LocalDate localDate = LocalDate.parse(sdf.format(thisPhoto.getLastModifiedLong()).substring(0, 10), formatter);
-				    date.setValue(localDate);
+					set(c);
+				   
 		    	}  
 		    	else {
 		    		preview.setImage(null);
@@ -405,6 +404,16 @@ public class searchController {
 		}
 		events.setText(string);
 	}
+	private void setOther(Photo p) {
+		String string = "";
+		if (p.getOther() != null) {
+			for (String s: p.getOther()) {
+				string += s + ", ";
+			}
+			string = string.substring(0, string.length()-2);
+		}
+		other.setText(string);
+	}
 	
 	public void back() throws IOException{
 			LoginController.currentUser.writeUser();
@@ -417,14 +426,7 @@ public class searchController {
 		System.out.println("added");
 		SceneLoader.getInstance().changeScene("NewAlbum.fxml");  
 	}
-	
-	private void setDate(Photo p) {
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-	    LocalDate localDate = LocalDate.parse(sdf.format(p.getLastModifiedLong()).substring(0, 10), formatter);
-	    date.setValue(localDate);
-	}
+
 	private LocalDate convertDate(Photo p) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		
