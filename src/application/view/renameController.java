@@ -12,16 +12,10 @@ import javafx.scene.layout.Pane;
 public class renameController {
 	@FXML TextField albumNameEditable;
 	@FXML Label albumName;
-	
-	/**@author Tim
-	 * listener for when the user presses enter to save the new album name
-	 * */
-	public void renameSave(ActionEvent e) throws IOException{
-		renameSave();
-	}
 
 	/**@author Tim
 	 * switches textfield to label and saves the new title, or gives warning message
+	 * @throws IOException when user fails to write to dat file
 	 * */
 	public void renameSave() throws IOException{
 		String name = albumNameEditable.getText();
