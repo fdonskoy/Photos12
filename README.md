@@ -14,3 +14,5 @@ When uploading a photo, if the photo already exists in another album(based on ph
 Tags are split by commas and are matched to photos that have the same keywords (also split by commas when updated by user in picture view). Searching for a photo by caption is different from the rest of the tag categories. Photos are found by caption if any keyword (separated by commas) specified by the user are contained in the caption of a photo.
 
 In addition, searching is done with OR logic. Searching for multiple tags within the same field(ie People, Events, Locations, Other) return photos that contain at least one of those tags.
+
+If a search criteria for any tag is empty, photos are not filtered by that tag. For example, searching with no criteria returns all photos.
