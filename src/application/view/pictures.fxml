@@ -16,6 +16,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
@@ -60,11 +61,15 @@
       </ScrollPane>
       <Pane layoutX="14.0" layoutY="45.0" prefHeight="343.0" prefWidth="272.0">
          <children>
-            <ImageView fx:id="preview" fitHeight="165.0" fitWidth="272.0" layoutY="25.0" pickOnBounds="true" preserveRatio="false">
+         <HBox layoutY="25.0" alignment="CENTER" prefHeight="165.0" prefWidth="272.0" >
+    		<children>
+            <ImageView fx:id="preview" fitHeight="165.0" fitWidth="272.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" x="0.0" HBox.hgrow="NEVER">
                <image>
                   <Image url="@small%20images/devon_ss.jpg" />
                </image>
             </ImageView>
+             </children>
+			</HBox>
             <MenuBar layoutX="196.0">
               <menus>
                 <Menu fx:id="manage" mnemonicParsing="false" text="Manage">
