@@ -93,7 +93,7 @@ public class PicturesController {
 	@FXML Button update;
 	
 	/**@author Fil 
-	 * @throws if user fails to write correctly*/
+	 * @throws IOException if user fails to write correctly*/
 	public void initialize() throws IOException {
 		currentUser = LoginController.currentUser;
 		albumTitle.setText(album.getName());

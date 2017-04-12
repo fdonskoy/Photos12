@@ -19,7 +19,8 @@ public class Admin extends Account {
 	public static final String storeFile = "Admin.dat"; 
 	
 	/**@author Tim
-	 * @param Username of the new account admin
+	 * @param username of the new account admin
+	 * @param password of the admin
 	 * */
 	public Admin(String username, String password) {
 		super(username, password);
@@ -27,6 +28,7 @@ public class Admin extends Account {
 
 	/**@author Tim
 	 * @param admin: the admin that needs to be saved. There is only 1 so it could be done without the parameter
+	 * @throws IOException is failed to write admin
 	 * */
 	public static void writeAdmin(Admin admin) throws IOException {
 		File curDir = new File(storeDir + ".");
@@ -40,6 +42,7 @@ public class Admin extends Account {
 	 * Reads in Admin from file
 	 * @throws IOException when user fails to write to dat file
 	 * @throws ClassNotFoundException when reading the incorrect file
+	 * @return admin account after writing its .dat file
 	 * */
 	public static Admin readAdmin() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));

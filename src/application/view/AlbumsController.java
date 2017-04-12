@@ -115,7 +115,7 @@ public class AlbumsController {
 	 * Deletes and album, saves user, and refreshes the scene
 	 * @throws IOException if user fail to update
 	 * */
-	public void delete(ActionEvent e) throws IOException{
+	public void delete() throws IOException{
 		if(currentAlbum == null){
 			return;
 		}

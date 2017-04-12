@@ -22,7 +22,8 @@ public abstract class Account implements Serializable {
 	private String password;
 	
 	/**@author Tim
-	 * @param Username of the new account holder
+	 * @param username of the new account holder
+	 * @param password for account
 	 * */
 	public Account(String username, String password){
 		this.username = username;

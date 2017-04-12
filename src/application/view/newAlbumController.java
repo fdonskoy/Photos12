@@ -27,7 +27,7 @@ public class newAlbumController {
 	 * Redirects to pictures scene showing the specific album view
 	 * @throws IOException when user fails to write
 	 * */
-	public void create(ActionEvent e) throws IOException{
+	public void create() throws IOException{
 		album = new Album(newAlbumName.getText(), LoginController.currentUser.getUsername());
 		
 		if(newAlbumName.getText().trim().length() == 0){

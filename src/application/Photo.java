@@ -27,7 +27,7 @@ public class Photo implements Serializable{
 	private List<String> other;
 	
 	/**@author Tim
-	 * @param photoAddress
+	 * @param photoAddress the photo's photoaddress
 	 * */
 	public Photo(String photoAddress){
 		this.photoAddress = photoAddress;
@@ -146,7 +146,7 @@ public class Photo implements Serializable{
 	}
 	
 	/**@author Fil
-	 * @param lm the new last modified as a long
+	 * @param mod the new last modified as a long
 	 * */
 	public void setLastModifiedLong(long mod){
 		this.lastModifiedLong = mod;

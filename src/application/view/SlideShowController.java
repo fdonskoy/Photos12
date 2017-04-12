@@ -41,7 +41,7 @@ public class SlideShowController {
 	/**@author Tim
 	 * returns back to the view of the album
 	 * @throws IOException if user fail to update*/
-	public void exit(ActionEvent e) throws IOException{
+	public void exit() throws IOException{
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	

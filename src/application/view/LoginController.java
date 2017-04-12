@@ -54,7 +54,8 @@ public class LoginController {
 	
 	/**@author Tim
 	 * gets the admin and reads all the usernames in from the user dat files. Initialized stock user if application opened for the first time
-	 * */
+	 * @throws IOException if user fails to write correctly
+	 * @throws ClassNotFoundException if class not found*/
 	public void initialize() throws ClassNotFoundException, IOException {
 		admin = Admin.readAdmin();
 		usernames = new ArrayList<String>();
@@ -149,14 +150,16 @@ public class LoginController {
 	}
 	
 	/**@author Tim
-	 * Calls the utility dropdown exit function*/
+	 * Calls the utility dropdown exit function
+	 * @throws IOException if user fails to write correctly*/
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
 	}
 	
 
 	/**@author Tim
-	 * Saves current state, ie currentUser*/
+	 * Saves current state, ie currentUser
+	 * @throws IOException if user fails to write correctly*/
 	public static void save() throws IOException{
 		if(currentUser != null)
 			currentUser.writeUser();

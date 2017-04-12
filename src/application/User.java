@@ -21,6 +21,7 @@ public class User extends Account {
 	
 	/**@author Tim
 	 * @param username: the user's username used to log in. This is also what is used to get the name of the file used to save the user
+	 * @param password: the user's password
 	 * */
 	public User(String username, String password) {
 		super(username, password);
@@ -104,6 +105,7 @@ public class User extends Account {
 	 * @param username the username of the user to be read in from a .dat file
 	 * @throws IOException if fails to write because of factors like file currently in use
 	 * @throws ClassNotFoundException if trying to read a non-user file
+	 * @return a user after a .dat file is created
 	 * */
 	public static User readUser(String username) throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + username + ".dat"));

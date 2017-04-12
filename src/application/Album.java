@@ -71,7 +71,7 @@ public class Album implements Serializable {
 	}
 	
 	/**@author Tim
-	 * @param photoAddress the address of the photo to be added to the album*/
+	 * @param photo to be added to the album*/
 	public void addPhoto(Photo photo){
 		if (firstDate == null) {
 			firstDate = photo.getLocalDate();
@@ -91,7 +91,7 @@ public class Album implements Serializable {
 	}
 	
 	/**@author Tim
-	 * @param photoAddress the address of the photo to be removed from the album
+	 * @param photo to be removed from the album
 	 * @return the photo that was removed*/
 	public Photo removePhoto(Photo photo){
 		photos.remove(photo);

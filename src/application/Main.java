@@ -13,7 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-
+/**@author Tim
+ * Launches the photo library
+ */
 public class Main extends Application{	
 	private static Admin admin;
 	private static User user;

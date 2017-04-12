@@ -34,7 +34,7 @@ public class SceneLoader {
 	}
 	
 	/**@author Tim
-	 * @returns an instance of Sceneloader. SceneLoader is a singleton*/
+	 * @return an instance of Sceneloader. SceneLoader is a singleton*/
 	public static SceneLoader getInstance(){
 		if(single == null){
 			single = new SceneLoader();
