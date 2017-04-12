@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" 
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" 
 		xmlns="http://javafx.com/javafx/8.0.111" 
 		xmlns:fx="http://javafx.com/fxml/1"
 		fx:controller="application.view.PicturesController">
@@ -74,13 +74,14 @@
               </menus>
             </MenuBar>
             <TextArea fx:id="caption" layoutY="189.0" prefHeight="40.0" prefWidth="272.0" text="" wrapText="true" />
-            <SplitPane dividerPositions="0.2962962962962963" layoutY="229.0" prefHeight="89.0" prefWidth="272.0">
+            <SplitPane dividerPositions="0.2962962962962963" layoutY="229.0" prefHeight="120.0" prefWidth="272.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="51.0">
                      <children>
                         <Label layoutY="-2.0" prefHeight="29.0" prefWidth="77.0" text="Location:" />
                         <Label layoutY="29.0" prefHeight="29.0" prefWidth="77.0" text="People:" />
                         <Label layoutY="59.0" prefHeight="29.0" prefWidth="77.0" text="Event:" />
+                        <Label layoutY="89.0" prefHeight="29.0" prefWidth="77.0" text="Other:" />
                      </children>
                   </AnchorPane>
                 <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="63.0" prefWidth="187.0">
@@ -88,12 +89,13 @@
                         <TextField fx:id="locations" layoutY="2.0" prefHeight="25.0" prefWidth="187.0" />
                         <TextField fx:id="peoples" layoutY="31.0" prefHeight="25.0" prefWidth="187.0" />
                         <TextField fx:id="events" layoutY="61.0" prefHeight="25.0" prefWidth="187.0" />
+                        <TextField fx:id="other" layoutY="91.0" prefHeight="25.0" prefWidth="187.0" />
                      </children>
                   </AnchorPane>
               </items>
             </SplitPane>
-            <Label fx:id="dateLabel" layoutY="325.0" />
-            <Button fx:id="update" layoutX="174.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update" onAction="#update" />
+            <Label fx:id="dateLabel" layoutY="355.0" />
+            <Button fx:id="update" layoutX="176.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update" onAction="#update" />
          </children>
       </Pane>
    </children>

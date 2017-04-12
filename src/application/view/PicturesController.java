@@ -78,6 +78,7 @@ public class PicturesController {
 	@FXML TextField events;
 	@FXML TextField locations;
 	@FXML TextField peoples;
+	@FXML TextField other;
 	
 	@FXML TilePane albumList;
 	
