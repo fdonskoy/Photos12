@@ -65,7 +65,7 @@ public class PicturesController {
 	private static Photo deletedPhoto;
 	
 	/**The user currently logged in*/
-	private static User currentUser = LoginController.currentUser;
+	private static User currentUser;
 	/**The current selected album*/
 
 	/**The current selected album's Pane, used for rename only, as the class used there is different from this one*/
@@ -95,6 +95,7 @@ public class PicturesController {
 	/**@author Fil 
 	 * @throws if user fails to write correctly*/
 	public void initialize() throws IOException {
+		currentUser = LoginController.currentUser;
 		albumTitle.setText(album.getName());
 		
 		try {
