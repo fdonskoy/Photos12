@@ -14,3 +14,5 @@
 * When uploading a photo, if the photo already exists in another album(based on photo address), the photo is copied to the current album from the other one. If the photo already exists in the current album, it is simply selected. This makes sure that there are no duplicate photos. 
 
 * Tags are split by commas and are matched to photos that have the same keywords (also split by commas when updated by user in picture view). Searching for a photo by caption is different from the rest of the tag categories. Photos are found by caption if any keyword (separated by commas) specified by the user are contained in the caption of a photo.
+
+* In addition, searching is done with OR logic. Searching for multiple tags return photos that contain at least one of those tags.
