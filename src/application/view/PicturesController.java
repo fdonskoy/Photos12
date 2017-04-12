@@ -96,6 +96,7 @@ public class PicturesController {
 			setLocations(first);
 			setPeople(first);
 			setEvent(first);
+			setOther(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
 			dateLabel.setText("Date: " + first.getLocalDate() + "");
@@ -158,6 +159,7 @@ public class PicturesController {
 			setLocations(first);
 			setPeople(first);
 			setEvent(first);
+			setOther(first);
 			caption.setText(first.getDescription());
 			preview.setImage(img);
 			setDate(first);
@@ -166,6 +168,7 @@ public class PicturesController {
 		}
 		catch (Exception e)
 	    {
+			other.setText("");
 			locations.setText("");
 			peoples.setText("");
 			events.setText("");
@@ -192,12 +195,14 @@ public class PicturesController {
 			List<String> eventList = Arrays.asList(events.getText().split("\\s*,\\s*"));
 			List<String> locationList = Arrays.asList(locations.getText().split("\\s*,\\s*"));
 			List<String> peopleList = Arrays.asList(peoples.getText().split("\\s*,\\s*"));
+			List<String> otherList = Arrays.asList(other.getText().split("\\s*,\\s*"));
 			
 			p.setDescription(caption.getText());
 			
 			p.setEvents(eventList);
 			p.setLocations(locationList);
 			p.setPeople(peopleList);
+			p.setOther(otherList);
 			
 			currentUser.writeUser();
 			System.out.println("Updated");
@@ -258,6 +263,7 @@ public class PicturesController {
 					setLocations(thisPhoto);
 					setPeople(thisPhoto);
 					setEvent(thisPhoto);
+					setOther(thisPhoto);
 					caption.setText(thisPhoto.getDescription());
 					preview.setImage(img);
 
@@ -351,6 +357,17 @@ public class PicturesController {
 			string = string.substring(0, string.length()-2);
 		}
 		events.setText(string);
+	}
+	
+	private void setOther(Photo p) {
+		String string = "";
+		if (p.getOther() != null) {
+			for (String s: p.getOther()) {
+				string += s + ", ";
+			}
+			string = string.substring(0, string.length()-2);
+		}
+		other.setText(string);
 	}
 	
 	public void startSlideShow() throws IOException{

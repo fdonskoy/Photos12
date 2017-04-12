@@ -22,6 +22,7 @@ public class Photo implements Serializable{
 	private List<String> people;
 	private List<String> events;
 	private List<String> locations;
+	private List<String> other;
 	
 	/**directory to save photos to*/
 	public static final String photoDir = "Photos"; 
@@ -57,6 +58,10 @@ public class Photo implements Serializable{
 		return locations;
 	}
 	
+	public List<String> getOther(){
+		return other;
+	}
+	
 	public long getLastModifiedLong(){
 		return lastModifiedLong;
 	}
@@ -83,6 +88,10 @@ public class Photo implements Serializable{
 	
 	public void setLocations(List<String> locations){
 		this.locations = locations;
+	}
+	
+	public void setOther(List<String> other){
+		this.other = other;
 	}
 	
 	public void setLastModifiedLong(Calendar lm){
