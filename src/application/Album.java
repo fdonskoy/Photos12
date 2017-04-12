@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
+/**Album contains a list of photos as well as the photo range
  * @author Tim
  *
  */

@@ -33,6 +33,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
+/**Controller responsible for the stage where albums are selected for editing, renamed, or deleted
+ * @author Tim
+ * */
 public class AlbumsController {
 	/**The user currently logged in*/
 	private static User currentUser;

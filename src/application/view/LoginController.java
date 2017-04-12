@@ -25,6 +25,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**Controller responsible for the login stage, checking username and passwords and redirecting once credentials are confirmed
+ * @author Tim
+ * */
 public class LoginController {
 	/**@author Tim
 	 * stores the single admin

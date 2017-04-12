@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
+/**Helper class to receive 'enter' keystroke to save the rename of an album
+ * @author Tim
+ * */
 public class renameController {
 	@FXML TextField albumNameEditable;
 	@FXML Label albumName;

@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**Abstract class to be inheritted by users and the admin. It takes care of the directory in which they are to be saved, as well as username and password administration
+ * @author Tim
+ * */
 public abstract class Account implements Serializable {
 	/**The directory to save the account holder object*/
 	public static final String storeDir = "src/savedObjects/Users";

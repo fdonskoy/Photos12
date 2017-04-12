@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
+/**Contains the photo address, all the tags and descriptions defined by the user, as well as the date modified
+ * @author Tim
+ * */
 public class Photo implements Serializable{
 	private static final long serialVersionUID = -3739580358789280590L;
 

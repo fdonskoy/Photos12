@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**Helper class to change the stage to a different scene.
+ * @author Tim
+ * */
 public class SceneLoader {
 	private static SceneLoader single;
 	private Stage primaryStage;

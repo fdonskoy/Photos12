@@ -47,6 +47,9 @@ import application.Album;
 import application.Photo;
 import application.User;
 
+/**Controller responsible for searching a user's photos. It also allows users to create a new album with search results, as well as edit individual photo details
+ * @author Tim
+ * */
 public class searchController {
 	/**the index of the current photo in the search results*/
 	public static int selectedPhotoIndex;

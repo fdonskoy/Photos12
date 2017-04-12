@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**Admin is a special kind of account used for user administration. It can add and delete users
+ * @author Tim
+ * */
 public class Admin extends Account {
 	private static final long serialVersionUID = 6693017721411817348L;
 	

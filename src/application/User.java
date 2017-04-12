@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**User object class that holds a a list of albums. This is the object that is saved, causing the albums and photos to be saved recursively
+ * @author Tim
+ * */
 public class User extends Account {
 	private static final long serialVersionUID = 5641427077701344979L;
 	/**the name of the file in which this object is to be saved*/

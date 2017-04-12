@@ -11,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+/**Controller responsible for reading in the name of a new album and creating it. It then redirects to the album administration stage
+ * @author Tim
+ * */
 public class newAlbumController {
 	/**photos to be added to the new album. To be set by search*/
 	public static ArrayList<Photo> photos;

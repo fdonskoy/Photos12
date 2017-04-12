@@ -19,6 +19,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**The controller responsible for the admin stage, adding and deleting users
+ * @author Tim
+ * */
 public class adminController {
 	@FXML Button newUserButton; 
 	@FXML Button deleteUserButton;

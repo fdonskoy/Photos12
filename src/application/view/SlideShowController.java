@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/**Controller responsible for showing the slideshow starting with the photo last selected in the album administration stage
+ * @author Tim
+ * */
 public class SlideShowController {
 	
 	

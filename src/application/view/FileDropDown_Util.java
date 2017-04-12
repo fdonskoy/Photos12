@@ -2,6 +2,9 @@ package application.view;
 
 import java.io.IOException;
 
+/**Takes care of safe exiting via file mene, as well as redirecting to search or safely logging out.
+ * @author Tim
+ * */
 public class FileDropDown_Util {
 	/**@author Tim
 	 * Executes the functionality of the exit option in the file dropdown

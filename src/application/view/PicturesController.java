@@ -53,6 +53,9 @@ import application.Album;
 import application.Photo;
 import application.User;
 
+/**This is the controller responsible for administrating an album view: updating image photo details, copying, moving, deleting, and adding photos
+ * @author Tim
+ * */
 public class PicturesController {
 	/**the album currently being displayed*/
 	public static Album album;
