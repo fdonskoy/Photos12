@@ -60,7 +60,7 @@
       </ScrollPane>
       <Pane layoutX="14.0" layoutY="45.0" prefHeight="343.0" prefWidth="272.0">
          <children>
-            <ImageView fx:id="preview" fitHeight="165.0" fitWidth="272.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="preview" fitHeight="165.0" fitWidth="272.0" layoutY="25.0" pickOnBounds="true" preserveRatio="false">
                <image>
                   <Image url="@small%20images/devon_ss.jpg" />
                </image>
