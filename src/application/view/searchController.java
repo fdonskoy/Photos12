@@ -260,7 +260,7 @@ public class searchController {
 		catch (Exception e)
 	    {
 			locations.setText("");
-			peoples.setText("");
+			peoples.setText(""); 
 			events.setText("");
 			caption.setText("");
 			preview.setImage(null);
