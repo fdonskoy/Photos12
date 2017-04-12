@@ -34,7 +34,6 @@ public class LoginController {
 	 * Once the login is successful, holds the logged in user
 	 * */
 	public static User currentUser;
-	public static boolean stockFlag = false;
 	
 	/**@author Tim
 	 * holds all usernames
@@ -58,7 +57,7 @@ public class LoginController {
 		usernames = new ArrayList<String>();
 		getAllFiles(new File("src/savedObjects/Users"));
 		
-		
+		boolean stockFlag = false;
 		int count = 0;
 		File[] filesList = new File("src/savedObjects/Users").listFiles();
         for(File f : filesList){
@@ -75,8 +74,28 @@ public class LoginController {
 	        		u.writeUser();
 	        		usernames.add("stock");
 	        		System.out.println("Stock created");
+
+					File[] filesList2 = new File("src/utility").listFiles();
+			        u.addAlbum("Colors");
+			        for(File f2 : filesList2){
+			        	if (!f2.getPath().substring(12, f2.getPath().lastIndexOf(".")).replace('\\', '/').equals("placeholder")){
+			        		Photo p = new Photo("file:/" + f2.getAbsolutePath());
+				        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+						    LocalDate localDate = LocalDate.parse(sdf.format(f2.lastModified()).substring(0, 10), formatter);
+						    System.out.println("Stock localdate " + localDate);
+						    p.setLocalDate(localDate);
+						    u.getAlbums().get(0).addPhoto(p);
+			        	}
+			        }
+				    stockFlag = false;
+					u.writeUser();
 	        		break;
+	        		
+	        		
         		}
+        		
+        		
         	}
         	count++;
         	
@@ -103,23 +122,6 @@ public class LoginController {
 			currentUser = User.readUser(username);
 			System.out.println("Current User: " + username);
 			if(currentUser.checkPassword(passwordInput.getText())) {
-				if (username.equals("stock") && stockFlag){
-					File[] filesList = new File("src/utility").listFiles();
-			        currentUser.addAlbum("Colors");
-			        for(File f : filesList){
-			        	if (!f.getPath().substring(12, f.getPath().lastIndexOf(".")).replace('\\', '/').equals("placeholder")){
-			        		Photo p = new Photo("file:/" + f.getAbsolutePath());
-				        	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-						    LocalDate localDate = LocalDate.parse(sdf.format(f.lastModified()).substring(0, 10), formatter);
-						    System.out.println("Stock localdate " + localDate);
-						    p.setLocalDate(localDate);
-						    currentUser.getAlbums().get(0).addPhoto(p);
-			        	}
-			        }
-			        stockFlag = false;
-				}
-				
 				SceneLoader.getInstance().changeScene("Albums.fxml");
 			}	
 			else{
