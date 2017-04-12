@@ -35,6 +35,8 @@ public class Admin extends Account {
 	
 	/**@author Tim
 	 * Reads in Admin from file
+	 * @throws IOException when user fails to write to dat file
+	 * @throws ClassNotFoundException when reading the incorrect file
 	 * */
 	public static Admin readAdmin() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));

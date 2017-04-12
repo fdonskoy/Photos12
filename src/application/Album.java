@@ -22,9 +22,7 @@ import java.util.Calendar;
  */
 public class Album implements Serializable {
 	private static final long serialVersionUID = -5448129927370652090L;
-	public static final String storeDir = "src/application/savedObjects/Albums";
-	public String storeFile; 
-	
+
 	private ArrayList<Photo> photos;
 	private String name;
 	private int numPhotos;
@@ -40,8 +38,6 @@ public class Album implements Serializable {
 		this.setName(name);
 		this.setNumPhotos(0);
 		this.setPhotos(new ArrayList<Photo>());
-		
-		storeFile = name + "_" + username + ".dat";
 	}
 
 	/**@author Tim
@@ -90,21 +86,13 @@ public class Album implements Serializable {
 			firstDate = photo.getLocalDate();
 		} 
 		
-		/*
-		if (firstPhotoDate == null) {
-			firstPhotoDate = photo.getLastModified();
-		}
-		else if(photo.getLastModified().compareTo(firstPhotoDate) < 0){
-			lastPhotoDate = photo.getLastModified();
-		} 
-		else if(photo.getLastModified().compareTo(lastPhotoDate) > 0){
-			lastPhotoDate = photo.getLastModified();
-		}*/
-		
 		numPhotos++;
 		photos.add(photo);
 	}
 	
+	/**@author Tim
+	 * @param photoAddress the address of the photo to be removed from the album
+	 * @return the photo that was removed*/
 	public Photo removePhoto(Photo photo){
 		photos.remove(photo);
 		numPhotos--;
@@ -130,59 +118,47 @@ public class Album implements Serializable {
 			lastDate = max;
 		}
 		
-		/*if(firstPhotoDate != null && firstPhotoDate.equals(photo.getLastModified())){
-			Calendar min = lastPhotoDate;
-			for(Photo p : photos){
-				if(photo.getLastModified().compareTo(min) <= 0){
-					min = photo.getLastModified();
-				}
-			}
-		}
-		
-		if(lastPhotoDate != null && lastPhotoDate.equals(photo.getLastModified())){
-			Calendar max = firstPhotoDate;
-			for(Photo p : photos){
-				if(photo.getLastModified().compareTo(max) >= 0){
-					max = photo.getLastModified();
-				}
-			}
-		}*/
-		
 		return photo;
 	}
 	
-	/*public void testLocalDate(Photo photo){
-		if (photo.getLocalDate().compareTo(firstDate) <= 0) {
-			firstDate = photo.getLocalDate();
-		}
-		else if (photo.getLocalDate().compareTo(lastDate) >= 0) {
-			lastDate = photo.getLocalDate();
-		}
-	}*/
+	/**@author Tim
+	 * @return the address of the first photo in the album or null if the album is empty*/
 	public String getFirstPhotoThumbnail(){
 		return (photos.size() > 0) ? photos.get(0).getPhotoAddress() : null;
 	}
 	
+	/**@author Tim
+	 * @return the name of the album*/
 	public String getName() {
 		return name;
 	}
 
+	/**@author Tim
+	 * @param name the new name of the album*/
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**@author Tim
+	 * @return the number of photos in the album*/
 	public int getNumPhotos() {
-		return numPhotos;
+		return photos.size();
 	}
 
+	/**@author Tim
+	 * @param numPhotos the new number of photos in the album*/
 	public void setNumPhotos(int numPhotos) {
 		this.numPhotos = numPhotos;
 	}
 
+	/**@author Tim
+	 * @return the earliest date of a photo in the album*/
 	public Calendar getFirstPhotoDate() {
 		return firstPhotoDate;
 	}
 
+	/**@author Tim
+	 * @return the earliest date of a photo in the album*/
 	public String getFirstPhotoDateString(){
 		if(firstPhotoDate == null) return "";
 		
@@ -190,18 +166,24 @@ public class Album implements Serializable {
 		return format1.format(firstPhotoDate.getTime());
 	}
 	
+	/**@author Tim
+	 * @return the earliest date of a photo in the album*/
 	public String getFirstLocalDateString(){
 		if(firstDate == null) return "";
 		
 		return firstDate + "";
 	}
 	
+	/**@author Tim
+	 * @return the latest date of a photo in the album*/
 	public String getLastLocalDateString(){
 		if(lastDate == null) return "";
 		
 		return lastDate + "";
 	}
 	
+	/**@author Tim
+	 * @param firstPhotoDate the new earliest date of a photo in the album*/
 	public void setFirstPhotoDate(Calendar firstPhotoDate) {
 		if (this.getNumPhotos() > 0) {
 			this.firstDate = this.getPhotos().get(0).getLocalDate();
@@ -209,56 +191,37 @@ public class Album implements Serializable {
 		this.firstPhotoDate = firstPhotoDate;
 	}
 	
+
+	/**@author Tim
+	 * @return latest photo date in the album*/
 	public Calendar getLastPhotoDate() {
 		return lastPhotoDate;
 	}
-	
+
+	/**@author Tim
+	 * @return latest photo date in the album*/
 	public String getLastPhotoDateString(){
 		if(lastPhotoDate == null) return "";
 		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
 		return format1.format(lastPhotoDate.getTime());
 	}
 	
+
+	/**@author Tim
+	 * @param lastPhotoDate the new latest date of a photo in the album*/
 	public void setLastPhotoDate(Calendar lastPhotoDate) {
 		this.lastPhotoDate = lastPhotoDate;
 	}
 
-	
+	/**@author Tim
+	 * @return all the photos of this album*/
 	public ArrayList<Photo> getPhotos() {
 		return photos;
 	}
 
+	/**@author Tim
+	 * @param photos all the new photos of this album to replace all the old*/
 	public void setPhotos(ArrayList<Photo> photos) {
 		this.photos = photos;
-	}
-	
-	
-	public void writeAlbum() throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(
-									new FileOutputStream(storeDir + File.separator + storeFile));
-		oos.writeObject(this);
-	} 
-	
-	/**@author Tim
-	 * Reads in Album from file
-	 * @param name the name of the Album to be read in
-	 * @param username of the user who owns the album
-	 * @return the album read from the file
-	 * */
-	public static Album readAlbum(String name, String username) throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + name + "_" + username + ".dat"));
-		Album album = (Album)ois.readObject();
-		return album;
-	}
-	
-	/**@author Tim
-	 * Reads in Album from file
-	 * @param fileName: the file name of the Album to be read in
-	 * @return the album read from the file
-	 * */
-	public static Album readAlbum(String fileName) throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + fileName));
-		Album album = (Album)ois.readObject();
-		return album;
-	} 
+	}	
 }

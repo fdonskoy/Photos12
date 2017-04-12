@@ -5,6 +5,7 @@ import java.io.IOException;
 public class FileDropDown_Util {
 	/**@author Tim
 	 * Executes the functionality of the exit option in the file dropdown
+	 * @throws IOException when user fails to write to dat file
 	 * */
 	public static void exit() throws IOException{
 		System.out.println("exiting...");
@@ -15,6 +16,7 @@ public class FileDropDown_Util {
 	
 	/**@author Tim
 	 * Executes the functionality of the logout option in the file dropdown
+	 * @throws IOException when user fails to write to dat file
 	 * */
 	public static void logout() throws IOException{
 		System.out.println("logging out...");
@@ -27,6 +29,7 @@ public class FileDropDown_Util {
 	
 	/**@author Tim
 	 * redirects to search scene
+	 * @throws IOException when user fails to write to dat file
 	 * */
 	public static void search() throws IOException{
 		System.out.println("going to search");
