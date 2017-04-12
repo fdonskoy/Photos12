@@ -1,7 +1,6 @@
 package application.view;
 
 import java.awt.Component;
-import java.awt.ScrollPane;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -27,6 +26,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -81,18 +81,22 @@ public class searchController {
 	@FXML TextField events;
 	@FXML TextField locations;
 	@FXML TextField peoples;
+	@FXML TextField other;
 	
 	@FXML TextField ALBUMStag;
 	@FXML TextField CAPTIONStag;
 	@FXML TextField LOCATIONStag;
 	@FXML TextField PEOPLEStag;
 	@FXML TextField EVENTStag;
+	@FXML TextField OTHERtag;
 	@FXML DatePicker startDate;
 	@FXML DatePicker endDate;
 	
 	@FXML TilePane albumList;
 	
 	@FXML DatePicker date;
+	
+	@FXML ScrollPane searchPane;
 	
 	public void initialize() throws ClassNotFoundException, IOException {
 		date.setDisable(true);
@@ -207,7 +211,7 @@ public class searchController {
 		eventsTag = null;
 		start = null;
 		end = null;
-		
+		//searchPane.
 	}
 	public static boolean albumContainedInKeyWords(String inputStr, List<String> keyWords) {
 		for (String s: keyWords) {

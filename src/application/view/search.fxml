@@ -42,7 +42,7 @@
             </TextField>
          </children>
       </Pane>
-      <ScrollPane layoutX="477.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="109.0" prefHeight="275.0" prefWidth="109.0">
+      <ScrollPane fx:id="searchPane" layoutX="477.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="109.0" prefHeight="305.0" prefWidth="109.0">
          <content>
             <TilePane fx:id="albumList" maxWidth="270.0" minWidth="93.0" prefColumns="1" prefHeight="360.0" prefRows="800000000" prefTileHeight="90.0" prefTileWidth="90.0" prefWidth="93.0" />
          </content>
@@ -56,13 +56,14 @@
             </ImageView>
             <MenuBar layoutX="185.0" />
             <TextArea fx:id="caption" layoutY="170.0" prefHeight="40.0" prefWidth="261.0" wrapText="true" />
-            <SplitPane dividerPositions="0.2962962962962963" layoutY="210.0" prefHeight="89.0" prefWidth="261.0">
+            <SplitPane dividerPositions="0.2962962962962963" layoutY="210.0" prefHeight="119.0" prefWidth="261.0">
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="51.0">
                      <children>
                         <Label layoutX="5.0" layoutY="-2.0" prefHeight="29.0" prefWidth="77.0" text="Location:" />
                         <Label layoutX="5.0" layoutY="29.0" prefHeight="29.0" prefWidth="77.0" text="People:" />
                         <Label layoutX="5.0" layoutY="59.0" prefHeight="29.0" prefWidth="77.0" text="Event:" />
+                        <Label layoutX="5.0" layoutY="89.0" prefHeight="29.0" prefWidth="77.0" text="Other:" />
                      </children>
                   </AnchorPane>
                   <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="63.0" prefWidth="187.0">
@@ -70,18 +71,19 @@
                         <TextField fx:id="locations" layoutY="2.0" prefHeight="25.0" prefWidth="187.0" />
                         <TextField fx:id="peoples" layoutY="31.0" prefHeight="25.0" prefWidth="187.0" />
                         <TextField fx:id="events" layoutY="61.0" prefHeight="25.0" prefWidth="187.0" />
+                        <TextField fx:id="other" layoutY="91.0" prefHeight="25.0" prefWidth="187.0" />
                      </children>
                   </AnchorPane>
                </items>
             </SplitPane>
-            <DatePicker fx:id="date" layoutY="299.0" prefHeight="25.0" prefWidth="162.0" promptText="date" />
-            <Button fx:id="update" layoutX="163.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update"
+            <DatePicker fx:id="date" layoutY="329.0" prefHeight="25.0" prefWidth="162.0" promptText="date" />
+            <Button fx:id="update" layoutX="163.0" layoutY="329.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Update"
             onAction="#update" />
          </children>
       </Pane>
-      <Pane layoutX="5.0" layoutY="46.0" prefHeight="348.0" prefWidth="200.0">
+      <Pane layoutX="5.0" layoutY="46.0" prefHeight="378.0" prefWidth="200.0">
          <children>
-            <SplitPane dividerPositions="0.2962962962962963" layoutY="51.0" prefHeight="221.0" prefWidth="187.0">
+            <SplitPane dividerPositions="0.2962962962962963" layoutY="51.0" prefHeight="242.0" prefWidth="187.0">
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="87.0" prefWidth="51.0">
                      <children>
@@ -90,8 +92,9 @@
                         <Label layoutY="61.0" prefHeight="29.0" prefWidth="56.0" text="Locations:" />
                         <Label layoutY="90.0" prefHeight="29.0" prefWidth="56.0" text="People" />
                         <Label layoutY="119.0" prefHeight="29.0" prefWidth="56.0" text="Events:" />
-                        <Label layoutY="148.0" prefHeight="29.0" prefWidth="56.0" text="Start:" />
-                        <Label layoutY="177.0" prefHeight="29.0" prefWidth="56.0" text="End:" />
+                        <Label layoutY="149.0" prefHeight="29.0" prefWidth="56.0" text="Other:" />
+                        <Label layoutY="178.0" prefHeight="29.0" prefWidth="56.0" text="Start:" />
+                        <Label layoutY="207.0" prefHeight="29.0" prefWidth="56.0" text="End:" />
                      </children>
                   </AnchorPane>
                   <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="239.0" prefWidth="127.0">
@@ -101,21 +104,22 @@
                         <TextField fx:id="LOCATIONStag" layoutY="61.0" prefHeight="25.0" prefWidth="127.0" />
                         <TextField fx:id="PEOPLEStag" layoutY="91.0" prefHeight="25.0" prefWidth="127.0" />
                         <TextField fx:id="EVENTStag" layoutY="120.0" prefHeight="25.0" prefWidth="127.0" />
-                        <DatePicker fx:id="startDate" layoutY="152.0" prefHeight="25.0" prefWidth="127.0" />
-                        <DatePicker fx:id="endDate" layoutY="184.0" prefHeight="25.0" prefWidth="127.0" />
+                        <TextField fx:id="OTHERtag" layoutY="150.0" prefHeight="25.0" prefWidth="127.0" />
+                        <DatePicker fx:id="startDate" layoutY="182.0" prefHeight="25.0" prefWidth="127.0" />
+                        <DatePicker fx:id="endDate" layoutY="214.0" prefHeight="25.0" prefWidth="127.0" />
                      </children>
                   </AnchorPane>
                </items>
             </SplitPane>
-            <Button layoutY="281.0" mnemonicParsing="false" text="Search" onAction="#searchCall"/>
+            <Button layoutY="301.0" mnemonicParsing="false" text="Search" onAction="#searchCall"/>
             <Label layoutY="-2.0" prefHeight="25.0" prefWidth="187.0" text="Search:">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="131.0" layoutY="281.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Cancel" onAction="#back" />
-         	<Label fx:id="description1" layoutY="300.0" prefHeight="50.0" prefWidth="300.0" text="Tags are separated by commas" textFill="#111010" />
-         	<Label fx:id="description2" layoutY="314.0" prefHeight="50.0" prefWidth="300.0" text="Captions search does text matching, not tags" textFill="#111010" />
+            <Button layoutX="131.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Cancel" onAction="#back" />
+         	<Label fx:id="description1" layoutY="330.0" prefHeight="50.0" prefWidth="300.0" text="Tags are separated by commas" textFill="#111010" />
+         	<Label fx:id="description2" layoutY="344.0" prefHeight="50.0" prefWidth="300.0" text="Captions search does text matching, not tags" textFill="#111010" />
          </children>
       </Pane>
       <Button layoutX="477.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="New Album" onAction="#createAlbum"/>
