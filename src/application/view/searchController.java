@@ -48,11 +48,11 @@ import application.Photo;
 import application.User;
 
 public class searchController {
+	/**the index of the current photo in the search results*/
 	public static int selectedPhotoIndex;
 	
 	/**The user currently logged in*/
 	public static User currentUser = LoginController.currentUser;
-	/**The current selected album*/
 
 	/**The current selected album's Pane, used for rename only, as the class used there is different from this one*/
 	public static Pane currentPane;
@@ -66,8 +66,6 @@ public class searchController {
 	private List<String> otherTag = null;
 	private LocalDate start = null;
 	private LocalDate end = null;
-	
-	private List<String> photoDescription = null;
 	
 	@FXML Button createAlbum;
 	
@@ -99,6 +97,8 @@ public class searchController {
 	
 	@FXML ScrollPane searchPane;
 	
+	/**@author Fil 
+	 * handles conditions for searching for all criteria*/
 	public void searchCall(){
 		photosList.clear();
 		set(0);
@@ -218,6 +218,8 @@ public class searchController {
 		end = null;
 		searchPane.setVvalue(0);
 	}
+	/**@author Fil 
+	 * @return boolean that represents if keywords for caption are contained within a photo's description*/
 	public static boolean albumContainedInKeyWords(String inputStr, List<String> keyWords) {
 		for (String s: keyWords) {
 	        if(inputStr.equals(s.trim()))
@@ -227,6 +229,8 @@ public class searchController {
 	    }
 	    return false;
 	}
+	/**@author Fil 
+	 * @return boolean if a string contains tags from a list*/
 	public static boolean stringContainsItemFromList(String inputStr, List<String> captionsTag2) {
 	    if (inputStr == null) {
 	    	return false;
@@ -240,6 +244,8 @@ public class searchController {
 	    }
 	    return false;
 	}
+	/**@author Fil 
+	 * @return a list that lowercases and trims a list of strings*/
 	public static List<String> replace(List<String> strings)
 	{
 		if (strings == null) {
@@ -254,6 +260,8 @@ public class searchController {
 	    return lower;
 	}
 	
+	/**@author Fil 
+	 * sets information for the new selected photo*/
 	public void set(int index) {
 		try {
 			Photo first = photosList.get(index);
@@ -282,6 +290,8 @@ public class searchController {
 
 	}
 	
+	/**@author Fil 
+	 * updates the photo information based on user input once update button clicked*/
 	public void update() {
 		try {
 			Photo p = photosList.get(selectedPhotoIndex);
@@ -307,6 +317,9 @@ public class searchController {
 		
 	}
 	
+	/**@author Fil 
+	 * @param p is the photo to display
+	 * @return a pane that represents the photo*/
 	private Pane constructAlbumView(Photo p) throws IOException{
 		
 		FXMLLoader loader = new FXMLLoader(); 
@@ -415,11 +428,17 @@ public class searchController {
 		other.setText(string);
 	}
 	
+	/**@author Fil 
+	 * goes back to the list oh photos
+	 * @throws IOException if user fails to write correctly*/
 	public void back() throws IOException{
 			LoginController.currentUser.writeUser();
 			SceneLoader.getInstance().changeScene("Albums.fxml");
 	}
 	
+	/**@author Fil 
+	 * creates a new album of search result photos
+	 * @throws IOException if user fails to write correctly*/
 	public void createAlbum() throws IOException {
 		currentUser.writeUser();
 		newAlbumController.photos = photosList;
@@ -438,21 +457,21 @@ public class searchController {
 
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and exits
-	 * */
+	 * @throws IOException if user fails to write correctly*/
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
 	}
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and logs out
-	 * */
+	 * @throws IOException if user fails to write correctly*/
 	public void logout() throws IOException{
 		FileDropDown_Util.logout();
 	}
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which calls redirects to the search stage
-	 * */
+	 * @throws IOException if user fails to write correctly*/
 	public void search() throws IOException{
 		FileDropDown_Util.search();
 	}
