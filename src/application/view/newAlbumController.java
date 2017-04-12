@@ -46,6 +46,7 @@ public class newAlbumController {
 			for(Photo photo : photos){
 				album.addPhoto(photo);
 			}
+			photos = null;
 		}
 			
 		LoginController.currentUser.writeUser();
