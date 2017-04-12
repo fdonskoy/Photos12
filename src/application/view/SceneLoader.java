@@ -14,10 +14,13 @@ public class SceneLoader {
 	
 	private SceneLoader(){};
 	
+	/**@author Tim
+	 * @param newScene the name of the fxml file to be loaded into the stage
+	 * @throws IOException if passed an incorrect file name*/
 	public void changeScene(String newScene) throws IOException{
 		FXMLLoader loader = new FXMLLoader(); 
 		loader.setLocation(getClass().getResource("/application/view/" + newScene));
-		//GridPane root = (GridPane)loader.load();
+
 		Pane root = (Pane)loader.load();
 		
 		Scene scene = new Scene(root);

@@ -30,7 +30,8 @@ public class User extends Account {
 	}
 	
 	/**@author Tim
-	 * @return null if album already exists, else album
+	 * @param name the name of the album to be returned
+	 * @return null if album already exists, else album by name
 	 * */
 	public Album addAlbum(String name){
 		for(Album a : albums){
@@ -46,6 +47,7 @@ public class User extends Account {
 	}
 	
 	/**@author Tim
+	 * @param album the album to be added to this user's collection
 	 * @return null if album already exists, else album
 	 * */
 	public Album addAlbum(Album album){
@@ -60,10 +62,18 @@ public class User extends Account {
 		return album; 
 	}
 	
+	/**@author Tim
+	 * @param album the album to be removed from this user's collection
+	 * @return true if album removed, false if album not in user's collection
+	 * */
 	public boolean removeAlbum(Album album){
 		return albums.remove(album);
 	}
 	
+	/**@author Tim
+	 * @param albumName the name of the album to be removed from this user's collection
+	 * @return true if album removed, false if album not in user's collection
+	 * */
 	public boolean removeAlbum(String albumName){
 		for(Album album : albums){
 			if(album.getName().equals(albumName)){
@@ -73,7 +83,10 @@ public class User extends Account {
 		
 		return false;
 	}
-		
+	
+	/**@author Tim
+	 * @throws IOException if fails to write because of factors like file currently in use
+	 * */
 	public void writeUser() throws IOException {
 		File f = new File(storeDir + File.separator + storeFile);
 		if(!f.exists())
@@ -84,6 +97,11 @@ public class User extends Account {
 		oos.close();
 	} 
 	
+	/**@author Tim
+	 * @param username the username of the user to be read in from a .dat file
+	 * @throws IOException if fails to write because of factors like file currently in use
+	 * @throws ClassNotFoundException if trying to read a non-user file
+	 * */
 	public static User readUser(String username) throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + username + ".dat"));
 		User user = (User)ois.readObject();
@@ -91,6 +109,10 @@ public class User extends Account {
 		return user;
 	} 
 	
+	/**@author Tim
+	 * @param username of the user to be deleted
+	 * @throws IOException if fails to write because of factors like file currently in use
+	 * */
 	public static void deleteUser(String username) throws IOException {
 		int c = 0;
 		File init = new File("src/savedObjects/Users");

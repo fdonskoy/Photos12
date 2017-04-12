@@ -22,6 +22,7 @@ public class newAlbumController {
 	
 	/**@author Tim
 	 * Redirects to pictures scene showing the specific album view
+	 * @throws IOException when user fails to write
 	 * */
 	public void create(ActionEvent e) throws IOException{
 		album = new Album(newAlbumName.getText(), LoginController.currentUser.getUsername());
@@ -51,8 +52,9 @@ public class newAlbumController {
 	
 	/**@author Tim
 	 * returns back to the AlbumListView
+	 * @throws IOException when user fails to write
 	 * */
-	public void cancel(ActionEvent e) throws IOException{
+	public void cancel() throws IOException{
 		photos = null;
 		album = null;
 		SceneLoader.getInstance().changeScene("Albums.fxml");
@@ -61,6 +63,7 @@ public class newAlbumController {
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and exits
+	 * @throws IOException when user fails to write
 	 * */
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
@@ -68,6 +71,7 @@ public class newAlbumController {
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and logs out
+	 * @throws IOException when user fails to write
 	 * */
 	public void logout() throws IOException{
 		FileDropDown_Util.logout();
@@ -75,6 +79,7 @@ public class newAlbumController {
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which calls redirects to the search stage
+	 * @throws IOException when user fails to write
 	 * */
 	public void search() throws IOException{
 		FileDropDown_Util.search();

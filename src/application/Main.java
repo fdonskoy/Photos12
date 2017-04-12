@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 public class Main extends Application{	
 	private static Admin admin;
 	private static User user;
-	private static User user2;
+	private static User user2; 
 	private static Album album;
 	
 	public static Main self;
@@ -30,63 +30,6 @@ public class Main extends Application{
 	}
 	
 	public static void main(String[] args) throws IOException {
-		/*admin = new Admin("admin", "admin");
-		Admin.writeAdmin(admin);
-		user = new User("user");
-		user2 = new User("user2");
-		
-		try {
-			if(user.addAlbum("testAlbum")) System.out.println("testAlbum added to user"); 
-			else System.out.println("testAlbum not added to user");
-			
-			if(user.addAlbum("testAlbum")) System.out.println("testAlbum added to user"); 
-			else System.out.println("testAlbum not added to user");
-			
-			if(user.addAlbum("testAlbum2")) System.out.println("testAlbum2 added to user"); 
-			else System.out.println("testAlbum not added to user");
-			
-			if(user2.addAlbum("testAlbum")) System.out.println("testAlbum added to user2"); 
-			else System.out.println("testAlbum not added to user2");
-			
-			System.out.println("user has " + user.getAlbums().size() + " albums");
-			System.out.println("user2 has " + user2.getAlbums().size() + " albums");
-			
-			Admin.writeAdmin(admin);
-			user.writeUser();
-			user2.writeUser();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		
-		System.out.println("Original admin: " + admin.getUsername());
-		System.out.println("Original user: " + user.getUsername());
-		System.out.println("Original user2: " + user2.getUsername());
-		try {
-			admin = Admin.readAdmin();
-			user = User.readUser("user2");
-			user2 = User.readUser("user");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		
-		System.out.println("Read admin: " + admin.getUsername());
-		System.out.println("Read user: " + user.getUsername());
-		System.out.println("Read user2: " + user2.getUsername());
-		
-		System.out.println("user has " + user.getAlbums().size() + " albums");
-		System.out.println("user2 has " + user2.getAlbums().size() + " albums");
-		*/
-		
-		
-		
 		launch(args);
 	}
 }

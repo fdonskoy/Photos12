@@ -51,7 +51,7 @@ public class LoginController {
 	@FXML MenuItem exit;
 	
 	/**@author Tim
-	 * gets the admin and reads all the usernames in from the user dat files
+	 * gets the admin and reads all the usernames in from the user dat files. Initialized stock user if application opened for the first time
 	 * */
 	public void initialize() throws ClassNotFoundException, IOException {
 		admin = Admin.readAdmin();
@@ -87,8 +87,10 @@ public class LoginController {
 	
 	/**@author Tim
 	 * Listener to the login button that either logs the user in or informs the username is wrong
+	 * @exception IOException throws excpetion if user fails to be read or written
+	 * @exception ClassNotFoundException throws excpetion if user fails to be read or written
 	 * */
-	public void login(ActionEvent e) throws IOException, ClassNotFoundException{
+	public void login() throws IOException, ClassNotFoundException{
 		String username = loginInput.getText();
 		
 		if(username.equals(admin.getUsername())){
@@ -155,6 +157,8 @@ public class LoginController {
 			currentUser.writeUser();
 	}
 	
+	/**@author Tim
+	 * Displays login error message*/
 	private void wrongInput(){
 		currentUser = null;
 		loginText.setTextFill(Color.web("#ff0000"));
