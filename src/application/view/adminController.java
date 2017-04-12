@@ -20,10 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class adminController {
-	private static Admin admin;
-	public static User currentUser;
-	public ArrayList<String> usernames;
-	
 	@FXML Button newUserButton; 
 	@FXML Button deleteUserButton;
 
@@ -37,19 +33,28 @@ public class adminController {
 	
 	@FXML MenuItem exit;
 	@FXML MenuItem logout;
-
-	public void initialize() throws IOException, ClassNotFoundException {
+	
+	/**@author Tim
+	 * populates user list
+	 * */
+	public void initialize(){
 		Collections.sort(LoginController.usernames.subList(0, LoginController.usernames.size()));
 		ObservableList<String> obsList = FXCollections.observableArrayList(LoginController.usernames);
 		error.setVisible(false);
 		users.setItems(obsList);
 	}
 	
+
+	/**@author Fil
+	 * @param arg0 detects a click on the list of usernames and copies the user to the delete field
+	 */
 	@FXML public void handleMouseClick(MouseEvent arg0) {
 		deleteUserField.setText(users.getSelectionModel().getSelectedItem());
 	}
 	
-	public void newUser(ActionEvent e) throws IOException {
+	/**@author Tim
+	 * @throws IOException if user fails to write to file*/
+	public void newUser() throws IOException {
 		if (newUserField.getText().trim().length() <= 0 || newUserField.getText().contains("\\") || newUserField.getText().contains("/")) {
 			error.setVisible(true);
 			error.setText("Invalid username");
@@ -72,21 +77,18 @@ public class adminController {
 			return;
 		}
 		
-		try {
-			User u = new User(s, p);
-			u.writeUser();
-			LoginController.usernames.add(s);
-			newUserField.setText(null);
-			newUserPasswordField.setText(null);
-			initialize();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		User u = new User(s, p);
+		u.writeUser();
+		LoginController.usernames.add(s);
+		newUserField.setText(null);
+		newUserPasswordField.setText(null);
+		initialize();
 		System.out.println("Adding user " + s);
 	}
 	
-	public void deleteUser(ActionEvent e) throws IOException {
+	/**@author Tim
+	 * @throws IOException if user fails to delete file, for example, if file actively currently in use*/
+	public void deleteUser() throws IOException {
 		if (deleteUserField.getLength() == 0) {
 			return;
 		}
@@ -102,23 +104,21 @@ public class adminController {
 		System.out.println("Deleting user " + s);
 
 		
-		try {
-			User.deleteUser(s);
-			LoginController.usernames.remove(s);
-			
-			deleteUserField.setText(null);
-			initialize();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		User.deleteUser(s);
+		LoginController.usernames.remove(s);
+		
+		deleteUserField.setText(null);
+		initialize();
 	}
 	
-	
+	/**@author Tim
+	 * @throws IOException if user fails to write to file*/
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
 	}
 	
+	/**@author Tim
+	 * @throws IOException if user fails to write to file*/
 	public void logout() throws IOException{
 		FileDropDown_Util.logout();
 	}

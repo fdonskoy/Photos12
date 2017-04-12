@@ -12,13 +12,17 @@ public class SlideShowController {
 	
 	@FXML ImageView image;
 	
-	public void initialize() throws ClassNotFoundException, IOException {
+	/**@author Tim
+	 sets up the first image in the slide show*/
+	public void initialize() {
 		Image img = new Image(PicturesController.album.getPhotos().get(PicturesController.selectedPhotoIndex).getPhotoAddress()); 
 		
 		image.setImage(img);
 	}
-	
-	public void next(ActionEvent e){
+
+	/**@author Tim
+	 moves the slideshow to the next picture in the album*/
+	public void next(){
 		if(PicturesController.selectedPhotoIndex == PicturesController.album.getPhotos().size() - 1){
 			PicturesController.selectedPhotoIndex = 0;
 		}
@@ -31,11 +35,17 @@ public class SlideShowController {
 		image.setImage(img);
 	}
 	
+
+	/**@author Tim
+	 * returns back to the view of the album
+	 * @throws IOException if user fail to update*/
 	public void exit(ActionEvent e) throws IOException{
 		SceneLoader.getInstance().changeScene("pictures.fxml");
 	}
 	
-	public void prev(ActionEvent e){
+	/**@author Tim
+	 moves the slideshow to the previous picture in the album*/
+	public void prev(){
 		if(PicturesController.selectedPhotoIndex == 0){
 			PicturesController.selectedPhotoIndex = PicturesController.album.getPhotos().size() - 1;
 		}

@@ -30,6 +30,8 @@ public class SceneLoader {
 		primaryStage.show();
 	}
 	
+	/**@author Tim
+	 * @returns an instance of Sceneloader. SceneLoader is a singleton*/
 	public static SceneLoader getInstance(){
 		if(single == null){
 			single = new SceneLoader();
@@ -38,6 +40,9 @@ public class SceneLoader {
 		return single;
 	}
 	
+	/**@author Tim
+	 * @param stage the stage to change scenes on. Set when the application is launched
+	 * */
 	public void setStage(Stage stage){
 		primaryStage = stage;
 	}

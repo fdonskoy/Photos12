@@ -48,9 +48,10 @@ public class AlbumsController {
 	@FXML MenuItem delete;
 	
 	/**@author Tim
-	 * gets current user and constructs the custom ui
+	 * populates view with album displays
+	 * @throws IOException if user fail to update
 	 * */
-	public void initialize() throws ClassNotFoundException, IOException {
+	public void initialize() throws IOException {
 		currentUser = LoginController.currentUser;
 		currentAlbum = null;
 		populateListView();
@@ -63,6 +64,7 @@ public class AlbumsController {
 	
 	/**@author Tim
 	 * looks at the current user's albums and populates the album list with ui representations
+	 * @throws IOException if user fail to update
 	 * */
 	private void populateListView() throws IOException{
 		for(Album album : currentUser.getAlbums()){
@@ -73,16 +75,18 @@ public class AlbumsController {
 	
 	/**@author Tim
 	 * redirects to the scene asking for the new album name
+	 * @throws IOException if user fail to update
 	 * */
-	public void newAlbum(ActionEvent e) throws IOException{
+	public void newAlbum() throws IOException{
 		currentUser.writeUser();
 		SceneLoader.getInstance().changeScene("NewAlbum.fxml");
 	}
 	
 	/**@author Tim
 	 * redirects to a view of pictures within the selected album
+	 * @throws IOException if user fail to update
 	 * */
-	public void open(ActionEvent e) throws IOException{
+	public void open() throws IOException{
 		if(currentAlbum == null){
 			return;
 		}
@@ -94,7 +98,7 @@ public class AlbumsController {
 	/**@author Tim
 	 * replaces album title with a text field. The save part of the rename is covered in renameController because the album ui is covered in a different fxml file, which does not like to share controllers with others
 	 * */
-	public void rename(ActionEvent e){
+	public void rename(){
 		if(currentAlbum == null){
 			return;
 		}
@@ -106,6 +110,7 @@ public class AlbumsController {
 	
 	/**@author Tim
 	 * Deletes and album, saves user, and refreshes the scene
+	 * @throws IOException if user fail to update
 	 * */
 	public void delete(ActionEvent e) throws IOException{
 		if(currentAlbum == null){
@@ -123,6 +128,7 @@ public class AlbumsController {
 	/**@author Tim
 	 * @param album: the album which is used to create the album representation from the AlbumView.fxml file
 	 * @return This returns a pane based on AlbumView.fxml file and customized to represent the album
+	 * @throws IOException if user fail to update
 	 * */
 	private Pane constructAlbumView(Album album) throws IOException{
 		FXMLLoader loader = new FXMLLoader(); 
@@ -193,6 +199,7 @@ public class AlbumsController {
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and exits
+	 * @throws IOException if user fail to update
 	 * */
 	public void exit() throws IOException{
 		FileDropDown_Util.exit();
@@ -200,6 +207,7 @@ public class AlbumsController {
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which saves everything needed and logs out
+	 * @throws IOException if user fail to update
 	 * */
 	public void logout() throws IOException{
 		FileDropDown_Util.logout();
@@ -207,6 +215,7 @@ public class AlbumsController {
 	
 	/**@author Tim
 	 * Calls the central utility class for the drop down menu which calls redirects to the search stage
+	 * @throws IOException if user fail to update
 	 * */
 	public void search() throws IOException{
 		FileDropDown_Util.search();
