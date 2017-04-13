@@ -2,7 +2,7 @@ package application.view;
 
 import java.io.IOException;
 
-import application.Main;
+import application.Photos;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

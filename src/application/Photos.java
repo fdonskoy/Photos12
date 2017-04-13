@@ -16,13 +16,13 @@ import javafx.scene.layout.Pane;
 /**@author Tim
  * Launches the photo library
  */
-public class Main extends Application{	
+public class Photos extends Application{	
 	private static Admin admin;
 	private static User user;
 	private static User user2; 
 	private static Album album;
 	
-	public static Main self;
+	public static Photos self;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
